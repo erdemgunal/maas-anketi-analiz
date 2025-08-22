@@ -23,28 +23,30 @@
 ### Kariyer ve Demografik Grafikleri
 ```
 11. career_progression_line.png           # Kariyer ilerlemesi
-12. age_experience_relationship.png       # Yaş-deneyim ilişkisi
-13. remote_vs_office_comparison.png       # Remote vs office karşılaştırması
-14. company_size_analysis.png             # Şirket büyüklüğü analizi
-15. education_level_impact.png            # Eğitim seviyesi etkisi
+12. remote_vs_office_comparison.png       # Remote vs office karşılaştırması
+13. education_level_impact.png            # Eğitim seviyesi etkisi
+14. hourly_salary_trend.png               # Saat bazlı ortalama maaş çizgi grafiği
+15. hourly_role_distribution.png          # Saat bazlı rol dağılımı yığılmış çubuk grafiği
 ```
 
-### Machine Learning Grafikleri
+### İstatistiksel Analiz Grafikleri
 ```
-16. clustering_visualization.png          # K-means clustering sonuçları
-17. feature_importance_bar.png            # Feature importance analizi
-18. regression_residuals.png              # Regresyon residual analizi
-19. model_performance_comparison.png      # Model performans karşılaştırması
-20. prediction_vs_actual_scatter.png      # Tahmin vs gerçek değerler
+16. correlation_matrix_heatmap.png        # Korelasyon matrisi
+17. statistical_test_results.png          # İstatistiksel test sonuçları
+18. effect_size_comparison.png            # Etki büyüklüğü karşılaştırması
+19. confidence_interval_plots.png         # Güven aralığı grafikleri
+20. distribution_comparison.png           # Dağılım karşılaştırmaları
+21. hourly_career_level_distribution.png  # Saat bazlı kariyer seviyesi dağılımı
+22. hourly_demographic_distribution.png   # Saat bazlı demografik dağılım grafikleri
 ```
 
 ### Ek Analiz Grafikleri
 ```
-21. salary_percentiles_by_role.png        # Rol bazlı maaş yüzdelikleri
-22. technology_trend_analysis.png         # Teknoloji trend analizi
-23. geographic_salary_heatmap.png         # Coğrafi maaş haritası
-24. experience_level_distribution.png     # Deneyim seviyesi dağılımı
-25. skill_gap_analysis.png                # Skill gap analizi
+23. salary_percentiles_by_role.png        # Rol bazlı maaş yüzdelikleri
+24. technology_trend_analysis.png         # Teknoloji trend analizi
+25. geographic_salary_heatmap.png         # Coğrafi maaş haritası
+26. experience_level_distribution.png     # Deneyim seviyesi dağılımı
+27. skill_gap_analysis.png                # Skill gap analizi
 ```
 
 ## Tablolar
@@ -56,24 +58,25 @@
 3. correlation_matrix.csv                 # Korelasyon matrisi
 4. anova_results.csv                      # ANOVA test sonuçları
 5. chi_square_results.csv                 # Chi-square test sonuçları
-```
-
-### Machine Learning Tabloları
-```
-6. model_performance_metrics.csv          # Model performans metrikleri
-7. feature_importance.csv                 # Feature importance sıralaması
-8. salary_prediction_results.csv          # Maaş tahmin sonuçları
-9. cluster_characteristics.csv            # Cluster özellikleri
-10. cross_validation_results.csv          # Cross-validation sonuçları
+6. hourly_analysis_results.csv            # Saat bazlı istatistiksel analiz sonuçları
 ```
 
 ### Analiz Rapor Tabloları
 ```
-11. technology_roi_ranking.csv            # Teknoloji ROI sıralaması
-12. salary_benchmarks.csv                 # Maaş benchmark'ları
-13. career_progression_data.csv           # Kariyer ilerleme verileri
-14. demographic_analysis.csv              # Demografik analiz sonuçları
-15. geographic_comparison.csv             # Coğrafi karşılaştırma
+6. technology_roi_ranking.csv             # Teknoloji ROI sıralaması
+7. salary_benchmarks.csv                  # Maaş benchmark'ları
+8. career_progression_data.csv            # Kariyer ilerleme verileri
+9. demographic_analysis.csv               # Demografik analiz sonuçları
+10. geographic_comparison.csv             # Coğrafi karşılaştırma
+```
+
+### Detaylı Analiz Tabloları
+```
+12. effect_size_summary.csv               # Etki büyüklüğü özeti
+13. statistical_power_analysis.csv        # İstatistiksel güç analizi
+14. outlier_analysis_results.csv          # Aykırı değer analizi
+15. data_quality_report.csv               # Veri kalite raporu
+16. benchmark_comparison.csv              # Benchmark karşılaştırması
 ```
 
 ## Ana Rapor
@@ -102,9 +105,9 @@
 - **Boyut**: Detaylı metodoloji
 - **İçerik**:
   - İstatistiksel test detayları
-  - Model parametreleri
   - Veri işleme adımları
   - Kalite kontrol sonuçları
+  - Analiz süreci dokümantasyonu
 
 ## Dashboard
 
@@ -113,9 +116,9 @@
 - **Özellikler**:
   - İnteraktif grafikler
   - Filtreleme seçenekleri
-  - Maaş tahmin aracı
   - Karşılaştırma modülleri
   - Veri görselleştirme
+  - İstatistiksel analiz araçları
 
 ### Dashboard Sayfaları
 ```
@@ -123,30 +126,19 @@
 2. Maaş Analizi (Salary Analysis)
 3. Teknoloji Karşılaştırması (Technology Comparison)
 4. Kariyer Rehberi (Career Guide)
-5. Tahmin Aracı (Prediction Tool)
+5. İstatistiksel Analiz (Statistical Analysis)
 6. Benchmark Karşılaştırması (Benchmark Comparison)
-```
-
-## Model Dosyaları
-
-### Eğitilmiş Modeller
-```
-1. salary_predictor.pkl                 # Maaş tahmin modeli
-2. clustering_model.pkl                 # Clustering modeli
-3. feature_scaler.pkl                   # Feature scaler
-4. label_encoders.pkl                   # Label encoder'lar
-5. model_config.json                    # Model konfigürasyonu
 ```
 
 ## Metadata ve Konfigürasyon
 
 ### Proje Metadata
 ```
-1. project_metadata.json                # Proje bilgileri
-2. analysis_config.yaml                 # Analiz konfigürasyonu
-3. data_quality_report.json             # Veri kalite raporu
-4. model_performance_summary.json       # Model performans özeti
-5. analysis_log.txt                     # Analiz log dosyası
+1. project_metadata.json                 # Proje bilgileri
+2. analysis_config.yaml                  # Analiz konfigürasyonu
+3. data_quality_report.json              # Veri kalite raporu
+4. statistical_analysis_summary.json     # İstatistiksel analiz özeti
+5. analysis_log.txt                      # Analiz log dosyası
 ```
 
 ## Kalite Standartları
@@ -169,3 +161,9 @@
 - **Citations**: Proper references
 - **Figures**: Numbered and captioned
 - **Tables**: Formatted and labeled
+
+### İstatistiksel Raporlama
+- **Effect Sizes**: Her test için etki büyüklüğü
+- **Confidence Intervals**: %95 güven aralıkları
+- **P-values**: Exact p-values
+- **Sample Sizes**: Tüm analizler için örneklem büyüklüğü

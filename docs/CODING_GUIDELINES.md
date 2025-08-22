@@ -192,12 +192,12 @@ DATA_CONFIG = {
     }
 }
 
-# Model parameters
-MODEL_CONFIG = {
+# Analysis parameters
+ANALYSIS_CONFIG = {
     'random_state': 42,
-    'test_size': 0.2,
-    'cv_folds': 5,
-    'n_estimators': 100
+    'confidence_level': 0.95,
+    'alpha': 0.05,
+    'effect_size_threshold': 0.3
 }
 
 # Visualization settings
@@ -389,7 +389,7 @@ def complex_analysis_function(
     Perform complex analysis on salary data.
     
     This function performs a comprehensive analysis of salary data including
-    statistical tests, machine learning models, and visualization generation.
+    statistical tests, data visualization, and reporting generation.
     
     Args:
         data: Input DataFrame containing salary and demographic data

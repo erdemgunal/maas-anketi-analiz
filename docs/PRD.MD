@@ -5,13 +5,10 @@
 Bu proje, Zafer Ayan'ın LinkedIn'de yaptığı maaş anketini (n=2970) bilimsel metodlarla analiz ederek React staj grubuna sunulacak kapsamlı bir rapor üretmeyi hedeflemektedir.
 
 ### 🎯 Ana Hedefler
-- **Maaş Tahmin Modeli**: ML ile maaş tahmini (R² > 0.75)
+- **Kapsamlı Raporlama ve Görselleştirme**: Maaş verilerinin detaylı analizi
 - **Stack ROI Analizi**: Hangi teknolojilerin maaş getirisi en yüksek?
 - **İstatistiksel Hipotez Testleri**: React vs non-React, Remote vs Office
-- **Developer Profil Clustering**: K-means ile persona grupları
-
-### ⏰ Zaman Kısıtı
-**1 gün** (8-10 saat)
+- **İstatistiksel Analiz**: Güvenilir bulgular ve içgörüler
 
 ### 👥 Hedef Kitle
 - React staj grubu (~250 yazılımcı)
@@ -35,7 +32,6 @@ Bu proje, Zafer Ayan'ın LinkedIn'de yaptığı maaş anketini (n=2970) bilimsel
 - **[SUCCESS_CRITERIA.md](SUCCESS_CRITERIA.md)** - Başarı kriterleri ve değerlendirme
 
 ### 📈 Proje Yönetimi
-- **[WORKFLOW.md](WORKFLOW.md)** - İş akışı ve zaman çizelgesi
 - **[VISUAL_STANDARDS.md](VISUAL_STANDARDS.md)** - Görsel standartlar ve tasarım
 - **[CODING_GUIDELINES.md](CODING_GUIDELINES.md)** - Kod yazım kuralları ve standartlar
 
@@ -49,8 +45,8 @@ Bu proje, Zafer Ayan'ın LinkedIn'de yaptığı maaş anketini (n=2970) bilimsel
 - **Tarih**: 20-21 Ağustos 2025
 
 ### 2. Teknik Stack
-- **Python**: 3.8+ (pandas, numpy, scikit-learn)
-- **ML**: Random Forest, XGBoost
+- **Python**: 3.8+ (pandas, numpy, scipy)
+- **İstatistik**: scipy.stats, statsmodels
 - **Viz**: matplotlib, seaborn, plotly
 - **Dashboard**: Streamlit
 
@@ -58,42 +54,41 @@ Bu proje, Zafer Ayan'ın LinkedIn'de yaptığı maaş anketini (n=2970) bilimsel
 - **20+ PNG Grafik**: Publication quality (300 DPI)
 - **LaTeX PDF Rapor**: 15-20 sayfa bilimsel rapor
 - **Streamlit Dashboard**: İnteraktif web uygulaması
-- **ML Modelleri**: Eğitilmiş tahmin modelleri
+- **İstatistiksel Analiz**: Güvenilir bulgular ve raporlar
 
 ### 4. Başarı Kriterleri
-- **Model Performansı**: R² > 0.75
 - **İstatistiksel Anlamlılık**: p < 0.05
 - **Veri Kullanımı**: n=2970 (tüm veri)
 - **Görsel Kalite**: 20+ profesyonel grafik
+- **Rapor Kalitesi**: Bilimsel standartlarda
 
 ---
 
 ## 📋 GÜNLÜK İŞ AKIŞI (DAILY WORKFLOW)
 
-### Faz 1: Veri Hazırlama (2 saat)
+### Faz 1: Veri Hazırlama
 - CSV yükleme ve exploration
 - Data quality assessment
 - Missing values ve outliers
 - Feature engineering
 
-### Faz 2: İstatistiksel Analiz (3 saat)
+### Faz 2: İstatistiksel Analiz
 - Descriptive statistics
 - Hypothesis testing
 - Correlation analysis
 - Statistical significance tests
 
-### Faz 3: Machine Learning (2 saat)
-- Model training
-- Cross-validation
-- Feature importance
-- Prediction accuracy
-
-### Faz 4: Görselleştirme (2 saat)
+### Faz 3: Görselleştirme
 - 20+ PNG chart generation
 - Publication-quality formatting
 - Color scheme consistency
 
-### Faz 5: Rapor (1 saat)
+### Faz 4: Dashboard
+- Streamlit uygulaması geliştirme
+- İnteraktif grafikler
+- Kullanıcı arayüzü
+
+### Faz 5: Rapor
 - LaTeX compilation
 - Final PDF generation
 - Dashboard deployment
@@ -103,19 +98,18 @@ Bu proje, Zafer Ayan'ın LinkedIn'de yaptığı maaş anketini (n=2970) bilimsel
 ## 🎯 KRİTİK BAŞARI FAKTÖRLERİ
 
 ### Teknik Başarı
-1. **Model Accuracy**: R² > 0.75 hedefi
-2. **Statistical Rigor**: p < 0.05 anlamlılık
-3. **Data Quality**: Eksik veri < %5
-4. **Visual Excellence**: 20+ publication quality grafik
+1. **Statistical Rigor**: p < 0.05 anlamlılık
+2. **Data Quality**: Eksik veri < %5
+3. **Visual Excellence**: 20+ publication quality grafik
+4. **Analysis Completeness**: Kapsamlı istatistiksel analiz
 
 ### İçerik Başarı
 1. **Practical Insights**: Actionable career advice
 2. **React Relevance**: Staj grubu için özel değer
-3. **Benchmark Comparison**: Küresel verilerle karşılaştırma
-4. **Scientific Standards**: Akademik kalite
+3. **Scientific Standards**: Akademik kalite
 
 ### Proje Başarı
-1. **Timeline Adherence**: 10 saat içinde tamamlama
+1. **Timeline Adherence**:
 2. **Documentation Quality**: Kapsamlı dokümantasyon
 3. **Code Quality**: PEP 8, type hints, error handling
 4. **Deliverable Completeness**: Tüm çıktıların hazırlanması
@@ -128,6 +122,6 @@ Bu dokümantasyon paketi, 2025 Türkiye Yazılım Sektörü Maaş Analizi projes
 
 **Proje Hedefi**: React staj grubuna değer katacak, bilimsel metodlarla hazırlanmış kapsamlı maaş analizi raporu.
 
-**Zaman Kısıtı**: 1 gün (8-10 saat)
+**Zaman Kısıtı**:
 
 **Hedef Kitle**: React staj grubu (~250 yazılımcı), portfolio, Zafer Ayan

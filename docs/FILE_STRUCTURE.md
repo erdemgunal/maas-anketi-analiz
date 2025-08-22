@@ -12,7 +12,6 @@ salary_analysis_project/
 ├── src/                           # Kaynak kodlar
 │   ├── data_cleaning.py           # Data preprocessing functions
 │   ├── statistical_analysis.py    # Hypothesis testing, correlations
-│   ├── machine_learning.py        # ML models and predictions
 │   ├── visualizations.py          # All plotting functions
 │   ├── utils.py                   # Helper functions
 │   └── config.py                  # Configuration settings
@@ -20,7 +19,7 @@ salary_analysis_project/
 ├── notebooks/                     # Jupyter notebooks
 │   ├── 01_exploratory_data_analysis.ipynb
 │   ├── 02_statistical_tests.ipynb
-│   ├── 03_machine_learning.ipynb
+│   ├── 03_data_visualization.ipynb
 │   └── 04_final_analysis.ipynb
 │
 ├── outputs/                       # Çıktı dosyaları
@@ -33,22 +32,22 @@ salary_analysis_project/
 │   │   ├── gender_analysis_stacked_bar.png
 │   │   ├── technology_popularity_wordcloud.png
 │   │   ├── career_progression_line.png
-│   │   ├── clustering_visualization.png
-│   │   ├── feature_importance_bar.png
-│   │   ├── regression_residuals.png
+│   │   ├── statistical_test_results.png
+│   │   ├── effect_size_comparison.png
+│   │   ├── confidence_interval_plots.png
 │   │   └── ... (10+ more)
 │   │
 │   ├── tables/                    # Statistical results
 │   │   ├── hypothesis_test_results.csv
-│   │   ├── model_performance.csv
-│   │   ├── feature_importance.csv
 │   │   ├── descriptive_statistics.csv
-│   │   ├── salary_prediction_results.csv
-│   │   └── cluster_characteristics.csv
+│   │   ├── correlation_matrix.csv
+│   │   ├── anova_results.csv
+│   │   ├── chi_square_results.csv
+│   │   └── effect_size_summary.csv
 │   │
-│   └── models/                    # Trained models
-│       ├── salary_predictor.pkl
-│       └── clustering_model.pkl
+│   └── reports/                   # Analysis reports
+│       ├── data_quality_report.json
+│       └── statistical_analysis_summary.json
 │
 ├── reports/                       # Raporlar
 │   ├── latex_report/              # LaTeX source files
@@ -95,7 +94,6 @@ salary_analysis_project/
 ### Source Code (src/)
 - **data_cleaning.py**: Veri temizleme ve preprocessing
 - **statistical_analysis.py**: İstatistiksel testler ve analizler
-- **machine_learning.py**: ML modelleri ve tahminler
 - **visualizations.py**: Grafik ve görselleştirme fonksiyonları
 - **utils.py**: Yardımcı fonksiyonlar
 - **config.py**: Konfigürasyon ve sabitler
@@ -103,13 +101,13 @@ salary_analysis_project/
 ### Notebooks
 - **01_exploratory_data_analysis.ipynb**: Keşifsel veri analizi
 - **02_statistical_tests.ipynb**: İstatistiksel testler
-- **03_machine_learning.ipynb**: Makine öğrenmesi modelleri
+- **03_data_visualization.ipynb**: Veri görselleştirme
 - **04_final_analysis.ipynb**: Final analiz ve raporlama
 
 ### Outputs
 - **figures/**: 20+ PNG grafik dosyası
 - **tables/**: İstatistiksel sonuç tabloları
-- **models/**: Eğitilmiş ML modelleri
+- **reports/**: Analiz raporları
 
 ### Reports
 - **latex_report/**: LaTeX kaynak dosyaları

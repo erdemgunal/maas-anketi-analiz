@@ -2,10 +2,10 @@
 
 ## Birincil Hedefler
 
-### 1. Maaş Tahmin Modeli
-- **Amaç**: ML ile maaş tahmini (Random Forest/XGBoost)
-- **Hedef**: R² > 0.75 açıklama gücü
-- **Çıktı**: Tahmin modeli ve feature importance analizi
+### 1. Kapsamlı Raporlama ve Görselleştirme
+- **Amaç**: Maaş verilerinin detaylı analizi ve görsel sunumu
+- **Hedef**: İş dünyası dostu, anlaşılır raporlar
+- **Çıktı**: Dashboard ve interaktif görselleştirmeler
 
 ### 2. Stack ROI Analizi
 - **Amaç**: Hangi teknolojilerin maaş getirisi en yüksek?
@@ -18,17 +18,7 @@
 - **Lokasyon bazlı**: Coğrafi farklılıklar
 - **Cinsiyet analizi**: Gender gap tespiti
 
-### 4. Developer Profil Clustering
-- **Amaç**: K-means ile persona grupları
-- **Hedef**: 3-5 farklı developer profili
-- **Çıktı**: Her grubun karakteristik özellikleri
-
 ## İkincil Hedefler
-
-### 1. Benchmark Karşılaştırması
-- **Stack Overflow 2024** vs Zafer Ayan anketi
-- **Küresel trendler** ile Türkiye karşılaştırması
-- **Sektör ortalamaları** analizi
 
 ### 2. Coğrafi Arbitraj
 - **Türkiye vs Avrupa** maaş farkları
@@ -53,12 +43,15 @@
 - **Framework Karşılaştırması**: React vs Vue vs Angular
 
 ### Demografik Analizler
-- **Yaş ve Deneyim**: Kariyer evreleri analizi
 - **Lokasyon Etkisi**: Şehir bazlı maaş farkları
-- **Şirket Büyüklüğü**: Startup vs kurumsal
 
 ### Trend Analizleri
-- **Remote Work Trend**: Pandemi sonrası etkiler
+- **Saat Bazlı Anket Katılımı**: 
+  - **Hedef**: Anketin doldurulma zamanına göre katılımcıların maaş, rol, kariyer seviyesi ve demografik özelliklerindeki değişimleri incelemek
+  - **Amaç**: Veri toplama sürecindeki potansiyel eğilimleri anlamak ve günün farklı saatlerindeki geliştirici profillerine dair içgörüler elde etmek
+  - **Çıktı**: Saat bazlı maaş ortalamaları, rol ve demografik dağılım grafikleri ile istatistiksel test sonuçları
+  - **İlgili Sütun**: Timestamp
+- **Remote Work Trend**:  sonrası etkiler
 - **Teknoloji Trendleri**: Popüler teknolojilerin maaş etkisi
 - **Sektör Büyümesi**: Yazılım sektörü trendleri
 
@@ -71,10 +64,21 @@
 
 ### Sektör Analizi
 - Türkiye yazılım sektörünün durumu
-- Küresel karşılaştırmalar
 - Gelecek trendleri
 
 ### React Staj Grubu İçin
 - React ekosisteminin değeri
 - Frontend kariyer yolu
 - Skill development önerileri
+
+## Gelecek Çalışmalar (Future Work)
+
+### 1. Eğitilmiş Model ile Maaş Tahmini
+- Makine öğrenimi modelleri kullanarak geliştirici maaşlarını tahmin etmeye yönelik çalışma
+- Random Forest, XGBoost gibi algoritmaların performans karşılaştırması
+- Feature importance analizi ile maaş belirleyici faktörlerin tespiti
+
+### 2. Benchmark Karşılaştırması
+- Stack Overflow 2024 gibi küresel anket verileri ile Zafer Ayan anket sonuçlarını karşılaştırma
+- Türkiye sektörünün küresel konumunu analiz etme
+- Coğrafi ve kültürel farklılıkların maaş yapısına etkisini inceleme

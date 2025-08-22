@@ -1,249 +1,217 @@
-# 🎨 GÖRSEL STANDARTLARI (VISUAL STANDARDS)
+# 🎨 Görselleştirme Standartları
 
-## Renk Paleti
+## 📊 Genel Görselleştirme Kuralları
 
-### Ana Renkler
+### 🎯 Temel Prensipler
+- **Okunabilirlik**: Grafikler LaTeX raporunda küçültüldüğünde bile okunabilir olmalı
+- **Tutarlılık**: Tüm grafikler aynı stil ve format kullanmalı
+- **Profesyonellik**: Yayın kalitesinde görünüm
+- **Erişilebilirlik**: Renk körü dostu tasarım
+
+### 📏 Boyut ve Çözünürlük
+- **Grafik Boyutu**: 12x8 inç (30.48x20.32 cm)
+- **Çözünürlük**: 300 DPI
+- **Format**: PNG (şeffaflık desteği için)
+- **Aspect Ratio**: 1.5:1 (yatay format)
+
+## 🔤 Tipografi Standartları
+
+### 📝 Font Ayarları
+- **Ana Font**: Arial veya Helvetica
+- **Alternatif**: DejaVu Sans (Linux sistemler için)
+- **Matematiksel Semboller**: LaTeX math mode uyumlu
+
+### 📏 Font Boyutları (LaTeX için optimize edilmiş)
+- **Ana Başlık**: 20pt (görsel başlığı)
+- **Alt Başlık**: 18pt (eksen başlıkları)
+- **Eksen Etiketleri**: 16pt (x, y eksen etiketleri)
+- **Legend**: 16pt (açıklama metni)
+- **Grafik İçi Yazılar**: 16pt (değerler, etiketler)
+- **Tick Labels**: 14pt (eksen değerleri)
+- **Annotation**: 16pt (grafik üzerindeki notlar)
+
+### 🎨 Font Stilleri
+- **Başlıklar**: Bold (kalın)
+- **Eksen Etiketleri**: Regular
+- **Legend**: Regular
+- **Değerler**: Regular
+- **Önemli Notlar**: Bold
+
+## 🎨 Renk Paleti
+
+### 🌈 Ana Renk Paleti (Viridis)
+- **Birincil**: #440154 (koyu mor)
+- **İkincil**: #31688E (mavi)
+- **Üçüncül**: #35B779 (yeşil)
+- **Dördüncül**: #FDE725 (sarı)
+
+### 🎯 Kategorik Renkler
+- **React Kullanıcıları**: #440154 (koyu mor)
+- **Non-React Kullanıcıları**: #35B779 (yeşil)
+- **Erkek**: #31688E (mavi)
+- **Kadın**: #FDE725 (sarı)
+- **Remote**: #440154 (koyu mor)
+- **Office**: #31688E (mavi)
+- **Hybrid**: #35B779 (yeşil)
+
+### ⚠️ Renk Körü Dostu Alternatifler
+- **Protanopia**: #E69F00, #56B4E9, #009E73, #F0E442
+- **Deuteranopia**: #E69F00, #56B4E9, #009E73, #F0E442
+- **Tritanopia**: #E69F00, #56B4E9, #009E73, #F0E442
+
+## 📊 Grafik Türleri ve Standartları
+
+### 📈 Histogram ve Yoğunluk Eğrisi
+- **Bar Rengi**: #440154 (koyu mor)
+- **Yoğunluk Eğrisi**: #FDE725 (sarı), kalınlık 2pt
+- **Grid**: Açık gri (#E5E5E5)
+- **Bin Sayısı**: 30-50 arası
+
+### 📦 Box Plot
+- **Box Rengi**: #31688E (mavi)
+- **Whisker Rengi**: #440154 (koyu mor)
+- **Outlier Rengi**: #FDE725 (sarı)
+- **Median Çizgisi**: Beyaz, kalınlık 2pt
+
+### 🎻 Violin Plot
+- **Violin Rengi**: #35B779 (yeşil)
+- **Box Rengi**: #440154 (koyu mor)
+- **Median Nokta**: Beyaz, boyut 8pt
+
+### 📊 Scatter Plot
+- **Nokta Rengi**: #31688E (mavi)
+- **Nokta Boyutu**: 20pt
+- **Transparanlık**: 0.6 (alpha)
+- **Trend Çizgisi**: #FDE725 (sarı), kalınlık 3pt
+
+### 🔥 Heatmap
+- **Renk Haritası**: Viridis
+- **Grid Çizgileri**: Beyaz, kalınlık 0.5pt
+- **Değer Yazıları**: Siyah, 14pt
+
+### 🥧 Pie Chart
+- **Renk Paleti**: Viridis
+- **Etiket Rengi**: Siyah
+- **Etiket Boyutu**: 16pt
+- **Yüzde Gösterimi**: 14pt
+
+## 📋 Grafik Başlıkları ve Etiketler
+
+### 📝 Başlık Formatı
+- **Format**: "1. Maaş Dağılımı (Histogram ve Yoğunluk Eğrisi)"
+- **Stil**: Bold, 20pt
+- **Hizalama**: Merkez
+- **Renk**: Siyah (#000000)
+
+### 📏 Eksen Etiketleri
+- **Format**: "Aylık Ortalama Net Maaş (bin TL)"
+- **Stil**: Regular, 16pt
+- **Renk**: Siyah (#000000)
+- **Hizalama**: Merkez
+
+### 📊 Legend (Açıklama)
+- **Pozisyon**: Sağ üst köşe
+- **Font Boyutu**: 16pt
+- **Renk**: Siyah (#000000)
+- **Arka Plan**: Beyaz, %90 transparanlık
+
+## 🔧 Teknik Ayarlar
+
+### 📐 Matplotlib Ayarları
 ```python
-PRIMARY_COLORS = {
-    'blue': '#2E86AB',      # Ana mavi - güven ve profesyonellik
-    'orange': '#F24236',    # Turuncu - enerji ve dikkat çekici
-    'green': '#A23B72',     # Yeşil - büyüme ve pozitif trend
-    'purple': '#F18F01',    # Mor - yaratıcılık ve inovasyon
-    'gray': '#C73E1D'       # Gri - denge ve stabilite
-}
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Temel ayarlar
+plt.style.use('seaborn-v0_8')
+plt.rcParams['figure.figsize'] = (12, 8)
+plt.rcParams['savefig.dpi'] = 300
+plt.rcParams['savefig.bbox'] = 'tight'
+
+# Font ayarları
+plt.rcParams['font.family'] = 'Arial'
+plt.rcParams['font.size'] = 16
+plt.rcParams['axes.titlesize'] = 20
+plt.rcParams['axes.labelsize'] = 16
+plt.rcParams['xtick.labelsize'] = 14
+plt.rcParams['ytick.labelsize'] = 14
+plt.rcParams['legend.fontsize'] = 16
+
+# Renk paleti
+sns.set_palette("viridis")
 ```
 
-### Renk Kullanım Kuralları
-- **Mavi**: Ana veri serileri, güvenilir metrikler
-- **Turuncu**: Vurgu, önemli noktalar, uyarılar
-- **Yeşil**: Pozitif trendler, başarı metrikleri
-- **Mor**: Kategorik veriler, farklı gruplar
-- **Gri**: Arka plan, yardımcı bilgiler
-
-### Gradient Renkler
+### 🎨 Seaborn Ayarları
 ```python
-GRADIENT_COLORS = {
-    'blue_gradient': ['#E3F2FD', '#2E86AB'],
-    'green_gradient': ['#E8F5E8', '#A23B72'],
-    'orange_gradient': ['#FFF3E0', '#F24236']
-}
+# Renk paleti
+sns.set_palette("viridis")
+
+# Stil ayarları
+sns.set_style("whitegrid")
+sns.set_context("paper", font_scale=1.2)
 ```
 
-## Font ve Boyut
+## 📄 LaTeX Entegrasyonu
 
-### Font Ayarları
-```python
-FONT_SETTINGS = {
-    'title_size': 16,        # Ana başlık boyutu
-    'subtitle_size': 14,     # Alt başlık boyutu
-    'label_size': 12,        # Eksen etiketleri
-    'tick_size': 10,         # Eksen değerleri
-    'legend_size': 11,       # Açıklama metni
-    'annotation_size': 9,    # Açıklama notları
-    'dpi': 300,              # Çözünürlük
-    'figure_size': (12, 8)   # Grafik boyutu (inch)
-}
+### 🔧 LaTeX Grafik Ayarları
+```latex
+\usepackage{graphicx}
+\graphicspath{{../outputs/figures/}}
+
+% Grafik boyutlandırma
+\includegraphics[width=0.9\textwidth]{figure_name.png}
 ```
 
-### Font Ailesi
-- **Ana Font**: Arial (sans-serif)
-- **Alternatif**: Helvetica, sans-serif
-- **Matematiksel**: Times New Roman (formüller için)
+### 📏 LaTeX Grafik Boyutlandırma
+- **Tam Sayfa**: `\textwidth`
+- **Yarım Sayfa**: `0.5\textwidth`
+- **Üçte İki**: `0.67\textwidth`
+- **Özel Boyut**: `0.8\textwidth`
 
-## Grafik Türleri ve Standartları
+## ✅ Kalite Kontrol Checklist
 
-### Histogram ve Dağılım Grafikleri
-```python
-HISTOGRAM_STYLE = {
-    'bins': 20,              # Varsayılan bin sayısı
-    'alpha': 0.7,            # Şeffaflık
-    'edgecolor': 'black',    # Kenar rengi
-    'linewidth': 0.5         # Kenar kalınlığı
-}
-```
+### 📊 Grafik Kontrolü
+- [ ] Font boyutları LaTeX'te okunabilir mi?
+- [ ] Renkler renk körü dostu mu?
+- [ ] Başlık ve etiketler net mi?
+- [ ] Legend açık ve anlaşılır mı?
+- [ ] Grid çizgileri uygun mu?
+- [ ] Çözünürlük 300 DPI mi?
 
-### Scatter Plot (Dağılım Grafikleri)
-```python
-SCATTER_STYLE = {
-    'alpha': 0.6,            # Şeffaflık
-    's': 50,                 # Nokta boyutu
-    'edgecolors': 'white',   # Kenar rengi
-    'linewidth': 0.5         # Kenar kalınlığı
-}
-```
+### 📝 İçerik Kontrolü
+- [ ] Grafik başlığı açıklayıcı mı?
+- [ ] Eksen etiketleri doğru mu?
+- [ ] Birimler belirtilmiş mi?
+- [ ] Kaynak bilgisi var mı?
+- [ ] Tarih bilgisi var mı?
 
-### Bar Chart (Çubuk Grafikleri)
-```python
-BAR_STYLE = {
-    'alpha': 0.8,            # Şeffaflık
-    'edgecolor': 'black',    # Kenar rengi
-    'linewidth': 0.5,        # Kenar kalınlığı
-    'width': 0.8             # Çubuk genişliği
-}
-```
+### 🎯 Teknik Kontrol
+- [ ] Dosya formatı PNG mi?
+- [ ] Boyut 12x8 inç mi?
+- [ ] Dosya adı açıklayıcı mı?
+- [ ] Metadata doğru mu?
+- [ ] Sıkıştırma uygun mu?
 
-### Box Plot (Kutu Grafikleri)
-```python
-BOX_STYLE = {
-    'patch_artist': True,    # Dolgu rengi
-    'medianprops': {'color': 'red', 'linewidth': 2},
-    'whiskerprops': {'color': 'black', 'linewidth': 1},
-    'capprops': {'color': 'black', 'linewidth': 1}
-}
-```
+## 🚀 En İyi Uygulamalar
 
-## Layout ve Düzen
+### 📊 Grafik Tasarımı
+1. **Basitlik**: Gereksiz detayları kaldırın
+2. **Netlik**: Her elemanın amacı açık olsun
+3. **Tutarlılık**: Tüm grafikler aynı stili kullansın
+4. **Okunabilirlik**: LaTeX'te küçültüldüğünde bile okunabilir olsun
 
-### Grafik Düzeni
-```python
-LAYOUT_SETTINGS = {
-    'figsize': (12, 8),      # Grafik boyutu
-    'dpi': 300,              # Çözünürlük
-    'facecolor': 'white',    # Arka plan rengi
-    'edgecolor': 'black',    # Kenar rengi
-    'linewidth': 1           # Kenar kalınlığı
-}
-```
+### 🎨 Renk Kullanımı
+1. **Anlamlı Renkler**: Renkler veri anlamını desteklesin
+2. **Kontrast**: Arka plan ile yeterli kontrast olsun
+3. **Erişilebilirlik**: Renk körü dostu paletler kullanın
+4. **Tutarlılık**: Aynı kategoriler için aynı renkleri kullanın
 
-### Eksen Ayarları
-```python
-AXIS_SETTINGS = {
-    'grid': True,            # Izgara çizgileri
-    'grid_alpha': 0.3,       # Izgara şeffaflığı
-    'spines': ['top', 'right'],  # Gizlenecek eksenler
-    'tick_params': {'direction': 'out', 'length': 6}
-}
-```
+### 📝 Metin ve Etiketler
+1. **Açıklayıcı Başlıklar**: Grafik ne gösteriyor açık olsun
+2. **Birim Belirtme**: Tüm sayısal değerler için birim ekleyin
+3. **Kaynak Gösterimi**: Veri kaynağını belirtin
+4. **Tarih Bilgisi**: Analiz tarihini ekleyin
 
-### Başlık ve Etiketler
-```python
-TITLE_SETTINGS = {
-    'fontsize': 16,          # Başlık boyutu
-    'fontweight': 'bold',    # Kalın yazı
-    'pad': 20,               # Üst boşluk
-    'loc': 'center'          # Hizalama
-}
-```
+---
 
-## Özel Grafik Türleri
-
-### Heatmap (Isı Haritası)
-```python
-HEATMAP_STYLE = {
-    'cmap': 'Blues',         # Renk haritası
-    'annot': True,           # Değer gösterimi
-    'fmt': '.2f',            # Sayı formatı
-    'cbar_kws': {'shrink': 0.8}
-}
-```
-
-### Word Cloud (Kelime Bulutu)
-```python
-WORDCLOUD_STYLE = {
-    'background_color': 'white',
-    'max_words': 100,
-    'width': 800,
-    'height': 400,
-    'colormap': 'viridis'
-}
-```
-
-### Correlation Matrix (Korelasyon Matrisi)
-```python
-CORRELATION_STYLE = {
-    'cmap': 'RdBu_r',        # Kırmızı-mavi renk haritası
-    'center': 0,             # Merkez değeri
-    'square': True,          # Kare format
-    'annot': True            # Değer gösterimi
-}
-```
-
-## Kalite Kontrol
-
-### Çözünürlük Standartları
-- **Minimum DPI**: 300 (publication quality)
-- **Format**: PNG (kayıpsız sıkıştırma)
-- **Boyut**: 12x8 inch (standart)
-- **Renk Modu**: RGB
-
-### Erişilebilirlik
-- **Renk Körlüğü**: Renk körü dostu paletler
-- **Kontrast**: Yeterli kontrast oranı
-- **Font Boyutu**: Minimum 10pt
-- **Açıklama**: Her grafik için açıklama
-
-### Tutarlılık Kontrolü
-- **Renk Paleti**: Tüm grafiklerde aynı renkler
-- **Font**: Tutarlı font kullanımı
-- **Boyut**: Standart grafik boyutları
-- **Stil**: Tutarlı stil uygulaması
-
-## Örnek Grafik Kodu
-
-### Standart Grafik Template
-```python
-def create_standard_plot(title, xlabel, ylabel, figsize=(12, 8)):
-    """
-    Standart grafik oluşturma fonksiyonu
-    """
-    plt.figure(figsize=figsize, dpi=300, facecolor='white')
-    plt.title(title, fontsize=16, fontweight='bold', pad=20)
-    plt.xlabel(xlabel, fontsize=12)
-    plt.ylabel(ylabel, fontsize=12)
-    plt.grid(True, alpha=0.3)
-    plt.tight_layout()
-    return plt.gca()
-
-# Kullanım örneği
-ax = create_standard_plot(
-    title="Maaş Dağılımı",
-    xlabel="Maaş (Bin TL)",
-    ylabel="Frekans"
-)
-```
-
-### Renk Paleti Uygulaması
-```python
-def apply_color_palette(ax, color_type='primary'):
-    """
-    Renk paleti uygulama fonksiyonu
-    """
-    if color_type == 'primary':
-        colors = list(PRIMARY_COLORS.values())
-    elif color_type == 'gradient':
-        colors = GRADIENT_COLORS['blue_gradient']
-    
-    for i, patch in enumerate(ax.patches):
-        patch.set_facecolor(colors[i % len(colors)])
-        patch.set_alpha(0.8)
-        patch.set_edgecolor('black')
-        patch.set_linewidth(0.5)
-```
-
-## Export Ayarları
-
-### PNG Export
-```python
-EXPORT_SETTINGS = {
-    'dpi': 300,
-    'bbox_inches': 'tight',
-    'pad_inches': 0.1,
-    'facecolor': 'white',
-    'edgecolor': 'none'
-}
-
-# Kullanım
-plt.savefig('output.png', **EXPORT_SETTINGS)
-```
-
-### PDF Export
-```python
-PDF_SETTINGS = {
-    'format': 'pdf',
-    'bbox_inches': 'tight',
-    'pad_inches': 0.1
-}
-
-# Kullanım
-plt.savefig('output.pdf', **PDF_SETTINGS)
-```
+*Bu standartlar, grafiklerin LaTeX raporunda optimal görünmesi için tasarlanmıştır.*

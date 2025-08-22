@@ -19,61 +19,26 @@ H1: Cinsiyet ve teknoloji tercihi bağımlı
 # 4. Pearson correlation: Deneyim vs maaş ilişkisi
 H0: ρ = 0 (Korelasyon yok)
 H1: ρ ≠ 0 (Korelasyon var)
-```
+
+# 5. One-way ANOVA: Saat bazlı maaş farkları
+H0: μ_saat0 = μ_saat1 = ... = μ_saat23
+H1: En az bir saat grubu farklı
+
+# 6. Chi-square test: Saat vs rol/seviye/demografik özellik bağımsızlığı
+H0: Saat ve rol/seviye/demografik özellik bağımsız
+H1: Saat ve rol/seviye/demografik özellik bağımlı
 
 ### Güven Aralıkları
 - **Confidence Level**: 95% (α = 0.05)
 - **Effect Size**: Cohen's d, eta-squared
 - **Power Analysis**: Minimum sample size hesaplaması
 
-## Machine Learning Models
-
-### Regresyon Modelleri
-```python
-# 1. Linear Regression (baseline)
-from sklearn.linear_model import LinearRegression
-# Baseline model olarak kullanılacak
-
-# 2. Random Forest Regressor
-from sklearn.ensemble import RandomForestRegressor
-# Non-linear ilişkileri yakalama
-
-# 3. XGBoost Regressor
-import xgboost as xgb
-# Gradient boosting ile performans optimizasyonu
-
-# 4. Feature importance analysis
-# Her model için feature importance hesaplama
-```
-
-### Clustering
-```python
-# 1. K-means clustering (Developer personas)
-from sklearn.cluster import KMeans
-# Elbow method ile optimal k değeri
-
-# 2. Hierarchical clustering (Stack combinations)
-from sklearn.cluster import AgglomerativeClustering
-# Dendrogram ile görselleştirme
-```
-
-### Model Değerlendirme
-```python
-# Cross-validation
-from sklearn.model_selection import cross_val_score
-
-# Metrics
-- R² Score (Açıklama gücü)
-- Mean Absolute Error (MAE)
-- Root Mean Square Error (RMSE)
-- Adjusted R² (Feature sayısına göre düzeltilmiş)
-```
-
 ## Veri İşleme Adımları
 
 ### 1. Data Cleaning
 - **Maaş Normalizasyonu**: "61-70" → 65 (aralık ortalaması)
 - **Teknoloji Ayrıştırma**: "React, Redux" → ayrı dummy variables
+- **Timestamp Dönüşümü**: Timestamp sütunundan (örn: "8/20/2025 12:31:15") sadece saat bilgisini (0-23 arası) ayrıştırarak yeni bir Anket_Saati sütunu oluşturulacak
 - **Kategorik Kodlama**: Label encoding ve one-hot encoding
 - **Missing Values**: Imputation stratejileri
 
@@ -86,7 +51,7 @@ from sklearn.model_selection import cross_val_score
 ### 3. Outlier Detection
 - **IQR Method**: Q1 - 1.5*IQR, Q3 + 1.5*IQR
 - **Z-Score**: |z| > 3 olan değerler
-- **Isolation Forest**: ML-based outlier detection
+- **Isolation Forest**: Statistical outlier detection
 
 ### 4. Normalization
 - **PPP-adjusted**: Satın alma gücü paritesi
@@ -134,8 +99,38 @@ from sklearn.model_selection import cross_val_score
 - **Confidence Intervals**: %95 güven aralıkları
 - **P-values**: Exact p-values (p < 0.001)
 
-### Model Performance Reporting
-- **Cross-validation Results**: Mean ± SD
-- **Feature Importance**: Ranked list
-- **Residual Analysis**: Normality, homoscedasticity
-- **Model Comparison**: Statistical significance
+### Görselleştirme Standartları
+- **Chart Types**: Uygun grafik türü seçimi
+- **Color Schemes**: Tutarlı renk paleti
+- **Data Labels**: Açık ve anlaşılır etiketler
+- **Interactive Elements**: Kullanıcı etkileşimi
+
+## Analiz Süreci
+
+### 1. Keşifsel Veri Analizi (EDA)
+- **Descriptive Statistics**: Temel istatistikler
+- **Distribution Plots**: Dağılım görselleştirmeleri
+- **Correlation Matrix**: Korelasyon analizi
+- **Missing Data Analysis**: Eksik veri analizi
+
+### 2. İstatistiksel Testler
+- **Parametric Tests**: Normal dağılım varsayımı
+- **Non-parametric Tests**: Dağılım varsayımı yok
+- **Post-hoc Analysis**: Çoklu karşılaştırmalar
+- **Effect Size Calculation**: Etki büyüklüğü
+
+### 3. Saat Bazlı Analiz Metodolojisi
+- **Saat Bazlı Maaş Analizi**:
+  - Her bir Anket_Saati için ortalama maaş ve standart sapma hesaplanacak
+  - Saatler arasında ortalama maaşlarda anlamlı bir fark olup olmadığını belirlemek için ANOVA testi kullanılacak
+  - p-değerleri, etki büyüklükleri (eta-squared) ve %95 güven aralıkları raporlanacak
+- **Saat Bazlı Rol, Seviye ve Demografik Analizler**:
+  - Anket_Saati'ne göre rol, kariyer seviyesi ve demografik özelliklerin dağılımları incelenecek
+  - Bu dağılımlar arasında istatistiksel olarak anlamlı farklılıklar olup olmadığını belirlemek için Chi-square testi uygulanacak
+  - p-değerleri ve etki büyüklükleri raporlanacak
+
+### 3. Görselleştirme ve Raporlama
+- **Dashboard Creation**: İnteraktif dashboard
+- **Report Generation**: Detaylı raporlar
+- **Presentation Preparation**: Sunum materyalleri
+- **Insight Documentation**: İçgörü dokümantasyonu

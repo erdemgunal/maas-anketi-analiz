@@ -7,22 +7,20 @@
 import pandas as pd          # Veri manipülasyonu ve analizi
 import numpy as np           # Sayısal hesaplamalar
 from scipy import stats      # İstatistiksel testler
-import sklearn               # Machine learning framework
 ```
 
-### Machine Learning
+### Statistical Analysis
 ```python
-# Core ML Libraries
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.cluster import KMeans, AgglomerativeClustering
-from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+# Core Statistical Libraries
+from scipy.stats import ttest_ind, f_oneway, chi2_contingency
+from scipy.stats import pearsonr, spearmanr, kendalltau
+from scipy.stats import shapiro, normaltest, levene
+from scipy.stats import effect_size, power_analysis
 
-# Advanced ML
-import xgboost as xgb        # Gradient boosting
-from sklearn.linear_model import LinearRegression
-from sklearn.feature_selection import SelectKBest, f_regression
+# Advanced Statistics
+from statsmodels.stats.power import TTestPower, FTestPower
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
+from statsmodels.stats.diagnostic import het_breuschpagan
 ```
 
 ### Visualization
@@ -52,7 +50,6 @@ import warnings             # Warning management
 import logging             # Logging system
 from typing import Dict, List, Tuple, Optional  # Type hints
 import json                # JSON handling
-import pickle              # Model serialization
 ```
 
 ## Output Formats
@@ -72,10 +69,6 @@ import pickle              # Model serialization
 - **LaTeX**: Scientific report generation
 - **PDF**: Final report output
 - **HTML**: Interactive dashboard
-
-### Models
-- **Pickle**: Trained model serialization
-- **Joblib**: Large model storage
 
 ## Development Environment
 

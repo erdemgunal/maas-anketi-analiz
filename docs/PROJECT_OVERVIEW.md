@@ -12,7 +12,7 @@ Zafer Ayan'ın LinkedIn'de yaptığı maaş anketini (n=2970) bilimsel metodlarl
 - Zafer Ayan'a iletilecek
 
 ## Zaman Kısıtı
-**1 gün** (8-10 saat)
+
 
 ## Proje Kapsamı
 Bu proje, Türkiye yazılım sektöründeki maaş trendlerini analiz ederek:

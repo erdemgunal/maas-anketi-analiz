@@ -2,27 +2,22 @@
 
 ## Teknik Kriterler
 
-### Model Performans Kriterleri
-1. **R² > 0.75**: Maaş tahmin modelinin açıklama gücü
-   - Linear Regression baseline: R² > 0.60
-   - Random Forest: R² > 0.75
-   - XGBoost: R² > 0.80
-
-2. **p < 0.05**: İstatistiksel testlerin anlamlılığı
+### İstatistiksel Analiz Kriterleri
+1. **p < 0.05**: İstatistiksel testlerin anlamlılığı
    - T-test sonuçları: p < 0.05
    - ANOVA sonuçları: p < 0.05
    - Chi-square sonuçları: p < 0.05
 
-3. **n=2970**: Tüm verinin kullanılması
+2. **n=2970**: Tüm verinin kullanılması
    - Eksik veri oranı < %5
    - Outlier oranı < %3
    - Veri kalitesi skoru > 0.90
 
-4. **20+ Grafik**: Her analiz için ayrı görselleştirme
+3. **20+ Grafik**: Her analiz için ayrı görselleştirme
    - Temel analizler: 5 grafik
    - Teknoloji analizleri: 5 grafik
    - Kariyer analizleri: 5 grafik
-   - ML analizleri: 5 grafik
+   - İstatistiksel analizler: 5 grafik
    - Ek analizler: 5 grafik
 
 ### Veri Kalitesi Kriterleri
@@ -31,11 +26,11 @@
 - **Accuracy**: Doğruluk skoru > 0.90
 - **Timeliness**: Güncel veri (2025)
 
-### Model Doğrulama Kriterleri
-- **Cross-validation**: 5-fold CV, R² > 0.70
-- **Train/Test Split**: 80/20, test R² > 0.70
-- **Feature Importance**: Top 10 feature belirlenmesi
-- **Residual Analysis**: Normal dağılım kontrolü
+### İstatistiksel Doğrulama Kriterleri
+- **Effect Sizes**: Cohen's d, eta-squared hesaplaması
+- **Confidence Intervals**: %95 güven aralıkları
+- **Power Analysis**: Minimum sample size kontrolü
+- **Outlier Analysis**: Aykırı değer tespiti ve analizi
 
 ## İçerik Kriterleri
 
@@ -51,11 +46,7 @@
 3. **Career Progression**: Kariyer yolu rehberliği
 4. **Salary Negotiation**: Maaş pazarlık stratejileri
 
-### Benchmark Comparison
-1. **Stack Overflow 2024**: Küresel verilerle karşılaştırma
-2. **Türkiye Sektör**: Yerel sektör analizi
-3. **Geographic Comparison**: Coğrafi karşılaştırmalar
-4. **Industry Standards**: Sektör standartları
+
 
 ### React Staj Grubu Relevance
 1. **React Ecosystem**: React ekosisteminin değeri
@@ -86,31 +77,30 @@
 ## Zaman Kısıtları
 
 ### Faz Bazlı Hedefler
-1. **Faz 1 (2 saat)**: Veri hazırlama tamamlanması
-2. **Faz 2 (3 saat)**: İstatistiksel analiz tamamlanması
-3. **Faz 3 (2 saat)**: Machine learning tamamlanması
-4. **Faz 4 (2 saat)**: Görselleştirme tamamlanması
-5. **Faz 5 (1 saat)**: Rapor tamamlanması
+1. **Faz 1 **: Veri hazırlama tamamlanması
+2. **Faz 2 **: İstatistiksel analiz tamamlanması
+3. **Faz 3 **: Görselleştirme tamamlanması
+4. **Faz 4 **: Dashboard geliştirme
+5. **Faz 5 **: Rapor tamamlanması
 
 ### Milestone Kontrolleri
-- **Saat 2**: Veri temizleme tamamlandı
-- **Saat 5**: İstatistiksel testler tamamlandı
-- **Saat 7**: ML modelleri eğitildi
-- **Saat 9**: Grafikler oluşturuldu
-- **Saat 10**: Final rapor hazırlandı
+Veri temizleme tamamlandı
+İstatistiksel testler tamamlandı
+Grafikler oluşturuldu
+Dashboard tamamlandı
+Final rapor hazırlandı
 
 ## Değerlendirme Metrikleri
 
 ### Teknik Metrikler
-- **Model Accuracy**: R², MAE, RMSE
 - **Statistical Significance**: p-values, effect sizes
 - **Data Quality**: Completeness, consistency scores
 - **Code Quality**: PEP 8 compliance, documentation
+- **Visual Quality**: Grafik kalite skorları
 
 ### İçerik Metrikleri
 - **Insight Quality**: Actionable advice count
 - **Relevance Score**: React staj grubu uygunluğu
-- **Benchmark Coverage**: Karşılaştırma kapsamı
 - **Practical Value**: Pratik değer skoru
 
 ### Kalite Metrikleri
@@ -122,20 +112,20 @@
 ## Başarı Tanımları
 
 ### Minimum Başarı
-- R² > 0.70 (model performansı)
 - 15+ grafik oluşturulması
 - Temel istatistiksel testler
 - Çalışan dashboard
+- Temel rapor
 
 ### Hedeflenen Başarı
-- R² > 0.75 (model performansı)
 - 20+ grafik oluşturulması
 - Kapsamlı istatistiksel analiz
 - Profesyonel rapor
+- İnteraktif dashboard
 
 ### Mükemmel Başarı
-- R² > 0.80 (model performansı)
 - 25+ grafik oluşturulması
 - Gelişmiş analizler
 - Yayın kalitesinde rapor
 - İnteraktif dashboard
+- Kapsamlı dokümantasyon
