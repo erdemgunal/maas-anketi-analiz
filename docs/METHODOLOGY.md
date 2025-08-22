@@ -105,6 +105,17 @@ H1: Saat ve rol/seviye/demografik özellik bağımlı
 - **Data Labels**: Açık ve anlaşılır etiketler
 - **Interactive Elements**: Kullanıcı etkileşimi
 
+### Anlaşılırlık Standartları
+- **Eksen Etiketleri**: İstatistiksel terimler yerine günlük dil kullanımı
+  - "Frekans" → "Geliştirici Sayısı"
+  - "Yoğunluk" → "Oran"
+  - "Ortalama" → "Ortalama Maaş"
+- **Grafik Açıklamaları**: Her grafiğin altında "Bu Ne Anlama Geliyor?" bölümü
+- **İstatistiksel Terimler**: Basit dilde açıklama
+  - p-değeri: "Sonucun güvenilirliği"
+  - Korelasyon: "İlişki gücü"
+  - Standart sapma: "Değerlerin dağılımı"
+
 ## Analiz Süreci
 
 ### 1. Keşifsel Veri Analizi (EDA)

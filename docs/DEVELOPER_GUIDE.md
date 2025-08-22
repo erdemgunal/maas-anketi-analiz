@@ -210,6 +210,11 @@ Bu analizde elde edilen istatistiksel bulgular:
 - **Gender Gap**: p < 0.001 (Yüksek anlamlılık)
 - **Deneyim-Maaş İlişkisi**: r = 0.78 (Güçlü pozitif korelasyon)
 
+**İstatistiksel Terimlerin Anlamı:**
+- **p < 0.001**: Sonucun %99.9 güvenle doğru olduğu anlamına gelir
+- **r = 0.78**: Deneyim ile maaş arasında güçlü bir pozitif ilişki var (0.7-1.0 arası güçlü)
+- **Yüksek anlamlılık**: Sonucun şans eseri olma olasılığı çok düşük
+
 **Piyasa Benchmark'ları:**
 - **Türkiye ortalaması**: 85.2 bin TL
 - **React geliştiricileri**: 88.6 bin TL

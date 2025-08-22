@@ -168,6 +168,23 @@ Kapsamlı istatistiksel analizler ile elde edilen bulgular:
 - Sonuçlar genellenebilir
 - Pratik öneriler bilimsel temelli
 
+### 📈 Grafik Açıklamaları
+
+**Grafiklerde Kullanılan İstatistiksel Terimler:**
+
+- **Ortalama (Mean)**: Tüm değerlerin toplamının sayıya bölümü
+- **Medyan**: Değerleri sıraladığımızda ortadaki değer
+- **Standart Sapma**: Değerlerin ortalama etrafındaki dağılımı
+- **p-değeri**: Sonucun şans eseri olma olasılığı (0.05'ten küçükse anlamlı)
+- **Korelasyon (r)**: İki değişken arasındaki ilişki gücü (-1 ile +1 arası)
+
+**Grafik Türleri ve Anlamları:**
+
+- **Histogram**: Maaş dağılımını gösterir, her sütun o maaş aralığındaki geliştirici sayısını temsil eder
+- **Box Plot**: Maaş dağılımının özetini gösterir, kutu ortasındaki çizgi medyanı, kutunun üst ve alt sınırları %75 ve %25'lik dilimleri gösterir
+- **Bar Chart**: Farklı grupların ortalama maaşlarını karşılaştırır
+- **Scatter Plot**: İki değişken arasındaki ilişkiyi gösterir (örn: deneyim vs maaş)
+
 ---
 
 ## 🎯 Sonuç ve Öneriler

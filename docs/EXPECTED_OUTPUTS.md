@@ -167,3 +167,15 @@
 - **Confidence Intervals**: %95 güven aralıkları
 - **P-values**: Exact p-values
 - **Sample Sizes**: Tüm analizler için örneklem büyüklüğü
+
+### Grafik Açıklama Standartları
+- **"Bu Ne Anlama Geliyor?" Bölümü**: Her grafiğin altında kısa açıklama
+- **İstatistiksel Terimler**: Basit dilde açıklama
+  - **Box Plot**: "Kutu ortasındaki çizgi ortalama maaşı, kutunun üst ve alt sınırları %75 ve %25'lik dilimleri gösterir"
+  - **Violin Plot**: "Şeklin genişliği o maaş aralığındaki geliştirici sayısını gösterir"
+  - **Histogram**: "Her sütun o maaş aralığındaki geliştirici sayısını gösterir"
+  - **Scatter Plot**: "Her nokta bir geliştiriciyi temsil eder, çizgi trendi gösterir"
+- **Eksen Etiketleri**: Anlaşılır birimler ve açıklamalar
+  - Y-ekseni: "Geliştirici Sayısı" veya "Ortalama Maaş (bin TL)"
+  - X-ekseni: "Maaş Aralığı (bin TL)" veya "Deneyim Yılı"
+- **Ana Bulgular**: Grafikteki en önemli 2-3 bulgu vurgulanmalı

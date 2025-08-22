@@ -108,12 +108,24 @@
 - **Stil**: Regular, 16pt
 - **Renk**: Siyah (#000000)
 - **Hizalama**: Merkez
+- **Anlaşılırlık**: İstatistiksel terimler yerine günlük dil kullanın
+  - "Frekans" → "Geliştirici Sayısı" veya "Katılımcı Sayısı"
+  - "Yoğunluk" → "Oran" veya "Dağılım"
+  - "Ortalama" → "Ortalama Maaş"
 
 ### 📊 Legend (Açıklama)
 - **Pozisyon**: Sağ üst köşe
 - **Font Boyutu**: 16pt
 - **Renk**: Siyah (#000000)
 - **Arka Plan**: Beyaz, %90 transparanlık
+
+### 📝 Grafik Açıklamaları
+- **"Bu Ne Anlama Geliyor?" Bölümü**: Her grafiğin altında kısa açıklama
+- **İstatistiksel Kavramlar**: Basit dilde açıklama
+  - **Box Plot**: "Kutu ortasındaki çizgi ortalama maaşı, kutunun üst ve alt sınırları %75 ve %25'lik dilimleri gösterir"
+  - **Violin Plot**: "Şeklin genişliği o maaş aralığındaki geliştirici sayısını gösterir"
+  - **Histogram**: "Her sütun o maaş aralığındaki geliştirici sayısını gösterir"
+- **Ana Bulgular**: Grafikteki en önemli 2-3 bulgu vurgulanmalı
 
 ## 🔧 Teknik Ayarlar
 
