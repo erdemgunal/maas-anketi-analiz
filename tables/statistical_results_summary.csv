@@ -1,0 +1,6 @@
+Test,Test_Type,Statistic,P_Value,Effect_Size,Effect_Size_Type,Significant,Interpretation
+React Analysis,Independent t-test,-1.206210093671844,0.22783266544384737,-0.046747565013601035,Cohen's d,False,Küçük
+Work Type Analysis,One-way ANOVA,40.71857782402077,3.585617144385044e-18,0.026723161623565552,Eta-squared,True,Orta
+Location Analysis,One-way ANOVA,121.58719803181344,2.8719693401779283e-74,0.10954585900151542,Eta-squared,True,Büyük
+Gender Analysis,Independent t-test,3.5464025143643454,0.0003965721703319968,0.22866912336748457,Cohen's d,True,Orta
+Deneyim-Maaş Korelasyonu,Pearson Correlation,0.22397062102301188,4.522208931612434e-35,0.22397062102301188,Correlation Coefficient,True,Zayıf

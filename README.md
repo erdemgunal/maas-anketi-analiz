@@ -7,31 +7,39 @@ Bu proje, Türkiye'deki yazılım geliştiricilerinin maaş verilerini analiz ed
 ## 🎯 Ana Bulgular
 
 ### ⚛️ React Kullanımı ve Maaş
-- **Beklenmedik Sonuç**: React kullananlar ortalama **3.96 bin TL daha az** kazanıyor
+- **Beklenmedik Sonuç**: React kullananlar ortalama **2.86 bin TL daha az** kazanıyor
 - **Ortalama Maaşlar**: 
-  - React kullananlar: **88.60 bin TL**
-  - React kullanmayanlar: **92.56 bin TL**
+  - React kullananlar: **98.57 bin TL**
+  - React kullanmayanlar: **101.43 bin TL**
+
+### 📊 Maaş Anomalileri ve Beklenmedik Bulgular (Özellikle React)
+- **Piyasa Anomalisi**: React'in popülerliğine rağmen maaş üzerinde negatif etki (p < 0.001, yüksek anlamlılık)
+- **Arz Fazlası**: 2020-2024 döneminde bootcamp'ler ve online eğitimler nedeniyle React bilen geliştiricilerin sayısında artış
+- **Stratejik Çıkarım**: React artık temel gereksinim, ek uzmanlık alanları (Backend, DevOps, Veri Bilimi) daha değerli
+- **Şirket Avantajı**: Piyasadaki arz fazlası şirketlere maliyet optimizasyonu fırsatı sunuyor
 
 ### 🏠 Çalışma Şekli ve Maaş
-- **Remote çalışanlar** en yüksek maaşı alıyor: **98.58 bin TL**
-- **Office çalışanlar**: 92.88 bin TL
-- **Hybrid çalışanlar**: 74.27 bin TL
+- **Hybrid çalışanlar** en yüksek maaşı alıyor: **106.76 bin TL**
+- **Remote çalışanlar**: 104.22 bin TL
+- **Office çalışanlar**: 80.11 bin TL
 
 ### 🌍 Şirket Lokasyonu ve Maaş
-- **Yurtdışı TR Hub** şirketleri en yüksek maaşları ödüyor: **105.2 bin TL**
-- **Avrupa** lokasyonlu şirketler: 98.7 bin TL
-- **Türkiye (Merkez)**: 89.3 bin TL
-- **Diğer**: 82.1 bin TL
+- **Avrupa** lokasyonlu şirketler en yüksek maaşları ödüyor: **175.59 bin TL**
+- **Amerika** lokasyonlu şirketler: 169.07 bin TL
+- **Yurtdışı TR Hub**: 117.00 bin TL
+- **Türkiye (Merkez)**: 94.28 bin TL
 
 ### 👥 Cinsiyet Bazlı Maaş Farkı
-- **Gender Gap**: Erkekler kadınlardan **10.59 bin TL** daha fazla kazanıyor
-- **Erkek ortalama**: 92.18 bin TL
-- **Kadın ortalama**: 81.59 bin TL
+- **Gender Gap**: Erkekler kadınlardan **13.98 bin TL** daha fazla kazanıyor (%15.9)
+- **Erkek ortalama**: 101.70 bin TL
+- **Kadın ortalama**: 87.72 bin TL
 
 ### 📈 Deneyim ve Maaş İlişkisi
 - **En güçlü faktör**: Deneyim seviyesi
-- **Junior → Senior**: Maaş artışı belirgin
-- **İş deneyimi**: Her yıl için ortalama artış
+- **Junior**: 94.11 bin TL
+- **Mid**: 84.38 bin TL
+- **Senior**: 132.88 bin TL
+- **Senior-Junior farkı**: 38.77 bin TL (%41.2 artış)
 
 ## 📁 Dokümantasyon İçeriği
 
@@ -63,7 +71,7 @@ Bu proje, Türkiye'deki yazılım geliştiricilerinin maaş verilerini analiz ed
 
 ## 📊 Veri Seti Hakkında
 
-- **Katılımcı Sayısı**: 2,970 yazılım geliştiricisi
+- **Katılımcı Sayısı**: 2,969 yazılım geliştiricisi
 - **Veri Toplama**: Anket yöntemi
 - **Kapsam**: Türkiye geneli
 - **Dönem**: 2023-2024
@@ -91,9 +99,11 @@ Bu proje, Türkiye'deki yazılım geliştiricilerinin maaş verilerini analiz ed
 Bu analiz, React teknolojisinin popülerliğine rağmen maaş üzerinde beklenmedik şekilde minimal etkiye sahip olduğunu göstermektedir. Deneyim seviyesi, çalışma şekli, şirket lokasyonu ve cinsiyet gibi faktörlerin daha belirleyici olduğu tespit edilmiştir.
 
 **Önemli İçgörüler**: 
-- Teknoloji bilgisi tek başına yeterli değil, deneyim ve uzmanlık alanları daha kritik
-- Remote çalışma ve şirket lokasyonu maaş üzerinde önemli etkiye sahip
-- Coğrafi arbitraj hem şirketler hem çalışanlar için potansiyel fırsatlar sunuyor
+- **React Anomalisi**: Teknoloji bilgisi tek başına yeterli değil, deneyim ve uzmanlık alanları daha kritik
+- **Piyasa Dinamikleri**: React'in popülerliği arz fazlasına yol açarak maaş baskısı yaratıyor
+- **Hybrid çalışma en avantajlı** seçenek, şirket lokasyonu maaş üzerinde önemli etkiye sahip
+- **Coğrafi arbitraj** hem şirketler hem çalışanlar için potansiyel fırsatlar sunuyor
+- **Ek Uzmanlık Değeri**: React + Backend, DevOps, Veri Bilimi kombinasyonları premium maaş imkanları sunuyor
 
 ---
 

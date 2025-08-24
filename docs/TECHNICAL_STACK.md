@@ -162,7 +162,7 @@ pip install -r requirements.txt
 
 # Run
 python src/main.py
-streamlit run dashboard/app.py
+streamlit run app.py --server.port 8501
 ```
 
 ### Production Ready
