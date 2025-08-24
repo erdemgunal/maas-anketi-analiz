@@ -180,30 +180,6 @@ sns.set_context("paper", font_scale=1.2)
 - **Üçte İki**: `0.67\textwidth`
 - **Özel Boyut**: `0.8\textwidth`
 
-## ✅ Kalite Kontrol Checklist
-
-### 📊 Grafik Kontrolü
-- [ ] Font boyutları LaTeX'te okunabilir mi?
-- [ ] Renkler renk körü dostu mu?
-- [ ] Başlık ve etiketler net mi?
-- [ ] Legend açık ve anlaşılır mı?
-- [ ] Grid çizgileri uygun mu?
-- [ ] Çözünürlük 300 DPI mi?
-
-### 📝 İçerik Kontrolü
-- [ ] Grafik başlığı açıklayıcı mı?
-- [ ] Eksen etiketleri doğru mu?
-- [ ] Birimler belirtilmiş mi?
-- [ ] Kaynak bilgisi var mı?
-- [ ] Tarih bilgisi var mı?
-
-### 🎯 Teknik Kontrol
-- [ ] Dosya formatı PNG mi?
-- [ ] Boyut 12x8 inç mi?
-- [ ] Dosya adı açıklayıcı mı?
-- [ ] Metadata doğru mu?
-- [ ] Sıkıştırma uygun mu?
-
 ## 🚀 En İyi Uygulamalar
 
 ### 📊 Grafik Tasarımı

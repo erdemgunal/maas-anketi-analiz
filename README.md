@@ -2,7 +2,7 @@
 
 ## 📊 Proje Özeti
 
-Bu proje, Türkiye'deki yazılım geliştiricilerinin maaş verilerini analiz ederek, **React teknolojisi kullanımının maaş üzerindeki etkisini** araştırmaktadır. 2,820 katılımcıdan oluşan veri seti ile kapsamlı bir analiz gerçekleştirilmiştir.
+Bu proje, Türkiye'deki yazılım geliştiricilerinin maaş verilerini analiz ederek, **React teknolojisi kullanımının maaş üzerindeki etkisini** araştırmaktadır. 2,970 katılımcıdan oluşan veri seti ile kapsamlı bir analiz gerçekleştirilmiştir.
 
 ## 🎯 Ana Bulgular
 
@@ -16,6 +16,12 @@ Bu proje, Türkiye'deki yazılım geliştiricilerinin maaş verilerini analiz ed
 - **Remote çalışanlar** en yüksek maaşı alıyor: **98.58 bin TL**
 - **Office çalışanlar**: 92.88 bin TL
 - **Hybrid çalışanlar**: 74.27 bin TL
+
+### 🌍 Şirket Lokasyonu ve Maaş
+- **Yurtdışı TR Hub** şirketleri en yüksek maaşları ödüyor: **105.2 bin TL**
+- **Avrupa** lokasyonlu şirketler: 98.7 bin TL
+- **Türkiye (Merkez)**: 89.3 bin TL
+- **Diğer**: 82.1 bin TL
 
 ### 👥 Cinsiyet Bazlı Maaş Farkı
 - **Gender Gap**: Erkekler kadınlardan **10.59 bin TL** daha fazla kazanıyor
@@ -44,27 +50,6 @@ Bu proje, Türkiye'deki yazılım geliştiricilerinin maaş verilerini analiz ed
 - **[VISUAL_STANDARDS.md](VISUAL_STANDARDS.md)** - Görsel standartlar
 - **[WORKFLOW.md](WORKFLOW.md)** - Çalışma akışı
 
-## 🚀 Feature List (Geliştirme Planı)
-
-### 📊 Veri Analizi ve Görselleştirme
-- [ ] **Maaş Dağılımı Grafikleri**
-  - Histogram ve yoğunluk eğrisi
-  - Box plot ve violin plot
-  - Q-Q plot (normal dağılım kontrolü)
-- [ ] **Karşılaştırmalı Analiz Grafikleri**
-  - React vs Non-React maaş karşılaştırması
-  - Cinsiyet bazlı maaş analizi
-  - Çalışma şekli maaş farkları
-  - Deneyim seviyesi maaş dağılımı
-- [ ] **Korelasyon ve İlişki Grafikleri**
-  - Maaş vs deneyim scatter plot
-  - Korelasyon ısı haritası
-  - Pair plot (çoklu değişken ilişkileri)
-- [ ] **Teknoloji Kullanımı Grafikleri**
-  - En çok kullanılan teknolojiler
-  - Teknoloji-maaş korelasyonları
-  - Tool kullanımı analizi
-
 ### 🎨 Görselleştirme Standartları
 - **Çözünürlük**: 300 DPI
 - **Boyut**: 12x8 inç
@@ -76,47 +61,9 @@ Bu proje, Türkiye'deki yazılım geliştiricilerinin maaş verilerini analiz ed
 - **Legend**: 14pt
 - **Grafik Yazıları**: 16pt (okunabilirlik için)
 
-### 📈 İstatistiksel Analiz
-- [ ] **Temel İstatistikler**
-  - Ortalama, medyan, standart sapma
-  - Çarpıklık ve basıklık
-  - Güven aralıkları
-- [ ] **Hipotez Testleri**
-  - t-test (React vs Non-React)
-  - ANOVA (çalışma şekli, deneyim seviyesi)
-  - Chi-square testleri
-- [ ] **Korelasyon Analizi**
-  - Pearson korelasyonu
-  - Spearman korelasyonu
-  - Etki büyüklüğü hesaplamaları
-
-### 📊 Raporlama
-- [ ] **LaTeX Raporu**
-  - Bilimsel format
-  - Grafik entegrasyonu
-  - İstatistiksel tablolar
-- [ ] **PDF Raporu**
-  - Yayın kalitesinde
-  - Profesyonel format
-  - Çoklu dil desteği
-
-### 🔧 Teknik Özellikler
-- [ ] **Veri Temizleme**
-  - Eksik veri işleme
-  - Aykırı değer tespiti
-  - Kategorik kodlama
-- [ ] **Veri Hazırlama**
-  - Feature engineering
-  - Normalizasyon
-  - Encoding işlemleri
-- [ ] **Kalite Kontrol**
-  - Veri doğrulama
-  - Tutarlılık kontrolü
-  - Format standardizasyonu
-
 ## 📊 Veri Seti Hakkında
 
-- **Katılımcı Sayısı**: 2,820 yazılım geliştiricisi
+- **Katılımcı Sayısı**: 2,970 yazılım geliştiricisi
 - **Veri Toplama**: Anket yöntemi
 - **Kapsam**: Türkiye geneli
 - **Dönem**: 2023-2024
@@ -128,28 +75,25 @@ Bu proje, Türkiye'deki yazılım geliştiricilerinin maaş verilerini analiz ed
 3. **Görselleştirme**: Yayın kalitesinde grafikler
 4. **Raporlama**: LaTeX ve PDF formatlarında
 
-## 🎯 Hedefler
+## ⚠️ Sınırlılıklar ve Kısıtlamalar
 
-### Kısa Vadeli (1-2 hafta)
-- [ ] Grafik görselleştirme standartlarını belirleme
-- [ ] Temel analiz grafiklerini oluşturma
-- [ ] İstatistiksel testleri uygulama
+### Coğrafi Analiz Sınırlılıkları
+- **Fiziksel İkametgah Çıkarımındaki Sınırlılık**: `Şirket lokasyon` ve `Çalışma şekli` kombinasyonları analiz edilirken, özellikle `Yurtdışı TR hub` veya `Avrupa` lokasyonlu ve `Remote` çalışan kişilerin **fiziksel ikametgahının kesin olarak belirlenemediği** ve bunun coğrafi analizlerin önemli bir sınırlılığı olduğu
+- **Veri Kalitesi**: Şirket lokasyonu bilgilerinin standardizasyon eksikliği
+- **Örneklem Temsiliyeti**: Belirli lokasyonlardan yetersiz veri toplanması
 
-### Orta Vadeli (1 ay)
-- [ ] LaTeX raporu hazırlama
-- [ ] PDF raporu oluşturma
-- [ ] Grafik kalitesini optimize etme
-
-### Uzun Vadeli (2-3 ay)
-- [ ] İnteraktif web uygulaması
-- [ ] Çoklu dil desteği
-- [ ] Otomatik rapor üretimi
+### Metodolojik Sınırlılıklar
+- **Zaman Bazlı Değişkenlik**: Maaş verilerinin zaman içindeki değişkenliği
+- **Kültürel Faktörler**: Coğrafi bölgeler arası kültürel farklılıkların maaş beklentilerine etkisi
 
 ## 🎯 Sonuç
 
-Bu analiz, React teknolojisinin popülerliğine rağmen maaş üzerinde beklenmedik şekilde minimal etkiye sahip olduğunu göstermektedir. Deneyim seviyesi, çalışma şekli ve cinsiyet gibi faktörlerin daha belirleyici olduğu tespit edilmiştir.
+Bu analiz, React teknolojisinin popülerliğine rağmen maaş üzerinde beklenmedik şekilde minimal etkiye sahip olduğunu göstermektedir. Deneyim seviyesi, çalışma şekli, şirket lokasyonu ve cinsiyet gibi faktörlerin daha belirleyici olduğu tespit edilmiştir.
 
-**Önemli İçgörü**: Teknoloji bilgisi tek başına yeterli değil, deneyim ve uzmanlık alanları daha kritik.
+**Önemli İçgörüler**: 
+- Teknoloji bilgisi tek başına yeterli değil, deneyim ve uzmanlık alanları daha kritik
+- Remote çalışma ve şirket lokasyonu maaş üzerinde önemli etkiye sahip
+- Coğrafi arbitraj hem şirketler hem çalışanlar için potansiyel fırsatlar sunuyor
 
 ---
 

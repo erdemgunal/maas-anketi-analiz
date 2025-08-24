@@ -125,3 +125,4 @@ Bu dokümantasyon paketi, 2025 Türkiye Yazılım Sektörü Maaş Analizi projes
 **Zaman Kısıtı**:
 
 **Hedef Kitle**: React staj grubu (~250 yazılımcı), portfolio, Zafer Ayan
+

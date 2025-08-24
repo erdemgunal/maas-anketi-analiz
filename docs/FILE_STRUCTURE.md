@@ -7,7 +7,6 @@ salary_analysis_project/
 ├── data/                           # Veri dosyaları
 │   ├── maas_anketi.csv            # Raw data (2970 satır)
 │   ├── cleaned_data.csv           # Processed data
-│   └── benchmark_data.json        # External benchmark data
 │
 ├── src/                           # Kaynak kodlar
 │   ├── data_cleaning.py           # Data preprocessing functions
@@ -89,7 +88,6 @@ salary_analysis_project/
 ### Data Directory
 - **maas_anketi.csv**: Orijinal anket verisi (2970 satır)
 - **cleaned_data.csv**: Temizlenmiş ve işlenmiş veri
-- **benchmark_data.json**: Karşılaştırma için dış veri
 
 ### Source Code (src/)
 - **data_cleaning.py**: Veri temizleme ve preprocessing

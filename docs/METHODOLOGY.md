@@ -12,19 +12,27 @@ H1: μ_react ≠ μ_non_react
 H0: μ_turkey = μ_europe = μ_other
 H1: En az bir grup farklı
 
-# 3. Chi-square test: Cinsiyet vs teknoloji tercihi bağımsızlığı
+# 3. One-way ANOVA: Şirket lokasyonu bazlı maaş farkları
+H0: μ_yurtdisi_tr_hub = μ_avrupa = μ_turkiye_merkez = μ_diger
+H1: En az bir grup farklı
+
+# 4. Two-way ANOVA: Şirket lokasyonu × Çalışma şekli etkileşimi
+H0: Lokasyon ve çalışma şekli arasında etkileşim yok
+H1: Lokasyon ve çalışma şekli arasında etkileşim var
+
+# 5. Chi-square test: Cinsiyet vs teknoloji tercihi bağımsızlığı
 H0: Cinsiyet ve teknoloji tercihi bağımsız
 H1: Cinsiyet ve teknoloji tercihi bağımlı
 
-# 4. Pearson correlation: Deneyim vs maaş ilişkisi
+# 6. Pearson correlation: Deneyim vs maaş ilişkisi
 H0: ρ = 0 (Korelasyon yok)
 H1: ρ ≠ 0 (Korelasyon var)
 
-# 5. One-way ANOVA: Saat bazlı maaş farkları
+# 7. One-way ANOVA: Saat bazlı maaş farkları
 H0: μ_saat0 = μ_saat1 = ... = μ_saat23
 H1: En az bir saat grubu farklı
 
-# 6. Chi-square test: Saat vs rol/seviye/demografik özellik bağımsızlığı
+# 8. Chi-square test: Saat vs rol/seviye/demografik özellik bağımsızlığı
 H0: Saat ve rol/seviye/demografik özellik bağımsız
 H1: Saat ve rol/seviye/demografik özellik bağımlı
 
@@ -41,12 +49,15 @@ H1: Saat ve rol/seviye/demografik özellik bağımlı
 - **Timestamp Dönüşümü**: Timestamp sütunundan (örn: "8/20/2025 12:31:15") sadece saat bilgisini (0-23 arası) ayrıştırarak yeni bir Anket_Saati sütunu oluşturulacak
 - **Kategorik Kodlama**: Label encoding ve one-hot encoding
 - **Missing Values**: Imputation stratejileri
+- **Şirket Lokasyonu Standardizasyonu**: Farklı yazım şekillerini standart kategorilere dönüştürme
 
 ### 2. Feature Engineering
 - **Skill Dummy Variables**: Her teknoloji için binary column
 - **Experience Numeric**: String deneyim → sayısal değer
 - **Interaction Terms**: Teknoloji × deneyim kombinasyonları
 - **Polynomial Features**: Non-linear ilişkiler için
+- **Lokasyon Kategorileri**: Şirket lokasyonunu standart kategorilere dönüştürme
+- **Çalışma Şekli × Lokasyon**: İki faktörün kombinasyonu
 
 ### 3. Outlier Detection
 - **IQR Method**: Q1 - 1.5*IQR, Q3 + 1.5*IQR
@@ -70,6 +81,7 @@ H1: Saat ve rol/seviye/demografik özellik bağımlı
 # T-test için: n = 64 per group
 # ANOVA için: n = 52 per group
 # Correlation için: n = 84 total
+# Two-way ANOVA için: n = 45 per cell
 ```
 
 ### Effect Size Interpretation
@@ -140,8 +152,45 @@ H1: Saat ve rol/seviye/demografik özellik bağımlı
   - Bu dağılımlar arasında istatistiksel olarak anlamlı farklılıklar olup olmadığını belirlemek için Chi-square testi uygulanacak
   - p-değerleri ve etki büyüklükleri raporlanacak
 
-### 3. Görselleştirme ve Raporlama
+### 4. Şirket Lokasyonu Analiz Metodolojisi
+- **Lokasyon Bazlı Maaş Analizi**:
+  - Her şirket lokasyonu kategorisi için ortalama maaş ve standart sapma hesaplanacak
+  - Lokasyonlar arasında anlamlı maaş farkları olup olmadığını belirlemek için ANOVA testi kullanılacak
+  - Post-hoc testler ile hangi lokasyonlar arasında fark olduğu belirlenecek
+- **Lokasyon × Çalışma Şekli Etkileşimi**:
+  - İki faktörün birlikte maaş üzerindeki etkisi analiz edilecek
+  - Two-way ANOVA ile etkileşim etkisi test edilecek
+
+### 5. Görselleştirme ve Raporlama
 - **Dashboard Creation**: İnteraktif dashboard
 - **Report Generation**: Detaylı raporlar
 - **Presentation Preparation**: Sunum materyalleri
 - **Insight Documentation**: İçgörü dokümantasyonu
+
+## Sınırlılıklar ve Kısıtlamalar
+
+### Veri Kalitesi Sınırlılıkları
+- **Eksik Veriler**: Bazı katılımcılardan eksik bilgi toplanması
+- **Yanlış Yanıtlar**: Anket sırasında yanlış bilgi verilmesi
+- **Örneklem Temsiliyeti**: Belirli gruplardan yetersiz veri toplanması
+
+### Metodolojik Sınırlılıklar
+- **Cross-sectional Design**: Zaman içindeki değişimleri yakalayamama
+- **Self-reported Data**: Katılımcıların kendi bildirdiği veriler
+- **Selection Bias**: Gönüllü katılım nedeniyle oluşan yanlılık
+
+### Coğrafi Analiz Sınırlılıkları
+- **Fiziksel İkametgah Çıkarımındaki Sınırlılık**: `Şirket lokasyon` ve `Çalışma şekli` kombinasyonları analiz edilirken, özellikle `Yurtdışı TR hub` veya `Avrupa` lokasyonlu ve `Remote` çalışan kişilerin **fiziksel ikametgahının kesin olarak belirlenemediği** ve bunun coğrafi analizlerin önemli bir sınırlılığı olduğu
+- **Şirket Lokasyonu Standardizasyonu**: Farklı yazım şekilleri ve kategorilerin standartlaştırılmasındaki zorluklar
+- **Remote Çalışanların Gerçek Lokasyonu**: Remote çalışanların şirket lokasyonu ile ikametgahı arasındaki farklılıkların analiz edilememesi
+- **Coğrafi Arbitraj Analizi**: Farklı lokasyonlardaki maaş farklılıklarından yararlanma stratejilerinin tam olarak ölçülememesi
+
+### İstatistiksel Sınırlılıklar
+- **Multiple Testing**: Çoklu test yapılması nedeniyle Type I error riski
+- **Effect Size**: Küçük etki büyüklüklerinin pratik anlamlılığı
+- **Generalizability**: Sonuçların genellenebilirliği
+
+### Zaman Bazlı Sınırlılıklar
+- **Veri Toplama Zamanı**: Anketin belirli bir dönemde toplanması
+- **Piyasa Değişkenliği**: Maaş verilerinin zaman içindeki değişkenliği
+- **Trend Analizi**: Uzun vadeli trendlerin yakalanamaması

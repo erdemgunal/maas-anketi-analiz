@@ -166,7 +166,6 @@ streamlit run dashboard/app.py
 ```
 
 ### Production Ready
-- **Docker**: Containerization
 - **CI/CD**: Automated testing
 - **Monitoring**: Performance tracking
 
