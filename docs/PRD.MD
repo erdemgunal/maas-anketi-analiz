@@ -1,4 +1,4 @@
-# 2025 Maaş Anketi Analizi - Cursor AI Agent Dokümantasyon Paketi
+# 2025 Maaş Anketi Analizi
 
 ## 📋 PROJE ÖZET (PROJECT OVERVIEW)
 
@@ -125,4 +125,3 @@ Bu dokümantasyon paketi, 2025 Türkiye Yazılım Sektörü Maaş Analizi projes
 **Zaman Kısıtı**:
 
 **Hedef Kitle**: React staj grubu (~250 yazılımcı), portfolio, Zafer Ayan
-

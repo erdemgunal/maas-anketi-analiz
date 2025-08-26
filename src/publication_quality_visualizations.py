@@ -69,9 +69,11 @@ class PublicationQualityVisualizer:
         plt.figure(figsize=(12, 8))
         plt.hist(self.df['ortalama_maas'], bins=30, alpha=0.7, 
                 color=VIRIDIS_COLORS['primary'], edgecolor='black', linewidth=0.5)
-        plt.title('1. Maaş Dağılımı (Histogram)', fontsize=20, fontweight='bold', pad=20)
-        plt.xlabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
-        plt.ylabel('Geliştirici Sayısı', fontsize=16)
+        plt.title('Salary Distribution (Histogram)', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.ylabel('Number of Developers', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/01_maas_dagilimi_histogram.png', dpi=300, bbox_inches='tight')
@@ -84,9 +86,11 @@ class PublicationQualityVisualizer:
                               whiskerprops=dict(color=VIRIDIS_COLORS['primary']),
                               medianprops=dict(color='white', linewidth=2),
                               flierprops=dict(markerfacecolor=VIRIDIS_COLORS['quaternary']))
-        plt.title('2. Maaş Dağılımı (Box Plot)', fontsize=20, fontweight='bold', pad=20)
-        plt.xlabel('Tüm Katılımcılar', fontsize=16)
-        plt.ylabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
+        plt.title('Salary Distribution (Box Plot)', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('All Participants', fontsize=18, fontweight='bold', labelpad=15)
+        plt.ylabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/02_maas_dagilimi_boxplot.png', dpi=300, bbox_inches='tight')
@@ -98,9 +102,11 @@ class PublicationQualityVisualizer:
         violin_parts['bodies'][0].set_facecolor(VIRIDIS_COLORS['tertiary'])
         violin_parts['cmeans'].set_color(VIRIDIS_COLORS['primary'])
         violin_parts['cmeans'].set_linewidth(2)
-        plt.title('3. Maaş Dağılımı (Violin Plot)', fontsize=20, fontweight='bold', pad=20)
-        plt.xlabel('Tüm Katılımcılar', fontsize=16)
-        plt.ylabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
+        plt.title('Salary Distribution (Violin Plot)', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('All Participants', fontsize=18, fontweight='bold', labelpad=15)
+        plt.ylabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/03_maas_dagilimi_violin.png', dpi=300, bbox_inches='tight')
@@ -109,10 +115,12 @@ class PublicationQualityVisualizer:
         # 4. Density Plot
         plt.figure(figsize=(12, 8))
         self.df['ortalama_maas'].plot.kde(color=VIRIDIS_COLORS['quaternary'], linewidth=2)
-        plt.title('4. Maaş Dağılımı (Yoğunluk Eğrisi)', fontsize=20, fontweight='bold', pad=20)
-        plt.xlabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
-        plt.ylabel('Dağılım Oranı', fontsize=16)
+        plt.title('Salary Distribution (Density Curve)', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.ylabel('Distribution Rate', fontsize=18, fontweight='bold', labelpad=15)
         plt.xlim(left=0)  # X eksenini 0'dan başlat
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/04_maas_dagilimi_density.png', dpi=300, bbox_inches='tight')
@@ -135,8 +143,10 @@ class PublicationQualityVisualizer:
         for patch, color in zip(box_plot['boxes'], box_colors):
             patch.set_facecolor(color)
         
-        plt.title('5. React Kullanımı ve Maaş Karşılaştırması', fontsize=20, fontweight='bold', pad=20)
-        plt.ylabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
+        plt.title('React Usage and Salary Comparison', fontsize=20, fontweight='bold', pad=20)
+        plt.ylabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/05_react_maas_karsilastirma.png', dpi=300, bbox_inches='tight')
@@ -155,8 +165,10 @@ class PublicationQualityVisualizer:
         for patch, color in zip(box_plot['boxes'], box_colors):
             patch.set_facecolor(color)
         
-        plt.title('6. Cinsiyet ve Maaş Karşılaştırması', fontsize=20, fontweight='bold', pad=20)
-        plt.ylabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
+        plt.title('Gender and Salary Comparison', fontsize=20, fontweight='bold', pad=20)
+        plt.ylabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/06_cinsiyet_maas_karsilastirma.png', dpi=300, bbox_inches='tight')
@@ -175,8 +187,10 @@ class PublicationQualityVisualizer:
         for patch, color in zip(box_plot['boxes'], work_colors):
             patch.set_facecolor(color)
         
-        plt.title('7. Çalışma Şekli ve Maaş Karşılaştırması', fontsize=20, fontweight='bold', pad=20)
-        plt.ylabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
+        plt.title('Work Type and Salary Comparison', fontsize=20, fontweight='bold', pad=20)
+        plt.ylabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/07_calisma_sekli_maas_karsilastirma.png', dpi=300, bbox_inches='tight')
@@ -198,9 +212,10 @@ class PublicationQualityVisualizer:
         for patch in box_plot['boxes']:
             patch.set_facecolor(VIRIDIS_COLORS['secondary'])
         
-        plt.title('8. Şirket Lokasyonu ve Maaş Karşılaştırması', fontsize=20, fontweight='bold', pad=20)
-        plt.ylabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
-        plt.xticks(rotation=45)
+        plt.title('Company Location and Salary Comparison', fontsize=20, fontweight='bold', pad=20)
+        plt.ylabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(rotation=45, fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/08_sirket_lokasyonu_maas_karsilastirma.png', dpi=300, bbox_inches='tight')
@@ -219,8 +234,10 @@ class PublicationQualityVisualizer:
         for patch in box_plot['boxes']:
             patch.set_facecolor(VIRIDIS_COLORS['tertiary'])
         
-        plt.title('9. Kariyer Seviyesi ve Maaş Karşılaştırması', fontsize=20, fontweight='bold', pad=20)
-        plt.ylabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
+        plt.title('Career Level and Salary Comparison', fontsize=20, fontweight='bold', pad=20)
+        plt.ylabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/09_kariyer_seviyesi_maas_karsilastirma.png', dpi=300, bbox_inches='tight')
@@ -234,9 +251,11 @@ class PublicationQualityVisualizer:
         plt.figure(figsize=(12, 8))
         plt.scatter(self.df['kariyer_seviyesi'], self.df['ortalama_maas'], 
                    alpha=0.6, color=VIRIDIS_COLORS['secondary'], s=20)
-        plt.title('10. Kariyer Seviyesi vs Maaş Korelasyonu', fontsize=20, fontweight='bold', pad=20)
-        plt.xlabel('Kariyer Seviyesi', fontsize=16)
-        plt.ylabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
+        plt.title('Career Level vs Salary Correlation', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Career Level', fontsize=18, fontweight='bold', labelpad=15)
+        plt.ylabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         
         # Trend çizgisi ekle
@@ -248,16 +267,288 @@ class PublicationQualityVisualizer:
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/10_deneyim_maas_scatter.png', dpi=300, bbox_inches='tight')
         plt.close()
+
+    def _get_primary_role(self, row: pd.Series) -> Optional[str]:
+        role_cols = [c for c in row.index if c.startswith('role_')]
+        if not role_cols:
+            return None
+        active = [c for c in role_cols if row[c] == 1]
+        if not active:
+            return None
+        # Basit seçim: ilk aktif rol
+        return active[0].replace('role_', '').replace('_', ' ').title()
+
+    def create_tech_combo_insights(self) -> None:
+        """Rollere göre en yaygın tech kombinasyonları ve maaşlar"""
+        print("🔗 Tech kombinasyon içgörüleri oluşturuluyor...")
+        prog_cols = [c for c in self.df.columns if c.startswith('prog_lang_')]
+        fe_cols = [c for c in self.df.columns if c.startswith('frontend_')]
+        tool_cols = [c for c in self.df.columns if c.startswith('tools_')]
+        role_cols = [c for c in self.df.columns if c.startswith('role_')]
+        if not prog_cols or not role_cols:
+            return
+        df = self.df.copy()
+        # Birincil rol
+        df['primary_role'] = df.apply(self._get_primary_role, axis=1)
+        # Kombinasyon anahtarı: en popüler 1 dil + 1 framework (varsa) + 1 tool (varsa)
+        def pick_first(cols, row):
+            chosen = [c for c in cols if row.get(c, 0) == 1]
+            return chosen[0] if chosen else None
+        df['combo_lang'] = df.apply(lambda r: pick_first(prog_cols, r), axis=1)
+        df['combo_fe'] = df.apply(lambda r: pick_first(fe_cols, r), axis=1)
+        df['combo_tool'] = df.apply(lambda r: pick_first(tool_cols, r), axis=1)
+        def clean_name(col_name: Optional[str], prefix: str) -> Optional[str]:
+            if col_name is None:
+                return None
+            return col_name.replace(prefix, '').replace('_', ' ').title()
+        df['combo_lang'] = df['combo_lang'].apply(lambda x: clean_name(x, 'prog_lang_'))
+        df['combo_fe'] = df['combo_fe'].apply(lambda x: clean_name(x, 'frontend_'))
+        df['combo_tool'] = df['combo_tool'].apply(lambda x: clean_name(x, 'tools_'))
+        df['combo_str'] = df.apply(lambda r: ' + '.join([x for x in [r['combo_lang'], r['combo_fe'], r['combo_tool']] if pd.notna(x) and x]), axis=1)
+        top = (df.dropna(subset=['combo_str', 'primary_role'])
+                 .groupby(['primary_role', 'combo_str'])
+                 .agg(n=('ortalama_maas', 'size'), mean_salary=('ortalama_maas', 'mean'))
+                 .reset_index())
+        # Her rol için en populer 5 kombinasyon
+        results = []
+        for role, g in top.groupby('primary_role'):
+            g = g.sort_values('n', ascending=False).head(5)
+            g['primary_role'] = role
+            results.append(g)
+        if not results:
+            return
+        out = pd.concat(results)
+        # Görselleştir: yatay bar (n anotasyonu), role göre facet yerine tek figür, renk tonları
+        plt.figure(figsize=(12, 8))
+        ordered = out.sort_values(['primary_role', 'n'], ascending=[True, False])
+        y_labels = [f"{r} | {c}" for r, c in zip(ordered['primary_role'], ordered['combo_str'])]
+        bars = plt.barh(y_labels, ordered['mean_salary'], color=VIRIDIS_COLORS['secondary'])
+        plt.title('Top Tech Combinations by Role (Avg Salary)', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Average Salary (k TL)', fontsize=18, fontweight='bold')
+        plt.ylabel('Role | Combination', fontsize=18, fontweight='bold')
+        plt.grid(True, axis='x', alpha=0.3, color='#E5E5E5')
+        # n anotasyonu
+        for bar, n in zip(bars, ordered['n']):
+            plt.text(bar.get_width() + 1, bar.get_y() + bar.get_height()/2, f"n={int(n)}", va='center', fontsize=12)
+        plt.tight_layout()
+        plt.savefig(f'{self.figures_dir}/21_tech_combo_top.png', dpi=300, bbox_inches='tight')
+        plt.close()
+
+    def create_skill_diversity_vs_salary(self) -> None:
+        """Dil/araç sayısına göre maaş dağılımı (violin)"""
+        print("🎯 Skill diversity vs salary görseli oluşturuluyor...")
+        prog_cols = [c for c in self.df.columns if c.startswith('prog_lang_')]
+        tool_cols = [c for c in self.df.columns if c.startswith('tools_')]
+        if not prog_cols:
+            return
+        df = self.df.copy()
+        df['skill_count'] = df[prog_cols + tool_cols].sum(axis=1)
+        def bin_count(x: int) -> str:
+            if x <= 2:
+                return '1-2'
+            if x <= 5:
+                return '3-5'
+            return '6+'
+        df['skill_bin'] = df['skill_count'].apply(bin_count)
+        plt.figure(figsize=(12, 8))
+        sns.violinplot(data=df, x='skill_bin', y='ortalama_maas', inner='quartile', palette='viridis')
+        plt.title('Salary vs Skill Diversity (Languages + Tools)', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Skill Count Bin', fontsize=18, fontweight='bold')
+        plt.ylabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold')
+        plt.tight_layout()
+        plt.savefig(f'{self.figures_dir}/22_skill_diversity_salary.png', dpi=300, bbox_inches='tight')
+        plt.close()
+
+    def create_experience_usage_heatmap(self) -> None:
+        """Deneyim binlerine göre dil kullanımı ısı haritası"""
+        print("🔥 Deneyime göre teknoloji kullanım ısı haritası oluşturuluyor...")
+        if 'deneyim_yili' not in self.df.columns:
+            return
+        df = self.df.copy()
+        df['exp_bin'] = pd.cut(df['deneyim_yili'], bins=[-0.1, 2, 5, 10, 100], labels=['0-2', '3-5', '6-10', '11+'])
+        lang_cols = [c for c in df.columns if c.startswith('prog_lang_')]
+        if not lang_cols:
+            return
+        # En popüler 10 dil
+        usage = df[lang_cols].sum().sort_values(ascending=False).head(10).index.tolist()
+        data = []
+        for lang in usage:
+            rates = df.groupby('exp_bin')[lang].mean() * 100
+            data.append(rates)
+        heat_df = pd.DataFrame(data, index=[c.replace('prog_lang_', '').replace('_', ' ').title() for c in usage])
+        plt.figure(figsize=(12, 8))
+        sns.heatmap(heat_df, annot=True, fmt='.1f', cmap='viridis', cbar_kws={'label': 'Usage %'})
+        plt.title('Programming Language Usage by Experience Bin', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Experience Bin', fontsize=18, fontweight='bold')
+        plt.ylabel('Language', fontsize=18, fontweight='bold')
+        plt.tight_layout()
+        plt.savefig(f'{self.figures_dir}/23_experience_lang_usage_heatmap.png', dpi=300, bbox_inches='tight')
+        plt.close()
+
+    def create_role_experience_salary_paths(self) -> None:
+        """Rol bazında deneyim binlerine göre maaş trendi"""
+        print("📈 Rol × Deneyim maaş yolları oluşturuluyor...")
+        df = self.df.copy()
+        if 'deneyim_yili' not in df.columns:
+            return
+        df['exp_bin'] = pd.cut(df['deneyim_yili'], bins=[-0.1, 2, 5, 10, 100], labels=['0-2', '3-5', '6-10', '11+'])
+        # Hedef roller
+        target_roles = ['backend', 'frontend', 'fullstack', 'data_engineer']
+        role_cols = [f'role_{r}' for r in target_roles if f'role_{r}' in df.columns]
+        if not role_cols:
+            return
+        plt.figure(figsize=(12, 8))
+        for rc in role_cols:
+            role_name = rc.replace('role_', '').replace('_', ' ').title()
+            g = df[df[rc] == 1].groupby('exp_bin')['ortalama_maas'].mean()
+            plt.plot(g.index.astype(str), g.values, marker='o', linewidth=3, label=role_name)
+        plt.title('Salary Paths by Role and Experience', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Experience Bin', fontsize=18, fontweight='bold')
+        plt.ylabel('Average Salary (k TL)', fontsize=18, fontweight='bold')
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(f'{self.figures_dir}/24_role_experience_salary_paths.png', dpi=300, bbox_inches='tight')
+        plt.close()
+
+    def create_tool_adoption_by_role_location(self) -> None:
+        """Lokasyon ve rollere göre en popüler araçların kullanımı (ısı haritası)"""
+        print("🗺️ Araç kullanımı: rol × lokasyon ısı haritası oluşturuluyor...")
+        df = self.df.copy()
+        tool_cols = [c for c in df.columns if c.startswith('tools_')]
+        loc_cols = [c for c in df.columns if c.startswith('location_')]
+        role_cols = [c for c in df.columns if c.startswith('role_')]
+        if not tool_cols or not loc_cols or not role_cols:
+            return
+        # En popüler 8 araç
+        top_tools = df[tool_cols].sum().sort_values(ascending=False).head(8).index.tolist()
+        # Lokasyon isimleri
+        loc_names = [c.replace('location_', '').replace('_', ' ').title() for c in loc_cols]
+        # Rol isimleri (ana 4 rol varsa onlara indir)
+        roles_keep = [c for c in role_cols if any(k in c for k in ['backend', 'frontend', 'fullstack', 'data_engineer'])] or role_cols[:4]
+        role_names = [c.replace('role_', '').replace('_', ' ').title() for c in roles_keep]
+        # Matris: satır rol, sütun araç → kullanım % (lokasyonlar ortalaması)
+        data = []
+        for rc in roles_keep:
+            role_mask = df[rc] == 1
+            row_vals = []
+            for tool in top_tools:
+                rate = (df.loc[role_mask, tool].mean() * 100) if role_mask.any() else 0
+                row_vals.append(rate)
+            data.append(row_vals)
+        heat_df = pd.DataFrame(data, index=role_names, columns=[t.replace('tools_', '').replace('_', ' ').title() for t in top_tools])
+        plt.figure(figsize=(12, 8))
+        sns.heatmap(heat_df, annot=True, fmt='.1f', cmap='viridis', cbar_kws={'label': 'Usage %'})
+        plt.title('Top Tool Adoption by Role', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Tool', fontsize=18, fontweight='bold')
+        plt.ylabel('Role', fontsize=18, fontweight='bold')
+        plt.tight_layout()
+        plt.savefig(f'{self.figures_dir}/25_tool_adoption_role_location.png', dpi=300, bbox_inches='tight')
+        plt.close()
+
+    def create_work_arrangement_by_role(self) -> None:
+        """Rol bazında çalışma şekli dağılımı (yığılmış yüzde bar) ve ortalama maaş"""
+        print("🏢 Çalışma düzeni × rol görseli oluşturuluyor...")
+        df = self.df.copy()
+        role_cols = [c for c in df.columns if c.startswith('role_')]
+        if not role_cols or 'calisma_sekli' not in df.columns:
+            return
+        # Ana roller seçimi
+        roles_keep = [c for c in role_cols if any(k in c for k in ['backend', 'frontend', 'fullstack', 'data_engineer'])] or role_cols[:5]
+        role_names = [c.replace('role_', '').replace('_', ' ').title() for c in roles_keep]
+        work_map = {0: 'Remote', 1: 'Office', 2: 'Hybrid'}
+        dist = []
+        salary_ann = {}
+        for rc, rn in zip(roles_keep, role_names):
+            sub = df[df[rc] == 1]
+            if len(sub) == 0:
+                continue
+            counts = sub['calisma_sekli'].value_counts(normalize=True) * 100
+            dist.append({**{'Role': rn}, **{work_map.get(k, str(k)): counts.get(k, 0) for k in [0, 1, 2]}})
+            salary_ann[rn] = sub['ortalama_maas'].mean()
+        if not dist:
+            return
+        plot_df = pd.DataFrame(dist).set_index('Role')
+        plot_df = plot_df[['Remote', 'Office', 'Hybrid']]
+        plot_df.plot(kind='bar', stacked=True, color=[CATEGORICAL_COLORS['remote'], CATEGORICAL_COLORS['office'], CATEGORICAL_COLORS['hybrid']], figsize=(12, 8))
+        plt.title('Work Arrangement Distribution by Role', fontsize=20, fontweight='bold', pad=20)
+        plt.ylabel('Percentage (%)', fontsize=18, fontweight='bold')
+        plt.xlabel('Role', fontsize=18, fontweight='bold')
+        plt.legend(title='Arrangement')
+        # Ortalama maaş anotasyonları
+        for i, rn in enumerate(plot_df.index):
+            plt.text(i, 102, f"Avg ₺{salary_ann.get(rn, 0):.0f}k", ha='center', va='bottom', fontsize=12, fontweight='bold')
+        plt.ylim(0, 110)
+        plt.tight_layout()
+        plt.savefig(f'{self.figures_dir}/26_work_arrangement_by_role.png', dpi=300, bbox_inches='tight')
+        plt.close()
+
+    def create_correlation_heatmap(self) -> None:
+        """Seçilmiş metriklerin korelasyon ısı haritası"""
+        print("📊 Korelasyon ısı haritası oluşturuluyor...")
+        df = self.df.copy()
+        numeric = ['ortalama_maas', 'kariyer_seviyesi', 'cinsiyet', 'calisma_sekli']
+        prog_cols = [c for c in df.columns if c.startswith('prog_lang_')]
+        tool_cols = [c for c in df.columns if c.startswith('tools_')]
+        if prog_cols:
+            df['num_langs'] = df[prog_cols].sum(axis=1)
+            numeric.append('num_langs')
+        if tool_cols:
+            df['num_tools'] = df[tool_cols].sum(axis=1)
+            numeric.append('num_tools')
+        corr = df[numeric].corr()
+        plt.figure(figsize=(10, 8))
+        sns.heatmap(corr, annot=True, fmt='.2f', cmap='viridis', cbar_kws={'label': 'r'})
+        plt.title('Correlation Heatmap', fontsize=20, fontweight='bold', pad=20)
+        plt.tight_layout()
+        plt.savefig(f'{self.figures_dir}/27_correlation_heatmap.png', dpi=300, bbox_inches='tight')
+        plt.close()
+
+    def create_top_earners_traits(self) -> None:
+        """En yüksek maaşlı %10 kitlenin ortak özellikleri"""
+        print("🏆 Üst %10 kazananların özellikleri oluşturuluyor...")
+        df = self.df.copy()
+        if 'ortalama_maas' not in df.columns:
+            return
+        threshold = df['ortalama_maas'].quantile(0.9)
+        top = df[df['ortalama_maas'] >= threshold]
+        if top.empty:
+            return
+        cols_blocks = [
+            ('prog_lang_', 10),
+            ('frontend_', 5),
+            ('tools_', 8),
+            ('role_', 5)
+        ]
+        trait_counts = {}
+        for prefix, topn in cols_blocks:
+            cols = [c for c in top.columns if c.startswith(prefix)]
+            if not cols:
+                continue
+            counts = top[cols].sum().sort_values(ascending=False).head(topn)
+            for idx, val in counts.items():
+                name = idx.replace(prefix, '').replace('_', ' ').title()
+                trait_counts[name] = trait_counts.get(name, 0) + int(val)
+        if not trait_counts:
+            return
+        names, values = zip(*sorted(trait_counts.items(), key=lambda x: x[1], reverse=True)[:12])
+        plt.figure(figsize=(12, 8))
+        bars = plt.barh(names, values, color=VIRIDIS_COLORS['primary'])
+        plt.title('Common Traits among Top 10% Earners', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Count within Top 10%', fontsize=18, fontweight='bold')
+        plt.grid(True, axis='x', alpha=0.3, color='#E5E5E5')
+        plt.tight_layout()
+        plt.savefig(f'{self.figures_dir}/28_top_earners_traits.png', dpi=300, bbox_inches='tight')
+        plt.close()
         
         # 2. Saat bazlı maaş analizi
         self.df['timestamp'] = pd.to_datetime(self.df['timestamp'])
         self.df['anket_saati'] = self.df['timestamp'].dt.hour
         
         hour_groups = {
-            'Gece (00-06)': self.df[self.df['anket_saati'].between(0, 6)]['ortalama_maas'],
-            'Sabah (07-12)': self.df[self.df['anket_saati'].between(7, 12)]['ortalama_maas'],
-            'Öğleden Sonra (13-18)': self.df[self.df['anket_saati'].between(13, 18)]['ortalama_maas'],
-            'Akşam (19-23)': self.df[self.df['anket_saati'].between(19, 23)]['ortalama_maas']
+            'Night (00-06)': self.df[self.df['anket_saati'].between(0, 6)]['ortalama_maas'],
+            'Morning (07-12)': self.df[self.df['anket_saati'].between(7, 12)]['ortalama_maas'],
+            'Afternoon (13-18)': self.df[self.df['anket_saati'].between(13, 18)]['ortalama_maas'],
+            'Evening (19-23)': self.df[self.df['anket_saati'].between(19, 23)]['ortalama_maas']
         }
         
         plt.figure(figsize=(12, 8))
@@ -265,8 +556,10 @@ class PublicationQualityVisualizer:
         for patch in box_plot['boxes']:
             patch.set_facecolor(VIRIDIS_COLORS['primary'])
         
-        plt.title('11. Saat Bazlı Maaş Analizi', fontsize=20, fontweight='bold', pad=20)
-        plt.ylabel('Aylık Ortalama Net Maaş (bin TL)', fontsize=16)
+        plt.title('Hourly Salary Analysis', fontsize=20, fontweight='bold', pad=20)
+        plt.ylabel('Monthly Average Net Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/11_saat_bazli_maas_analizi.png', dpi=300, bbox_inches='tight')
@@ -289,9 +582,11 @@ class PublicationQualityVisualizer:
             
             plt.figure(figsize=(12, 8))
             bars = plt.barh(tech_names, roi_values, color=VIRIDIS_COLORS['secondary'], alpha=0.8)
-            plt.title('12. En Karlı Teknolojiler (ROI Analizi)', fontsize=20, fontweight='bold', pad=20)
-            plt.xlabel('ROI (%)', fontsize=16)
-            plt.ylabel('Teknoloji', fontsize=16)
+            plt.title('Most Profitable Technologies (ROI Analysis)', fontsize=20, fontweight='bold', pad=20)
+            plt.xlabel('ROI (%)', fontsize=18, fontweight='bold', labelpad=15)
+            plt.ylabel('Technology', fontsize=18, fontweight='bold', labelpad=15)
+            plt.xticks(fontsize=14, fontweight='bold')
+            plt.yticks(fontsize=14, fontweight='bold')
             plt.grid(True, alpha=0.3, color='#E5E5E5', axis='x')
             
             # Değerleri çubukların üzerine yaz
@@ -315,9 +610,11 @@ class PublicationQualityVisualizer:
         plt.figure(figsize=(12, 8))
         plt.plot(career_labels, career_means, marker='o', linewidth=3, markersize=10, 
                 color=VIRIDIS_COLORS['primary'])
-        plt.title('13. Kariyer Progression - Maaş Artışı', fontsize=20, fontweight='bold', pad=20)
-        plt.xlabel('Kariyer Seviyesi', fontsize=16)
-        plt.ylabel('Ortalama Maaş (bin TL)', fontsize=16)
+        plt.title('Career Progression - Salary Growth', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Career Level', fontsize=18, fontweight='bold', labelpad=15)
+        plt.ylabel('Average Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         
         # Değerleri çizginin üzerine yaz
@@ -344,9 +641,11 @@ class PublicationQualityVisualizer:
                     plt.figure(figsize=(12, 8))
                     sns.heatmap(pivot_data, annot=True, fmt='.1f', cmap='viridis', 
                                cbar_kws={'label': 'Ortalama Maaş (bin TL)'})
-                    plt.title('14. Çalışma Şekli × Lokasyon Etkileşimi', fontsize=20, fontweight='bold', pad=20)
-                    plt.xlabel('Şirket Lokasyonu', fontsize=16)
-                    plt.ylabel('Çalışma Şekli', fontsize=16)
+                    plt.title('Work Type × Location Interaction', fontsize=20, fontweight='bold', pad=20)
+                    plt.xlabel('Company Location', fontsize=18, fontweight='bold', labelpad=15)
+                    plt.ylabel('Work Type', fontsize=18, fontweight='bold', labelpad=15)
+                    plt.xticks(fontsize=14, fontweight='bold')
+                    plt.yticks(fontsize=14, fontweight='bold')
                     plt.tight_layout()
                     plt.savefig(f'{self.figures_dir}/14_calisma_lokasyon_etkilesimi.png', dpi=300, bbox_inches='tight')
                     plt.close()
@@ -369,10 +668,11 @@ class PublicationQualityVisualizer:
                         
                         plt.bar(x + i*width, means, width, label=work_type, alpha=0.8)
                     
-                    plt.title('14. Çalışma Şekli × Lokasyon Etkileşimi', fontsize=20, fontweight='bold', pad=20)
-                    plt.xlabel('Şirket Lokasyonu', fontsize=16)
-                    plt.ylabel('Ortalama Maaş (bin TL)', fontsize=16)
-                    plt.xticks(x + width, locations, rotation=45)
+                    plt.title('Work Type × Location Interaction', fontsize=20, fontweight='bold', pad=20)
+                    plt.xlabel('Company Location', fontsize=18, fontweight='bold', labelpad=15)
+                    plt.ylabel('Average Salary (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+                    plt.xticks(x + width, locations, rotation=45, fontsize=14, fontweight='bold')
+                    plt.yticks(fontsize=14, fontweight='bold')
                     plt.legend(fontsize=16)
                     plt.grid(True, alpha=0.3, color='#E5E5E5')
                     plt.tight_layout()
@@ -385,24 +685,24 @@ class PublicationQualityVisualizer:
         # Cinsiyet dağılımı
         gender_counts = self.df['cinsiyet'].value_counts()
         colors = ['#FF6B6B', '#4ECDC4']  # Erkek: kırmızı, Kadın: turkuaz
-        axes[0, 0].pie(gender_counts.values, labels=['Erkek', 'Kadın'], autopct='%1.1f%%', 
+        axes[0, 0].pie(gender_counts.values, labels=['Male', 'Female'], autopct='%1.1f%%', 
                       startangle=90, colors=colors, textprops={'fontweight': 'bold', 'fontsize': 14})
-        axes[0, 0].set_title('Cinsiyet Dağılımı', fontsize=18, fontweight='bold')
+        axes[0, 0].set_title('Gender Distribution', fontsize=18, fontweight='bold')
         
         # Kariyer seviyesi dağılımı
         career_counts = self.df['kariyer_seviyesi'].value_counts().sort_index()
         career_labels = [career_names[level] for level in career_counts.index]
         axes[0, 1].bar(career_labels, career_counts.values, color=VIRIDIS_COLORS['primary'])
-        axes[0, 1].set_title('Kariyer Seviyesi Dağılımı', fontsize=18, fontweight='bold')
-        axes[0, 1].set_ylabel('Kişi Sayısı', fontsize=16)
+        axes[0, 1].set_title('Career Level Distribution', fontsize=18, fontweight='bold')
+        axes[0, 1].set_ylabel('Number of People', fontsize=16)
         axes[0, 1].tick_params(axis='x', rotation=45)
         
         # Çalışma şekli dağılımı
         work_counts = self.df['calisma_sekli'].value_counts().sort_index()
         work_labels = ['Remote', 'Office', 'Hybrid']
         axes[1, 0].bar(work_labels, work_counts.values, color=VIRIDIS_COLORS['secondary'])
-        axes[1, 0].set_title('Çalışma Şekli Dağılımı', fontsize=18, fontweight='bold')
-        axes[1, 0].set_ylabel('Kişi Sayısı', fontsize=16)
+        axes[1, 0].set_title('Work Type Distribution', fontsize=18, fontweight='bold')
+        axes[1, 0].set_ylabel('Number of People', fontsize=16)
         
         # Lokasyon dağılımı
         location_cols = [col for col in self.df.columns if col.startswith('location_')]
@@ -415,8 +715,8 @@ class PublicationQualityVisualizer:
                 location_labels.append(col.replace('location_', '').replace('_', ' ').title())
         
         axes[1, 1].bar(location_labels, location_counts, color=VIRIDIS_COLORS['tertiary'])
-        axes[1, 1].set_title('Şirket Lokasyonu Dağılımı', fontsize=18, fontweight='bold')
-        axes[1, 1].set_ylabel('Kişi Sayısı', fontsize=16)
+        axes[1, 1].set_title('Company Location Distribution', fontsize=18, fontweight='bold')
+        axes[1, 1].set_ylabel('Number of People', fontsize=16)
         axes[1, 1].tick_params(axis='x', rotation=45)
         
         plt.tight_layout()
@@ -429,10 +729,11 @@ class PublicationQualityVisualizer:
         
         plt.figure(figsize=(12, 8))
         range_counts.plot(kind='bar', color=VIRIDIS_COLORS['secondary'])
-        plt.title('16. Maaş Aralıkları Dağılımı', fontsize=20, fontweight='bold', pad=20)
-        plt.xlabel('Maaş Aralığı (bin TL)', fontsize=16)
-        plt.ylabel('Kişi Sayısı', fontsize=16)
-        plt.xticks(rotation=45)
+        plt.title('Salary Range Distribution', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Salary Range (k TL)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.ylabel('Number of People', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(rotation=45, fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/16_maas_araliklari.png', dpi=300, bbox_inches='tight')
@@ -444,9 +745,11 @@ class PublicationQualityVisualizer:
         plt.figure(figsize=(12, 8))
         plt.plot(hour_counts.index, hour_counts.values, marker='o', linewidth=3, 
                 color=VIRIDIS_COLORS['primary'], markersize=8)
-        plt.title('17. Saat Bazlı Anket Katılımı', fontsize=20, fontweight='bold', pad=20)
-        plt.xlabel('Saat', fontsize=16)
-        plt.ylabel('Katılımcı Sayısı', fontsize=16)
+        plt.title('Hourly Survey Participation', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Hour', fontsize=18, fontweight='bold', labelpad=15)
+        plt.ylabel('Number of Participants', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/17_saat_bazli_katilim.png', dpi=300, bbox_inches='tight')
@@ -529,8 +832,10 @@ class PublicationQualityVisualizer:
         plt.figure(figsize=(12, 8))
         bars = plt.barh(list(top_languages.keys()), list(top_languages.values()), 
                        color=VIRIDIS_COLORS['secondary'])
-        plt.title('18. En Popüler Programlama Dilleri', fontsize=20, fontweight='bold', pad=20)
-        plt.xlabel('Kullanım Oranı (%)', fontsize=16)
+        plt.title('Most Popular Programming Languages', fontsize=20, fontweight='bold', pad=20)
+        plt.xlabel('Usage Rate (%)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5', axis='x')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/18_populer_programlama_dilleri.png', dpi=300, bbox_inches='tight')
@@ -549,9 +854,10 @@ class PublicationQualityVisualizer:
         plt.figure(figsize=(12, 8))
         bars = plt.bar(frontend_usage.keys(), frontend_usage.values(), 
                       color=VIRIDIS_COLORS['tertiary'])
-        plt.title('19. Frontend Framework Kullanım Oranları', fontsize=20, fontweight='bold', pad=20)
-        plt.ylabel('Kullanım Oranı (%)', fontsize=16)
-        plt.xticks(rotation=45)
+        plt.title('Frontend Framework Usage Rates', fontsize=20, fontweight='bold', pad=20)
+        plt.ylabel('Usage Rate (%)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(rotation=45, fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/19_frontend_framework_kullanimi.png', dpi=300, bbox_inches='tight')
@@ -572,9 +878,10 @@ class PublicationQualityVisualizer:
         
         plt.figure(figsize=(12, 8))
         bars = plt.bar(top_tools.keys(), top_tools.values(), color=VIRIDIS_COLORS['quaternary'])
-        plt.title('20. En Popüler Tool Kullanımı', fontsize=20, fontweight='bold', pad=20)
-        plt.ylabel('Kullanım Oranı (%)', fontsize=16)
-        plt.xticks(rotation=45)
+        plt.title('Most Popular Tool Usage', fontsize=20, fontweight='bold', pad=20)
+        plt.ylabel('Usage Rate (%)', fontsize=18, fontweight='bold', labelpad=15)
+        plt.xticks(rotation=45, fontsize=14, fontweight='bold')
+        plt.yticks(fontsize=14, fontweight='bold')
         plt.grid(True, alpha=0.3, color='#E5E5E5')
         plt.tight_layout()
         plt.savefig(f'{self.figures_dir}/20_populer_tool_kullanimi.png', dpi=300, bbox_inches='tight')
@@ -592,16 +899,24 @@ class PublicationQualityVisualizer:
         os.makedirs(self.figures_dir, exist_ok=True)
         
         # Görselleri oluştur
-        self.create_salary_distribution_charts()
-        self.create_basic_comparison_charts()
-        self.create_secondary_analysis_charts()
+        # self.create_salary_distribution_charts()
+        # self.create_basic_comparison_charts()
+        # self.create_secondary_analysis_charts()
+        # self.create_tech_combo_insights()
+        # self.create_skill_diversity_vs_salary()
+        # self.create_experience_usage_heatmap()
+        self.create_role_experience_salary_paths()
+        # self.create_tool_adoption_by_role_location()
+        # self.create_work_arrangement_by_role()
+        # self.create_correlation_heatmap()
+        # self.create_top_earners_traits()
         
-        print(f"✅ Toplam 20+ yayın kalitesinde görsel '{self.figures_dir}/' dizinine kaydedildi!")
-        print("📋 Tüm grafikler VISUAL_STANDARDS.md gereksinimlerine uygun:")
-        print("   - 12x8 inç boyut, 300 DPI, PNG format")
-        print("   - Arial font, belirtilen font boyutları")
-        print("   - Viridis renk paleti")
-        print("   - LaTeX entegrasyonu için optimize edilmiş")
+        # print(f"✅ Toplam 20+ yayın kalitesinde görsel '{self.figures_dir}/' dizinine kaydedildi!")
+        # print("📋 Tüm grafikler VISUAL_STANDARDS.md gereksinimlerine uygun:")
+        # print("   - 12x8 inç boyut, 300 DPI, PNG format")
+        # print("   - Arial font, belirtilen font boyutları")
+        # print("   - Viridis renk paleti")
+        # print("   - LaTeX entegrasyonu için optimize edilmiş")
 
 
 def main():

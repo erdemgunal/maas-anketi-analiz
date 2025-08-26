@@ -1,0 +1,10 @@
+The final analysis dataset comprises \SampleSize{} records and 81 variables derived from the original raw survey file. Major preprocessing steps included string normalization, categorical standardization, and one-hot encoding for multi-select questions.
+
+Key characteristics:
+\begin{itemize}[leftmargin=*]
+  \item Respondent count: \SampleSize{}
+  \item Variables: 81 (including engineered binary indicators for programming languages, roles, frontend frameworks, tools, work type, and company location)
+  \item Target variable: monthly net salary in thousand Turkish Lira, normalized to a numeric variable denoted as \texttt{ortalama\_maas}
+  \item Encoded categorical variables: gender, work arrangement (remote, office, hybrid), career level (ordered), company location (standardized groups)
+  \item Files: cleaned dataset at \texttt{data/cleaned\_data.csv}; figures in \texttt{figures/}; summary tables in \texttt{tables/}
+\end{itemize}
