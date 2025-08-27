@@ -20,12 +20,15 @@ import pandas as pd
 # Veri yükleme
 df = pd.read_csv('2025_maas_anket.csv')
 
-# Sütun adlarını İngilizce’ye çevirme
+# Sütun adlarını İngilizce'ye çevirme
 df.columns = [
     'timestamp', 'company_location', 'employment_type', 'work_mode', 'gender',
     'experience_years', 'level', 'programming_languages', 'role',
     'frontend_technologies', 'tools', 'salary_range'
 ]
+
+# Timestamp'i datetime objesine dönüştür
+df['timestamp'] = pd.to_datetime(df['timestamp'])
 
 # Eksik veri kontrolü
 assert df.isna().sum().sum() == 0, "Eksik veri tespit edildi!"
@@ -71,7 +74,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 mlb = MultiLabelBinarizer()
 for col in ['programming_languages', 'frontend_technologies', 'tools']:
     df[col] = df[col].str.split(',').fillna(['Hiçbiri'])
-    encoded = pd.DataFrame(mlb.fit_transform(df[col]), columns=[f'{col.split("_")[0]}__{x}' for x in mlb.classes_], index=df.index)
+    encoded = pd.DataFrame(mlb.fit_transform(df[col]), columns=[f'{col.split("_")[0]}__{x}' for x in mlb.classes_], index=df.index, dtype=int)
     df = pd.concat([df, encoded], axis=1)
 ```
 
@@ -91,25 +94,51 @@ for col in ['programming_languages', 'frontend_technologies', 'tools']:
     - `gender`: `Erkek=0`, `Kadın=1`.
     - `is_manager`: `Engineering Manager`, `Director Level Manager`, `C-Level Manager`, `Partner` → `1`, diğerleri → `0`.
   - **Yönetim ve Teknik Seviyeleri için Kategorik Kodlama**:
-    - `level` sütunu, tüm seviyeleri (teknik ve yönetim) ayrı kategoriler olarak ele almak için `pd.get_dummies` ile One-Hot Encoding’e tabi tutulur. Bu, aşağıdaki sütunları üretir:
+    - `level` sütunu, tüm seviyeleri (teknik ve yönetim) ayrı kategoriler olarak ele almak için `pd.get_dummies` ile One-Hot Encoding'e tabi tutulur. Bu, aşağıdaki sütunları üretir:
       - Teknik seviyeler: `management__Junior`, `management__Mid`, `management__Senior`, `management__Staff_Engineer`, `management__Team_Lead`, `management__Architect`.
       - Yönetim seviyeleri: `management__Engineering_Manager`, `management__Director_Level_Manager`, `management__C_Level_Manager`, `management__Partner`.
     - Bu sütunlar, spesifik bir seviyenin varlığını gösterir (örn. `management__Senior=1` bir çalışanın Senior olduğunu, `management__Engineering_Manager=1` bir çalışanın Engineering Manager olduğunu gösterir).
   - **Neden Hem Ordinal Hem Kategorik?**:
     - `level` sütunu, hem sıralı (teknik seviyeler için) hem de sıralı olmayan (yönetim rolleri için) kategoriler içerir. Bu yüzden:
       - **Ordinal Kodlama (`seniority_level_ic`)**: Teknik seviyeler arasındaki sıralı ilişkiyi (örn. Senior > Mid) analizlerde kullanmak için sayısal değerler atanır. Örneğin, maaşın seviye ile nasıl değiştiğini incelemek için.
-      - **Binary Kodlama (`is_manager`)**: Bir çalışanın yönetim rolünde olup olmadığını belirlemek için (örn. “Yöneticiler teknik çalışanlardan daha mı fazla kazanıyor?”).
-      - **Kategorik Kodlama (`management__*`)**: Her seviyeyi (teknik ve yönetim) ayrı bir kategori olarak ele almak için. Örneğin, “Engineering Manager’lar Director’lardan daha mı fazla kazanıyor?” gibi spesifik karşılaştırmalar için.
+      - **Binary Kodlama (`is_manager`)**: Bir çalışanın yönetim rolünde olup olmadığını belirlemek için (örn. "Yöneticiler teknik çalışanlardan daha mı fazla kazanıyor?").
+      - **Kategorik Kodlama (`management__*`)**: Her seviyeyi (teknik ve yönetim) ayrı bir kategori olarak ele almak için. Örneğin, "Engineering Manager'lar Director'lardan daha mı fazla kazanıyor?" gibi spesifik karşılaştırmalar için.
     - Bu yaklaşım, analizlerde esneklik sağlar:
       - `seniority_level_ic`: Teknik seviyeler arasındaki maaş farklarını veya hiyerarşik ilişkileri incelemek için.
       - `is_manager`: Yöneticiler ile teknik çalışanlar arasında genel karşılaştırmalar için.
       - `management__*`: Spesifik seviyeler (örn. Senior vs. Engineering Manager) arasında detaylı analizler için.
+  - **Sütun İsim Temizleme**:
+    - Encoding sonrası tüm sütun isimlerini temizle: boşlukları `_` ile değiştir, Türkçe karakterleri latinize et.
+    - Türkçe karakter dönüşümleri: `ı → i`, `ş → s`, `ğ → g`, `ü → u`, `ö → o`, `ç → c`, `İ → I`.
+    - Özel karakterler: `-` → `_`, `+` → `_plus`, `#` → `_sharp`, `&` → `_and`.
+    - Bu, sütun erişimini kolaylaştırır (örn. `df['management_Staff_Engineer']` yerine `df['management_Staff Engineer']` gibi hataları önler).
+    - Örnek: `company_location_Yurtdışı TR hub` → `company_location_Yurtdisi_TR_hub`.
 
 **Örnek Kod**:
 
 ```python
-# Kategorik encoding
-df = pd.get_dummies(df, columns=['company_location', 'employment_type', 'work_mode', 'role'])
+from unidecode import unidecode
+import re
+
+def clean_column_names(df):
+    """Sütun isimlerini temizle: boşlukları _ ile değiştir, Türkçe karakterleri latinize et"""
+    new_columns = {}
+    for col in df.columns:
+        # Türkçe karakterleri latinize et
+        cleaned = unidecode(col)
+        # Boşlukları _ ile değiştir
+        cleaned = re.sub(r'\s+', '_', cleaned)
+        # Özel karakterleri değiştir
+        cleaned = re.sub(r'[^a-zA-Z0-9_]', '_', cleaned)
+        # Birden fazla _'yi tek _'ye çevir
+        cleaned = re.sub(r'_+', '_', cleaned)
+        # Başındaki ve sonundaki _'leri kaldır
+        cleaned = cleaned.strip('_')
+        new_columns[col] = cleaned
+    return df.rename(columns=new_columns)
+
+# Kategorik encoding (sayısal 0/1 değerleri için dtype=int kullan)
+df = pd.get_dummies(df, columns=['company_location', 'employment_type', 'work_mode', 'role'], dtype=int)
 
 # Gender encoding
 df['gender'] = df['gender'].map({'Erkek': 0, 'Kadın': 1})
@@ -123,7 +152,14 @@ df['experience_years'] = df['experience_years'].map(experience_map)
 ic_map = {'Junior': 1, 'Mid': 2, 'Senior': 3, 'Staff Engineer': 4, 'Team Lead': 5, 'Architect': 6}
 df['seniority_level_ic'] = df['level'].map(ic_map).fillna(0)  # Yönetim rolleri için 0
 df['is_manager'] = df['level'].isin(['Engineering Manager', 'Director Level Manager', 'C-Level Manager', 'Partner']).astype(int)
-df = pd.get_dummies(df, columns=['level'], prefix='management')
+df = pd.get_dummies(df, columns=['level'], prefix='management', dtype=int)
+
+# Sütun isimlerini temizle
+df = clean_column_names(df)
+
+# Artık sütunlara güvenli şekilde erişebiliriz
+# Örnek: df['management_Staff_Engineer'] (boşluk olmadan)
+# Örnek: df['company_location_Yurtdisi_TR_hub'] (Türkçe karakter olmadan)
 ```
 
 ## 5. Çalışan Lokasyon Tahmini
@@ -178,7 +214,8 @@ df['salary_numeric'] = df['salary_numeric'].clip(lower=lower_bound, upper=upper_
 
 - **Amaç**: Ham veriyi işlenmiş haliyle `2025_cleaned_data.csv` olarak kaydetmek.
 - **Adımlar**:
-  - Tüm encoding’ler ve türetilmiş feature’lar (`salary_numeric`, `seniority_level_ic`, `is_manager`, `is_likely_in_company_location`) dahil edilir.
+  - Tüm encoding'ler ve türetilmiş feature'lar (`salary_numeric`, `seniority_level_ic`, `is_manager`, `is_likely_in_company_location`) dahil edilir.
+  - **ÖNEMLİ**: `timestamp` sütunu korunmalı ve datetime objesi olarak saklanmalı (saat bazlı analizler için).
   - Orijinal Türkçe sütunlar kaldırılır.
   - Çıktı: `2025_cleaned_data.csv` (grafik ve analiz için ana veri kaynağı).
 - **Not**: Bu dosya, Streamlit dashboard ve grafik üretiminde kullanılacak.
@@ -186,8 +223,10 @@ df['salary_numeric'] = df['salary_numeric'].clip(lower=lower_bound, upper=upper_
 **Örnek Kod**:
 
 ```python
-# Orijinal Türkçe sütunları kaldır
-df = df.drop(columns=['timestamp', 'salary_range', 'programming_languages', 'frontend_technologies', 'tools'])
+# Orijinal Türkçe sütunları kaldır (timestamp korunmalı)
+df = df.drop(columns=['salary_range', 'programming_languages', 'frontend_technologies', 'tools'])
+# timestamp sütununu datetime objesine dönüştür
+df['timestamp'] = pd.to_datetime(df['timestamp'])
 
 # Temizlenmiş veri kaydet
 df.to_csv('2025_cleaned_data.csv', index=False)
@@ -217,7 +256,7 @@ df.to_csv('2025_cleaned_data.csv', index=False)
 from scipy.stats import ttest_ind, mannwhitneyu, pearsonr
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
-# Örnek: Remote vs. Office maaş farkı
+# Örnek: Remote vs. Office maaş farkı (temizlenmiş sütun isimleri)
 remote_salaries = df[df['work_mode_Remote'] == 1]['salary_numeric']
 office_salaries = df[df['work_mode_Office'] == 1]['salary_numeric']
 t_stat, p_value = ttest_ind(remote_salaries, office_salaries, equal_var=False)
@@ -238,6 +277,10 @@ else:
 # Örnek: Post-hoc testi (seviye bazında maaş farkı)
 tukey = pairwise_tukeyhsd(endog=df['salary_numeric'], groups=df['seniority_level_ic'], alpha=0.05)
 print(tukey)
+
+# Örnek: Temizlenmiş sütun isimleri ile güvenli erişim
+# df['management_Staff_Engineer'] (boşluk olmadan)
+# df['company_location_Yurtdisi_TR_hub'] (Türkçe karakter olmadan)
 ```
 
 ## 9. Grafik Üretimi
@@ -251,6 +294,7 @@ print(tukey)
     - Lokasyon tahmini analizi: `sns.boxplot(x='is_likely_in_company_location', y='salary_numeric')`.
     - Programlama dili kullanımı: `sns.barplot(x='lang__Python', y='salary_numeric')`.
     - Deneyim vs. maaş ilişkisi: `sns.scatterplot(x='experience_years', y='salary_numeric')` (Pearson korelasyonu ile desteklenir).
+    - **Not**: Tüm sütun isimleri temizlenmiş haliyle kullanılır (örn. `management_Staff_Engineer`, `company_location_Yurtdisi_TR_hub`).
   - **Not**: Grafikler, “maaş farkı”, “popüler teknolojiler”, “deneyim-maaş ilişkisi” gibi merak uyandıran ilişkilere odaklanacak. `company_location` içeren grafiklerde şu not eklenecek:
     - “Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır (Office/Hybrid → şirket lokasyonunda). Kesin değildir.”
 - **Çıktı**: PNG veya interaktif grafikler (Streamlit için).

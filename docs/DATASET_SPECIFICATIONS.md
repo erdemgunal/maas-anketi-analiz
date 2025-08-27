@@ -33,11 +33,21 @@
 | Cinsiyet                                      | Erkek, Kadın                                                                                                                                                             | gender                                                                                 | Kategorik           | Binary (Erkek=0, Kadın=1)                                                                   |
 | Toplam kaç yıllık iş deneyimin var?           | Sayı / Aralık (0, 1, ..., 11-15, ..., 30+)                                                                                                                               | years_experience                                                                       | Ordinal (Numeric)   | Orta nokta: 11-15 → 13, 30+ → 30                                                            |
 | Hangi seviyedesin?                            | **IC:** Junior, Mid, Senior, Staff Engineer, Team Lead, Architect   **Yönetim:** Engineering Manager, Director Level Manager, C-Level Manager, Partner                   | seniority_level_ic (Ordinal, 1-6)   management_level (Kategorik)   is_manager (Binary) | Ordinal + Kategorik | **IC:** Ordinal (Junior=1, Architect=6)   **Yönetim:** One-Hot   **Flag:** is_manager (0/1) |
-| Hangi programlama dillerini kullanıyorsun     | Çoklu etiket (JavaScript, Python, C#, ...)                                                                                                                               | languages_used                                                                         | Çoklu Kategorik     | `MultiLabelBinarizer` (lang__Python, lang__JS, ...)                                         |
+| Hangi programlama dillerini kullanıyorsun     | Çoklu etiket (JavaScript, Python, C#, ...)                                                                                                                               | languages_used                                                                         | Çoklu Kategorik     | `MultiLabelBinarizer` (lang__Python, lang__JavaScript, ...)                                 |
 | Ne yapıyorsun?                                | Rol (Frontend, Backend, Fullstack, Flutter, ...)                                                                                                                         | role                                                                                   | Kategorik           | `pd.get_dummies` (One-Hot)                                                                  |
 | Frontend yazıyorsan hangilerini kullanıyorsun | Çoklu framework (React, Vue, Angular, Vanilla, Kullanmıyorum)                                                                                                            | frontend_technologies                                                                  | Çoklu Kategorik     | `MultiLabelBinarizer` (frontend__React, frontend__Vue, ...)                                 |
 | Hangi tool'ları kullanıyorsun                 | Çoklu tool (Redux, Zustand, Firebase, Supabase, ...)                                                                                                                     | tools                                                                                  | Çoklu Kategorik     | `MultiLabelBinarizer` (tool__Redux, tool__Firebase, ...)                                    |
 | Aylık ortalama net kaç bin TL alıyorsun?      | Maaş aralığı (0-10, 61-70, ..., 300+)                                                                                                                                    | salary_range (Ordinal)   salary_numeric (Numeric)                                      | Ordinal + Numeric   | Orta nokta: 61-70 → 65.5, 300+ → 350                                                        |
+
+### Temizlenmiş Sütun İsimleri Örnekleri
+| Orijinal İsim                    | Temizlenmiş İsim                 |
+|----------------------------------|----------------------------------|
+| company_location_Yurtdışı TR hub | company_location_Yurtdisi_TR_hub |
+| lang__Objective-C                | lang__Objective_C                |
+| role_SAP Developer               | role_SAP_Developer               |
+| management_Staff Engineer        | management_Staff_Engineer        |
+| frontend__React Native           | frontend__React_Native           |
+| tool__Firebase Cloud Firestore   | tool__Firebase_Cloud_Firestore   |
 
 ## Örnek Veri (İlk 3 Satır)
 | timestamp          | company_location | employment_type | work_mode | gender | experience_years | level  | programming_languages                    | role         | frontend_technologies | tools          | salary_range |
@@ -52,32 +62,45 @@
 - **Çoklu Değerler**: `programming_languages`, `frontend_technologies`, `tools` için virgülle ayrılmış değerler `MultiLabelBinarizer` ile multi-hot encoding’e dönüştürülecek.
 
 ## Veri İşleme Gereksinimleri
-1. **Maaş Normalizasyonu**:
-   - Aralıkları midpoint’e çevir: `0-10 → 5`, `61-70 → 65.5`, `300+ → 350`.
+1. **Sütun İsim Temizleme**:
+   - Encoding sonrası tüm sütun isimlerini temizle: boşlukları `_` ile değiştir, Türkçe karakterleri latinize et.
+   - Türkçe karakter dönüşümleri: `ı → i`, `ş → s`, `ğ → g`, `ü → u`, `ö → o`, `ç → c`, `İ → I`.
+   - Özel karakterler: `-` → `_`, `+` → `_plus`, `#` → `_sharp`, `&` → `_and`.
+   - Kod: `unidecode` kütüphanesi ve `str.replace()` ile regex kullanımı.
+   - Örnek: `company_location_Yurtdışı TR hub` → `company_location_Yurtdisi_TR_hub`.
+
+2. **Maaş Normalizasyonu**:
+   - Aralıkları midpoint'e çevir: `0-10 → 5`, `61-70 → 65.5`, `300+ → 350`.
    - Formül: `midpoint = (lower + upper) / 2` (`300+` için sabit 350).
    - Kod: `pandas` regex parsing (`str.extract`) ve sayısal dönüşüm.
    - Çıktı: `salary_numeric` sütunu.
-2. **Çoklu Seçim Parsing**:
+
+3. **Çoklu Seçim Parsing**:
    - `programming_languages`, `frontend_technologies`, `tools` için `str.split(',')` ve `sklearn.preprocessing.MultiLabelBinarizer`.
    - Örnek: `"HTML/CSS,JavaScript" → [1, 1, 0, ...]` (her etiket için binary sütun).
-3. **Kategorik Kodlama**:
+
+4. **Kategorik Kodlama**:
    - `company_location`, `employment_type`, `work_mode`, `role` için `pd.get_dummies`.
    - `experience_years` için ordinal: `0 → 0`, `11-15 → 13`, `30+ → 30`.
    - `seniority_level_ic` için ordinal: `Junior=1`, `Mid=2`, ..., `Architect=6`.
    - `management_level` için One-Hot; `is_manager` binary flag (`Engineering Manager`, `Director`, `C-Level`, `Partner` → 1).
    - `gender` için binary: `Erkek=0`, `Kadın=1`.
-4. **Eksik Veri İşleme**:
+
+5. **Eksik Veri İşleme**:
    - Eksik veri %0 olduğundan imputasyon gereksiz. Kodda kontrol için `df.isna().sum()` kullanılacak.
-5. **Aykırı Değerler**:
+
+6. **Aykırı Değerler**:
    - IQR yöntemi: `Q1 - 1.5*IQR` ve `Q3 + 1.5*IQR` ile sınırlandırma.
    - Örnek: `salary_numeric` > 350 bin TL için üst sınır capping.
-6. **Temizlenmiş Veri Seti**:
-   - Ham veri (`2025_maas_anket.csv`) işlendikten sonra, encode edilmiş ve türetilmiş feature’lar (ör. `salary_numeric`, `seniority_level_ic`, `is_manager`) ile `2025_cleaned_data.csv` oluşturulacak.
-   - Bu dosya, grafik üretimi ve analizlerde doğrudan kullanılacak (detaylar `METHODOLOGY.md`’de).
-7. **Çalışan Lokasyon Tahmini**:
+
+7. **Temizlenmiş Veri Seti**:
+   - Ham veri (`2025_maas_anket.csv`) işlendikten sonra, encode edilmiş ve türetilmiş feature'lar (ör. `salary_numeric`, `seniority_level_ic`, `is_manager`) ile `2025_cleaned_data.csv` oluşturulacak.
+   - Bu dosya, grafik üretimi ve analizlerde doğrudan kullanılacak (detaylar `METHODOLOGY.md`'de).
+
+8. **Çalışan Lokasyon Tahmini**:
    - Varsayım: `company_location` ve `work_mode` kombinasyonuna göre çalışanın lokasyonu tahmin edilebilir.
-   - Kural: `company_location="Avrupa"` ve `work_mode="Office"` veya `work_mode="Hybrid"` ise, çalışanın büyük olasılıkla Avrupa’da bulunduğu varsayılır.
-   - Not: Bu varsayım grafiklerde kullanılacak, ancak şu notla: “Çalışan lokasyonu tahmini, şirket lokasyonu ve çalışma şekline dayanır; %100 doğru olmayabilir.”
+   - Kural: `company_location="Avrupa"` ve `work_mode="Office"` veya `work_mode="Hybrid"` ise, çalışanın büyük olasılıkla Avrupa'da bulunduğu varsayılır.
+   - Not: Bu varsayım grafiklerde kullanılacak, ancak şu notla: "Çalışan lokasyonu tahmini, şirket lokasyonu ve çalışma şekline dayanır; %100 doğru olmayabilir."
 
 ## Notlar
 - **Gizlilik**: Sadece agregasyon seviyesinde raporlama, bireysel veriler k-anonimite (n≥10) ile maskelenecek.

@@ -15,7 +15,6 @@ Freelance
 Kendi işim
 Tam zamanlı
 Yarı zamanlı
-Toplam 4 farklı cevap
 
 ============================================================
 

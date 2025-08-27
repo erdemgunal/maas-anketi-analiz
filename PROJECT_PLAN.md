@@ -16,6 +16,8 @@
     *   Yeni sütun adları `lang__Python`, `frontend__React`, `tool__Redux` formatında olmalı.
 *   **Görev 1.4: Kategorik ve Sıralı Kodlama**
     *   `company_location`, `employment_type`, `work_mode`, `role` için **One-Hot Encoding** (`pd.get_dummies`) uygula.
+    *   **ÖNEMLİ**: Tüm One-Hot Encoding ve binary sütunların değerleri **sayısal `0` ve `1`** olmalı, `True`/`False` gibi boolean değerler olmamalı. `pd.get_dummies(dtype=int)` parametresi kullanılmalı.
+    *   Encoding sonrası sütun isimlerini temizle: Boşlukları `_` ile değiştir (örn. "Staff Engineer" → "Staff_Engineer"), Türkçe karakterleri latinize et (örn. "Yurtdışı TR hub" → "Yurtdisi_TR_hub").
     *   `experience_years` sütununu ordinal olarak sayısal değerlere dönüştür (örn. "11-15" → 13, "30+" → 30).
     *   `level` sütunundan **`seniority_level_ic`** (ordinal: Junior=1, Mid=2, ..., Architect=6) ve **`management_level`** (One-Hot) sütunlarını türet.
     *   Yönetim rolleri için **`is_manager`** (binary: 1=yönetici, 0=değil) bayrağını oluştur.
@@ -26,6 +28,7 @@
 *   **Görev 1.6: Aykırı Değer İşleme**
     *   `salary_numeric` sütununda IQR yöntemiyle **aykırı değerleri tespit et ve sınırlandır** (örn. üst sınır 350 bin TL).
 *   **Görev 1.7: Temizlenmiş Veri Setini Kaydet**
+    *   **ÖNEMLİ**: `timestamp` sütunu `2025_cleaned_data.csv` içinde korunmalı ve sadece datetime objesine dönüştürülmeli, silinmemeli. Bu sütun saat bazlı analizler için gerekli.
     *   Tüm işleme adımlarından sonra elde edilen veri setini `2025_cleaned_data.csv` olarak kaydet.
     *   Bu dosya, gelecek sprint'lerdeki analizler için ana veri kaynağı olacaktır.
 
@@ -83,7 +86,7 @@
     *   Teknoloji/araç kullanımı ve seviye arasındaki ilişkiyi gösteren bir **heatmap** oluştur (PNG ve Plotly).
 *   **Görev 3.5: İstihdam Türü Analizi ve Görselleştirme**
     *   Farklı istihdam türleri (`employment_type`) arasında maaş farkı olup olmadığını test et (ANOVA/Kruskal-Wallis ve Post-hoc testleri).
-    *   `employment_type` için maaş dağılımını gösteren **bar plot** oluştur (PNG ve Plotly).
+    *   `employment_type` için maaş dağılımını gösteren **boxplot** oluştur (PNG ve Plotly).
 *   **Görev 3.6: Saat Bazlı Anket Katılımı Analizi ve Görselleştirme**
     *   `timestamp` sütunundan anket doldurma saatini (`hour`) türet.
     *   Saat bazında maaş ortalamaları, rol ve demografik özelliklerdeki değişimleri incele (groupby('hour') ve ANOVA/Kruskal-Wallis).
@@ -101,7 +104,7 @@
 *   **Görev 4.2: Tüm Statik Grafikleri Rapora Entegre Etme**
     *   Sprint 2 ve 3'te üretilen tüm **PNG formatındaki grafikleri** (`\includegraphics` komutuyla) LaTeX raporuna ekle.
     *   Her grafiğe **anlaşılır ve merak uyandırıcı başlıklar** (örn. "Hangi Teknolojiler Daha Fazla Kazandırıyor?") ekle.
-    *   Lokasyon içeren tüm grafiklerde **uyarı notunu** (`"Tahmini lokasyon..."`) zorunlu olarak ekle.
+    *   Lokasyon içeren tüm grafiklerde **"Tahmini lokasyon..." uyarı notunu** zorunlu olarak ekle.
 *   **Görev 4.3: Hipotez Test Sonuçlarını Rapora Yazma**
     *   Sprint 2 ve 3'te yapılan tüm hipotez testlerinin sonuçlarını (ortalama farklar, p-değerleri, etki büyüklükleri) **iş dünyası dostu, sezgisel bir dille** rapora entegre et.
     *   Örn. "React bilenler ayda 15 bin TL daha fazla kazanıyor" gibi ifadeler kullan.
