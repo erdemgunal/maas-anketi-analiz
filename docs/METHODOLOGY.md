@@ -1,196 +1,305 @@
-# 🔬 METODOLOJI (METHODOLOGY)
+# Metodoloji
 
-## İstatistiksel Testler
+Bu doküman, `2025_maas_anket.csv` veri setinin temizlenmesi, ön işlenmesi, encode edilmesi, analiz için hazırlanması ve hipotez testleri süreçlerini detaylandırır. Temizlenmiş veri seti (`2025_cleaned_data.csv`) grafik üretimi ve analizlerde kullanılacaktır. Tüm adımlar, 100 satırlık örnek veri üzerinden test edilmiş ve tam veri seti (n=2,970) için genellenebilir. Adımlar, `DATASET_SPECIFICATIONS.MD` ile uyumludur ve istatistik bilmeyen okuyuculara hitap edecek şekilde ilgi çekici, anlaşılır ilişkiler vurgulanır.
 
-### Hipotez Testleri
+## 1. Veri Yükleme ve İlk Kontroller
+
+- **Amaç**: Ham veri setini (`2025_maas_anket.csv`) yüklemek ve temel kontrolleri yapmak.
+- **Adımlar**:
+  - Veri setini `pandas` ile yükle: `pd.read_csv('2025_maas_anket.csv')`.
+  - Eksik veri kontrolü: `df.isna().sum()` (örnek veride %0 eksik veri doğrulandı).
+  - Sütun adlarını İngilizce’ye çevir (ör. `Şirket lokasyon` → `company_location`).
+  - Veri tiplerini kontrol et: `df.dtypes`.
+- **Not**: Türkçe sütun adları, kodlama kolaylığı ve uluslararası paylaşım için İngilizce’ye çevrilecek.
+
+**Örnek Kod**:
+
 ```python
-# 1. Independent t-test: React vs non-React maaş karşılaştırması
-H0: μ_react = μ_non_react
-H1: μ_react ≠ μ_non_react
+import pandas as pd
 
-# 2. One-way ANOVA: Lokasyon bazlı maaş farkları
-H0: μ_turkey = μ_europe = μ_other
-H1: En az bir grup farklı
+# Veri yükleme
+df = pd.read_csv('2025_maas_anket.csv')
 
-# 3. One-way ANOVA: Şirket lokasyonu bazlı maaş farkları
-H0: μ_yurtdisi_tr_hub = μ_avrupa = μ_turkiye_merkez = μ_diger
-H1: En az bir grup farklı
+# Sütun adlarını İngilizce’ye çevirme
+df.columns = [
+    'timestamp', 'company_location', 'employment_type', 'work_mode', 'gender',
+    'experience_years', 'level', 'programming_languages', 'role',
+    'frontend_technologies', 'tools', 'salary_range'
+]
 
-# 4. Two-way ANOVA: Şirket lokasyonu × Çalışma şekli etkileşimi
-H0: Lokasyon ve çalışma şekli arasında etkileşim yok
-H1: Lokasyon ve çalışma şekli arasında etkileşim var
-
-# 5. Chi-square test: Cinsiyet vs teknoloji tercihi bağımsızlığı
-H0: Cinsiyet ve teknoloji tercihi bağımsız
-H1: Cinsiyet ve teknoloji tercihi bağımlı
-
-# 6. Pearson correlation: Deneyim vs maaş ilişkisi
-H0: ρ = 0 (Korelasyon yok)
-H1: ρ ≠ 0 (Korelasyon var)
-
-# 7. One-way ANOVA: Saat bazlı maaş farkları
-H0: μ_saat0 = μ_saat1 = ... = μ_saat23
-H1: En az bir saat grubu farklı
-
-# 8. Chi-square test: Saat vs rol/seviye/demografik özellik bağımsızlığı
-H0: Saat ve rol/seviye/demografik özellik bağımsız
-H1: Saat ve rol/seviye/demografik özellik bağımlı
-
-### Güven Aralıkları
-- **Confidence Level**: 95% (α = 0.05)
-- **Effect Size**: Cohen's d, eta-squared
-- **Power Analysis**: Minimum sample size hesaplaması
-
-## Veri İşleme Adımları
-
-### 1. Data Cleaning
-- **Maaş Normalizasyonu**: "61-70" → 65 (aralık ortalaması)
-- **Teknoloji Ayrıştırma**: "React, Redux" → ayrı dummy variables
-- **Timestamp Dönüşümü**: Timestamp sütunundan (örn: "8/20/2025 12:31:15") sadece saat bilgisini (0-23 arası) ayrıştırarak yeni bir Anket_Saati sütunu oluşturulacak
-- **Kategorik Kodlama**: Label encoding ve one-hot encoding
-- **Missing Values**: Imputation stratejileri
-- **Şirket Lokasyonu Standardizasyonu**: Farklı yazım şekillerini standart kategorilere dönüştürme
-
-### 2. Feature Engineering
-- **Skill Dummy Variables**: Her teknoloji için binary column
-- **Experience Numeric**: String deneyim → sayısal değer
-- **Interaction Terms**: Teknoloji × deneyim kombinasyonları
-- **Polynomial Features**: Non-linear ilişkiler için
-- **Lokasyon Kategorileri**: Şirket lokasyonunu standart kategorilere dönüştürme
-- **Çalışma Şekli × Lokasyon**: İki faktörün kombinasyonu
-
-### 3. Outlier Detection
-- **IQR Method**: Q1 - 1.5*IQR, Q3 + 1.5*IQR
-- **Z-Score**: |z| > 3 olan değerler
-- **Isolation Forest**: Statistical outlier detection
-
-### 4. Normalization
-- **PPP-adjusted**: Satın alma gücü paritesi
-- **Standard Scaling**: Z-score normalization
-- **Min-Max Scaling**: [0,1] aralığına çevirme
-
-## İstatistiksel Güç Analizi
-
-### Sample Size Calculation
-```python
-# Minimum sample size hesaplaması
-# Effect size = 0.3 (medium effect)
-# Power = 0.8
-# Alpha = 0.05
-
-# T-test için: n = 64 per group
-# ANOVA için: n = 52 per group
-# Correlation için: n = 84 total
-# Two-way ANOVA için: n = 45 per cell
+# Eksik veri kontrolü
+assert df.isna().sum().sum() == 0, "Eksik veri tespit edildi!"
+print(df.dtypes)
 ```
 
-### Effect Size Interpretation
-- **Cohen's d**: 0.2 (small), 0.5 (medium), 0.8 (large)
-- **Eta-squared**: 0.01 (small), 0.06 (medium), 0.14 (large)
-- **R²**: 0.02 (small), 0.13 (medium), 0.26 (large)
+## 2. Maaş Normalizasyonu
 
-## Veri Kalitesi Kontrolü
+- **Amaç**: `salary_range` sütununu sayısal bir feature’a (`salary_numeric`) dönüştürmek.
+- **Adımlar**:
+  - Aralıkları midpoint’e çevir: `0-10 → 5`, `61-70 → 65.5`, `300+ → 350`.
+  - Formül: `midpoint = (lower + upper) / 2` (`300+` için sabit 350).
+  - `pandas` ile regex parsing: `str.extract` kullanarak aralıkları ayır.
+- **Çıktı**: Yeni sütun `salary_numeric` (bin TL cinsinden).
 
-### Data Quality Metrics
-- **Completeness**: Eksik veri oranı
-- **Consistency**: Tutarlılık kontrolü
-- **Accuracy**: Doğruluk kontrolü
-- **Timeliness**: Güncellik
+**Örnek Kod**:
 
-### Validation Steps
-1. **Data Profiling**: Temel istatistikler
-2. **Distribution Analysis**: Normal dağılım kontrolü
-3. **Correlation Analysis**: Multicollinearity tespiti
-4. **Outlier Analysis**: Anomali tespiti
+```python
+def normalize_salary(bin_str):
+    if bin_str == '300 +':
+        return 350
+    lower, upper = map(float, bin_str.split(' - '))
+    return (lower + upper) / 2
 
-## Raporlama Standartları
+df['salary_range'] = df['salary_range'].str.replace('300 +', '300 - 300')
+df['salary_numeric'] = df['salary_range'].apply(normalize_salary)
+```
 
-### İstatistiksel Raporlama
-- **APA Format**: Statistical reporting standards
-- **Effect Sizes**: Her test için effect size
-- **Confidence Intervals**: %95 güven aralıkları
-- **P-values**: Exact p-values (p < 0.001)
+## 3. Çoklu Seçim Parsing
 
-### Görselleştirme Standartları
-- **Chart Types**: Uygun grafik türü seçimi
-- **Color Schemes**: Tutarlı renk paleti
-- **Data Labels**: Açık ve anlaşılır etiketler
-- **Interactive Elements**: Kullanıcı etkileşimi
+- **Amaç**: `programming_languages`, `frontend_technologies`, `tools` sütunlarındaki virgülle ayrılmış değerleri multi-hot encoding’e dönüştürmek.
+- **Adımlar**:
+  - Her sütun için `str.split(',')` ile değerleri ayır.
+  - `sklearn.preprocessing.MultiLabelBinarizer` ile binary sütunlar oluştur (ör. `lang__Python`, `frontend__React`, `tool_redux`).
+  - Boş değerler için `Hiçbiri` varsayımı.
+- **Çıktı**: Her etiket için binary sütunlar (ör. `lang__Python=1`).
 
-### Anlaşılırlık Standartları
-- **Eksen Etiketleri**: İstatistiksel terimler yerine günlük dil kullanımı
-  - "Frekans" → "Geliştirici Sayısı"
-  - "Yoğunluk" → "Oran"
-  - "Ortalama" → "Ortalama Maaş"
-- **Grafik Açıklamaları**: Her grafiğin altında "Bu Ne Anlama Geliyor?" bölümü
-- **İstatistiksel Terimler**: Basit dilde açıklama
-  - p-değeri: "Sonucun güvenilirliği"
-  - Korelasyon: "İlişki gücü"
-  - Standart sapma: "Değerlerin dağılımı"
+**Örnek Kod**:
 
-## Analiz Süreci
+```python
+from sklearn.preprocessing import MultiLabelBinarizer
 
-### 1. Keşifsel Veri Analizi (EDA)
-- **Descriptive Statistics**: Temel istatistikler
-- **Distribution Plots**: Dağılım görselleştirmeleri
-- **Correlation Matrix**: Korelasyon analizi
-- **Missing Data Analysis**: Eksik veri analizi
+mlb = MultiLabelBinarizer()
+for col in ['programming_languages', 'frontend_technologies', 'tools']:
+    df[col] = df[col].str.split(',').fillna(['Hiçbiri'])
+    encoded = pd.DataFrame(mlb.fit_transform(df[col]), columns=[f'{col.split("_")[0]}__{x}' for x in mlb.classes_], index=df.index)
+    df = pd.concat([df, encoded], axis=1)
+```
 
-### 2. İstatistiksel Testler
-- **Parametric Tests**: Normal dağılım varsayımı
-- **Non-parametric Tests**: Dağılım varsayımı yok
-- **Post-hoc Analysis**: Çoklu karşılaştırmalar
-- **Effect Size Calculation**: Etki büyüklüğü
+## 4. Kategorik Kodlama
 
-### 3. Saat Bazlı Analiz Metodolojisi
-- **Saat Bazlı Maaş Analizi**:
-  - Her bir Anket_Saati için ortalama maaş ve standart sapma hesaplanacak
-  - Saatler arasında ortalama maaşlarda anlamlı bir fark olup olmadığını belirlemek için ANOVA testi kullanılacak
-  - p-değerleri, etki büyüklükleri (eta-squared) ve %95 güven aralıkları raporlanacak
-- **Saat Bazlı Rol, Seviye ve Demografik Analizler**:
-  - Anket_Saati'ne göre rol, kariyer seviyesi ve demografik özelliklerin dağılımları incelenecek
-  - Bu dağılımlar arasında istatistiksel olarak anlamlı farklılıklar olup olmadığını belirlemek için Chi-square testi uygulanacak
-  - p-değerleri ve etki büyüklükleri raporlanacak
+- **Amaç**: Kategorik ve ordinal sütunları analiz için uygun formata dönüştürmek.
+- **Adımlar**:
+  - **Kategorik Sütunlar**:
+    - `company_location`, `employment_type`, `work_mode`, `role` için `pd.get_dummies` (One-Hot Encoding).
+    - Örnek: `company_location_Türkiye`, `company_location_Avrupa`.
+  - **Ordinal Sütunlar**:
+    - `experience_years`: Orta nokta ile sayısal dönüşüm (ör. `11-15 → 13`, `30+ → 30`).
+    - **`level` (Hangi seviyedesin?) için `seniority_level_ic`**:
+      - Teknik seviyeler (Junior, Mid, Senior, Staff Engineer, Team Lead, Architect) sıralı bir hiyerarşiye sahiptir (Junior < Mid < Senior < ... < Architect). Bu yüzden, bu seviyelere sayısal değerler atanır: `Junior=1`, `Mid=2`, `Senior=3`, `Staff Engineer=4`, `Team Lead=5`, `Architect=6`. Bu, `seniority_level_ic` sütununu oluşturur.
+      - Yönetim rolleri (Engineering Manager, Director Level Manager, C-Level Manager, Partner) bu sıralı hiyerarşiye uymaz, çünkü teknik rollerdense yönetimsel pozisyonlardır. Bu yüzden, bu rollere `seniority_level_ic` için `0` atanır.
+  - **Binary Sütunlar**:
+    - `gender`: `Erkek=0`, `Kadın=1`.
+    - `is_manager`: `Engineering Manager`, `Director Level Manager`, `C-Level Manager`, `Partner` → `1`, diğerleri → `0`.
+  - **Yönetim ve Teknik Seviyeleri için Kategorik Kodlama**:
+    - `level` sütunu, tüm seviyeleri (teknik ve yönetim) ayrı kategoriler olarak ele almak için `pd.get_dummies` ile One-Hot Encoding’e tabi tutulur. Bu, aşağıdaki sütunları üretir:
+      - Teknik seviyeler: `management__Junior`, `management__Mid`, `management__Senior`, `management__Staff_Engineer`, `management__Team_Lead`, `management__Architect`.
+      - Yönetim seviyeleri: `management__Engineering_Manager`, `management__Director_Level_Manager`, `management__C_Level_Manager`, `management__Partner`.
+    - Bu sütunlar, spesifik bir seviyenin varlığını gösterir (örn. `management__Senior=1` bir çalışanın Senior olduğunu, `management__Engineering_Manager=1` bir çalışanın Engineering Manager olduğunu gösterir).
+  - **Neden Hem Ordinal Hem Kategorik?**:
+    - `level` sütunu, hem sıralı (teknik seviyeler için) hem de sıralı olmayan (yönetim rolleri için) kategoriler içerir. Bu yüzden:
+      - **Ordinal Kodlama (`seniority_level_ic`)**: Teknik seviyeler arasındaki sıralı ilişkiyi (örn. Senior > Mid) analizlerde kullanmak için sayısal değerler atanır. Örneğin, maaşın seviye ile nasıl değiştiğini incelemek için.
+      - **Binary Kodlama (`is_manager`)**: Bir çalışanın yönetim rolünde olup olmadığını belirlemek için (örn. “Yöneticiler teknik çalışanlardan daha mı fazla kazanıyor?”).
+      - **Kategorik Kodlama (`management__*`)**: Her seviyeyi (teknik ve yönetim) ayrı bir kategori olarak ele almak için. Örneğin, “Engineering Manager’lar Director’lardan daha mı fazla kazanıyor?” gibi spesifik karşılaştırmalar için.
+    - Bu yaklaşım, analizlerde esneklik sağlar:
+      - `seniority_level_ic`: Teknik seviyeler arasındaki maaş farklarını veya hiyerarşik ilişkileri incelemek için.
+      - `is_manager`: Yöneticiler ile teknik çalışanlar arasında genel karşılaştırmalar için.
+      - `management__*`: Spesifik seviyeler (örn. Senior vs. Engineering Manager) arasında detaylı analizler için.
 
-### 4. Şirket Lokasyonu Analiz Metodolojisi
-- **Lokasyon Bazlı Maaş Analizi**:
-  - Her şirket lokasyonu kategorisi için ortalama maaş ve standart sapma hesaplanacak
-  - Lokasyonlar arasında anlamlı maaş farkları olup olmadığını belirlemek için ANOVA testi kullanılacak
-  - Post-hoc testler ile hangi lokasyonlar arasında fark olduğu belirlenecek
-- **Lokasyon × Çalışma Şekli Etkileşimi**:
-  - İki faktörün birlikte maaş üzerindeki etkisi analiz edilecek
-  - Two-way ANOVA ile etkileşim etkisi test edilecek
+**Örnek Kod**:
 
-### 5. Görselleştirme ve Raporlama
-- **Dashboard Creation**: İnteraktif dashboard
-- **Report Generation**: Detaylı raporlar
-- **Presentation Preparation**: Sunum materyalleri
-- **Insight Documentation**: İçgörü dokümantasyonu
+```python
+# Kategorik encoding
+df = pd.get_dummies(df, columns=['company_location', 'employment_type', 'work_mode', 'role'])
 
-## Sınırlılıklar ve Kısıtlamalar
+# Gender encoding
+df['gender'] = df['gender'].map({'Erkek': 0, 'Kadın': 1})
 
-### Veri Kalitesi Sınırlılıkları
-- **Eksik Veriler**: Bazı katılımcılardan eksik bilgi toplanması
-- **Yanlış Yanıtlar**: Anket sırasında yanlış bilgi verilmesi
-- **Örneklem Temsiliyeti**: Belirli gruplardan yetersiz veri toplanması
+# Experience years encoding
+experience_map = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
+                  '10': 10, '11 - 15': 13, '16 - 20': 18, '20 - 30': 25, '30+': 30}
+df['experience_years'] = df['experience_years'].map(experience_map)
 
-### Metodolojik Sınırlılıklar
-- **Cross-sectional Design**: Zaman içindeki değişimleri yakalayamama
-- **Self-reported Data**: Katılımcıların kendi bildirdiği veriler
-- **Selection Bias**: Gönüllü katılım nedeniyle oluşan yanlılık
+# Seniority level encoding
+ic_map = {'Junior': 1, 'Mid': 2, 'Senior': 3, 'Staff Engineer': 4, 'Team Lead': 5, 'Architect': 6}
+df['seniority_level_ic'] = df['level'].map(ic_map).fillna(0)  # Yönetim rolleri için 0
+df['is_manager'] = df['level'].isin(['Engineering Manager', 'Director Level Manager', 'C-Level Manager', 'Partner']).astype(int)
+df = pd.get_dummies(df, columns=['level'], prefix='management')
+```
 
-### Coğrafi Analiz Sınırlılıkları
-- **Fiziksel İkametgah Çıkarımındaki Sınırlılık**: `Şirket lokasyon` ve `Çalışma şekli` kombinasyonları analiz edilirken, özellikle `Yurtdışı TR hub` veya `Avrupa` lokasyonlu ve `Remote` çalışan kişilerin **fiziksel ikametgahının kesin olarak belirlenemediği** ve bunun coğrafi analizlerin önemli bir sınırlılığı olduğu
-- **Şirket Lokasyonu Standardizasyonu**: Farklı yazım şekilleri ve kategorilerin standartlaştırılmasındaki zorluklar
-- **Remote Çalışanların Gerçek Lokasyonu**: Remote çalışanların şirket lokasyonu ile ikametgahı arasındaki farklılıkların analiz edilememesi
-- **Coğrafi Arbitraj Analizi**: Farklı lokasyonlardaki maaş farklılıklarından yararlanma stratejilerinin tam olarak ölçülememesi
+## 5. Çalışan Lokasyon Tahmini
 
-### İstatistiksel Sınırlılıklar
-- **Multiple Testing**: Çoklu test yapılması nedeniyle Type I error riski
-- **Effect Size**: Küçük etki büyüklüklerinin pratik anlamlılığı
-- **Generalizability**: Sonuçların genellenebilirliği
+- **Amaç**: `company_location` ve `work_mode` kombinasyonuna göre çalışanın lokasyonunu tahmin etmek.
+- **Varsayım**: `company_location="Avrupa"` ve `work_mode="Office"` veya `work_mode="Hybrid"` ise, çalışanın büyük olasılıkla Avrupa’da bulunduğu varsayılır.
+- **Adımlar**:
+  - Yeni feature: `is_likely_in_company_location` (binary, 1=Office/Hybrid, 0=diğer).
+  - Grafiklerde not: “Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır (Office/Hybrid → şirket lokasyonunda). Kesin değildir.”
+- **Çıktı**: `is_likely_in_company_location` sütunu.
 
-### Zaman Bazlı Sınırlılıklar
-- **Veri Toplama Zamanı**: Anketin belirli bir dönemde toplanması
-- **Piyasa Değişkenliği**: Maaş verilerinin zaman içindeki değişkenliği
-- **Trend Analizi**: Uzun vadeli trendlerin yakalanamaması
+**Örnek Kod**:
+
+```python
+df['is_likely_in_company_location'] = ((df['work_mode'].isin(['Office', 'Hybrid'])) & (df['company_location'] != '')).astype(int)
+```
+
+## 6. Aykırı Değer İşleme
+
+- **Amaç**: `salary_numeric` için aykırı değerleri sınırlandırmak.
+- **Adımlar**:
+  - **IQR Yöntemi**: `Q1 - 1.5*IQR` ve `Q3 + 1.5*IQR` ile alt/üst sınırlar.
+  - **Z-Score Yöntemi**: |z| > 3 olan değerler aykırı kabul edilir ve sınırlandırılır.
+  - Üst sınır: `salary_numeric > 350` için capping (350’ye sabitle).
+  - Her iki yöntem karşılaştırılabilir; Z-Score daha hassas aykırı değer tespiti için tercih edilebilir.
+- **Not**: Örnek veride aykırı değer kontrolü yapıldı, `300+` zaten 350’ye sabitleniyor.
+
+**Örnek Kod**:
+
+```python
+import numpy as np
+
+# IQR yöntemi
+Q1 = df['salary_numeric'].quantile(0.25)
+Q3 = df['salary_numeric'].quantile(0.75)
+IQR = Q3 - Q1
+lower_bound_iqr = Q1 - 1.5 * IQR
+upper_bound_iqr = min(Q3 + 1.5 * IQR, 350)  # Üst sınır 350
+
+# Z-Score yöntemi
+z_scores = np.abs((df['salary_numeric'] - df['salary_numeric'].mean()) / df['salary_numeric'].std())
+upper_bound_z = df['salary_numeric'][z_scores <= 3].max()
+lower_bound_z = df['salary_numeric'][z_scores <= 3].min()
+
+# IQR ve Z-Score sınırlarını birleştir
+lower_bound = max(lower_bound_iqr, lower_bound_z)
+upper_bound = min(upper_bound_iqr, upper_bound_z, 350)
+df['salary_numeric'] = df['salary_numeric'].clip(lower=lower_bound, upper=upper_bound)
+```
+
+## 7. Temizlenmiş Veri Seti Oluşturma
+
+- **Amaç**: Ham veriyi işlenmiş haliyle `2025_cleaned_data.csv` olarak kaydetmek.
+- **Adımlar**:
+  - Tüm encoding’ler ve türetilmiş feature’lar (`salary_numeric`, `seniority_level_ic`, `is_manager`, `is_likely_in_company_location`) dahil edilir.
+  - Orijinal Türkçe sütunlar kaldırılır.
+  - Çıktı: `2025_cleaned_data.csv` (grafik ve analiz için ana veri kaynağı).
+- **Not**: Bu dosya, Streamlit dashboard ve grafik üretiminde kullanılacak.
+
+**Örnek Kod**:
+
+```python
+# Orijinal Türkçe sütunları kaldır
+df = df.drop(columns=['timestamp', 'salary_range', 'programming_languages', 'frontend_technologies', 'tools'])
+
+# Temizlenmiş veri kaydet
+df.to_csv('2025_cleaned_data.csv', index=False)
+```
+
+## 8. Hipotez Testleri
+
+- **Amaç**: Verideki ilişkileri istatistiksel olarak test etmek, ancak istatistik bilmeyen okuyucular için sonuçları basit ve sezgisel bir şekilde sunmak.
+- **Adımlar**:
+  - **Yöntemler**:
+    - **T-Testi** veya **Mann-Whitney U Testi**: İki grup arasında maaş farkı var mı? (örn. Remote vs. Office çalışanlar).
+    - **ANOVA** veya **Kruskal-Wallis Testi**: Çoklu gruplar arasında maaş farkı (örn. seviye bazında).
+    - **Post-hoc Testi (Tukey HSD)**: ANOVA sonrası hangi grupların farklı olduğunu belirlemek (örn. Junior vs. Senior maaş farkı).
+    - **Pearson Korelasyonu**: Sayısal değişkenler arasındaki ilişkiyi ölçmek (örn. deneyim yılı ile maaş arasındaki ilişki).
+    - Testler, istatistik bilmeyen okuyucular için “fark var mı?” veya “ilişki ne kadar güçlü?” gibi basit sorularla açıklanacak.
+  - **Örnek Hipotezler** (detaylar `ANALYSIS_OBJECTIVES.MD`’de):
+    - “Remote çalışanlar, ofis çalışanlarından daha yüksek maaş alıyor mu?”
+    - “Avrupa merkezli şirketlerde çalışanlar, Türkiye merkezli olanlara göre daha yüksek maaş alıyor mu?”
+    - “React kullanan frontend geliştiriciler, diğerlerinden daha yüksek maaş alıyor mu?”
+    - “Deneyim yılı arttıkça maaş artar mı?” (Pearson korelasyonu ile).
+  - **Not**: Test sonuçları, grafiklerle desteklenecek ve teknik terimler yerine anlaşılır ifadeler kullanılacak (örn. “ortalama maaş farkı” yerine “Remote çalışanlar ayda 20 bin TL daha fazla kazanıyor” veya “Deneyim yılı arttıkça maaş genellikle yükseliyor”).
+- **Çıktı**: Hipotez test sonuçları, `ANALYSIS_OBJECTIVES.MD`’de tanımlanan hedeflere göre raporlanacak.
+
+**Örnek Kod**:
+
+```python
+from scipy.stats import ttest_ind, mannwhitneyu, pearsonr
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
+
+# Örnek: Remote vs. Office maaş farkı
+remote_salaries = df[df['work_mode_Remote'] == 1]['salary_numeric']
+office_salaries = df[df['work_mode_Office'] == 1]['salary_numeric']
+t_stat, p_value = ttest_ind(remote_salaries, office_salaries, equal_var=False)
+print(f"Remote vs. Office maaş farkı: p-değeri = {p_value:.3f}")
+if p_value < 0.05:
+    print("Remote ve Office çalışanların maaşları arasında anlamlı bir fark var.")
+else:
+    print("Remote ve Office çalışanların maaşları arasında anlamlı bir fark yok.")
+
+# Örnek: Deneyim vs. maaş (Pearson korelasyonu)
+corr, p_value = pearsonr(df['experience_years'], df['salary_numeric'])
+print(f"Deneyim-Maaş korelasyonu: r = {corr:.3f}, p-değeri = {p_value:.3f}")
+if p_value < 0.05:
+    print("Deneyim yılı ile maaş arasında anlamlı bir ilişki var.")
+else:
+    print("Deneyim yılı ile maaş arasında anlamlı bir ilişki yok.")
+
+# Örnek: Post-hoc testi (seviye bazında maaş farkı)
+tukey = pairwise_tukeyhsd(endog=df['salary_numeric'], groups=df['seniority_level_ic'], alpha=0.05)
+print(tukey)
+```
+
+## 9. Grafik Üretimi
+
+- **Amaç**: `2025_cleaned_data.csv` kullanılarak istatistik bilmeyen okuyuculara hitap eden, ilgi çekici ve anlaşılır görselleştirmeler oluşturmak.
+- **Adımlar**:
+  - **Veri Kaynağı**: `2025_cleaned_data.csv`.
+  - **Araçlar**: `seaborn`, `matplotlib` veya Streamlit için `plotly`.
+  - **Örnek Grafikler**:
+    - Maaş dağılımı (seviye bazında): `sns.boxplot(x='seniority_level_ic', y='salary_numeric')`.
+    - Lokasyon tahmini analizi: `sns.boxplot(x='is_likely_in_company_location', y='salary_numeric')`.
+    - Programlama dili kullanımı: `sns.barplot(x='lang__Python', y='salary_numeric')`.
+    - Deneyim vs. maaş ilişkisi: `sns.scatterplot(x='experience_years', y='salary_numeric')` (Pearson korelasyonu ile desteklenir).
+  - **Not**: Grafikler, “maaş farkı”, “popüler teknolojiler”, “deneyim-maaş ilişkisi” gibi merak uyandıran ilişkilere odaklanacak. `company_location` içeren grafiklerde şu not eklenecek:
+    - “Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır (Office/Hybrid → şirket lokasyonunda). Kesin değildir.”
+- **Çıktı**: PNG veya interaktif grafikler (Streamlit için).
+
+**Örnek Kod** (Deneyim vs. maaş scatter plot):
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Deneyim vs. maaş scatter plot
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='experience_years', y='salary_numeric', data=df)
+plt.title('Deneyim Yılı ve Maaş İlişkisi')
+plt.xlabel('Deneyim Yılı')
+plt.ylabel('Aylık Net Maaş (bin TL)')
+plt.figtext(0.5, 0.01, 'Not: Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır (Office/Hybrid → şirket lokasyonunda). Kesin değildir.', 
+            ha='center', fontsize=10)
+plt.savefig('experience_vs_salary.png', dpi=300)
+plt.show()
+```
+
+## 10. Kalite Kontrol ve Doğrulama
+
+- **Amaç**: Veri işleme adımlarının doğruluğunu ve tekrarlanabilirliğini sağlamak.
+- **Adımlar**:
+  - Eksik veri kontrolü: `df.isna().sum()` (örnek veride 0).
+  - Encoding doğrulama: `pd.get_dummies` sonrası sütun sayısını kontrol et (`df.shape`).
+  - Maaş normalizasyonu kontrolü: `salary_numeric` dağılımı (`df['salary_numeric'].describe()`).
+  - Lokasyon tahmini kontrolü: `is_likely_in_company_location` dağılımı (`df['is_likely_in_company_location'].value_counts()`).
+  - Korelasyon kontrolü: `experience_years` ve `salary_numeric` arasındaki Pearson korelasyonu.
+- **Not**: Tüm adımlar bir Jupyter notebook’ta dokümante edilecek.
+
+**Örnek Kod**:
+
+```python
+# Kalite kontrol
+print("Eksik veri:", df.isna().sum().sum())
+print("Sütun sayısı:", df.shape[1])
+print("Maaş dağılımı:", df['salary_numeric'].describe())
+print("Lokasyon tahmini:", df['is_likely_in_company_location'].value_counts())
+corr, p_value = pearsonr(df['experience_years'], df['salary_numeric'])
+print(f"Deneyim-Maaş korelasyonu: r = {corr:.3f}, p-değeri = {p_value:.3f}")
+```
+
+## Notlar
+
+- **Erişim**: Google Sheets linki sınırlı (https://docs.google.com/spreadsheets/d/1J_MW7t9e2Yi1cErFe5XCnNGaFqXkrdufgZv9Ggnm-RE/edit?usp=sharing). Örnek veri (100 satır) ile test yapıldı, tam veri (n=2,970) önerilir.
+- **Gizlilik**: Analizler sadece agregasyon seviyesinde yapılacak, bireysel veriler k-anonimite (n≥10) ile maskelenecek.
+- **Timestamp**: Anket 2 günde toplandığından, zaman bazlı analiz sınırlı (örn. saatlik trendler anlamlı olmayabilir).
+- **Çalışan Lokasyon Tahmini**: `is_likely_in_company_location` feature’ı, grafiklerde ve alt grup analizlerinde kullanılacak. Grafiklerde not zorunlu: “Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır (Office/Hybrid → şirket lokasyonunda). Kesin değildir.”
+- **Okuyucu Odaklı Analiz**: Grafikler ve hipotez testleri, istatistik bilmeyen okuyucular için anlaşılır ve merak uyandıran ilişkiler (örn. maaş-lokasyon, maaş-rol, maaş-dil, deneyim-maaş) üzerine odaklanacak.

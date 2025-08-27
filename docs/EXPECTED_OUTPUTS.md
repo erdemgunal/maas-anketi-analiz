@@ -1,181 +1,124 @@
-# 📊 BEKLENEN ÇIKTILAR (EXPECTED OUTPUTS)
+# Beklenen Çıktılar
 
-## Grafikler (20+ PNG Files)
+Bu doküman, `2025_cleaned_data.csv` veri setinden üretilecek analiz çıktılarını tanımlar. Çıktılar, React staj grubu (~250 yazılımcı) ve geniş kitle (yazılım sektöründe maaş merak edenler) için tasarlanmıştır. Analizler, istatistik bilmeyen okuyuculara hitap edecek şekilde iş dünyası dostu, anlaşılır ve merak uyandırıcı içgörüler sunar. Çıktılar, `ANALYSIS_OBJECTIVES.md`’deki hedefler ve `METHODOLOGY.md`’deki yöntemlerle uyumludur. Tüm görselleştirmeler, hem statik (PNG) hem de interaktif (Streamlit dashboard) formatlarda sunulacaktır.
 
-### Temel Analiz Grafikleri
-```
-1. salary_distribution_histogram.png      # Maaş dağılımı
-2. experience_salary_scatter.png          # Deneyim vs maaş ilişkisi
-3. skill_combination_heatmap.png          # Teknoloji kombinasyonları
-4. location_salary_boxplot.png            # Lokasyon bazlı maaş karşılaştırması
-5. gender_analysis_stacked_bar.png        # Cinsiyet analizi
-```
+## 1. Genel Çıktı Türleri
+- **Statik Grafikler**: PNG formatında, LaTeX raporuna `\includegraphics` ile entegre edilecek.
+- **Interaktif Dashboard**: Streamlit platformunda, `plotly` ile interaktif grafikler.
+- **Rapor**: LaTeX ile Overleaf üzerinden yazılacak, statik grafikler içerecek.
+- **Başlıklar**: Anlaşılır ve merak uyandırıcı (örn. “Hangi Teknolojiler Daha Fazla Kazandırıyor?”, “Kariyer Seviyeleri ve Roller Maaşı Nasıl Etkiliyor?”, “Hangi İstihdam Türü Daha Kazançlı?”).
+- **Not**: `company_location` veya `is_likely_in_company_location` içeren grafiklerde şu not eklenecek: “Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır (Office/Hybrid → şirket lokasyonunda). Kesin değildir.”
 
-### Teknoloji Analiz Grafikleri
-```
-6. technology_popularity_wordcloud.png    # Popüler teknolojiler
-7. framework_comparison_bar.png           # Framework karşılaştırması
-8. skill_salary_correlation.png           # Skill-maaş korelasyonu
-9. tool_usage_analysis.png                # Tool kullanım analizi
-10. stack_roi_analysis.png                # Stack ROI analizi
-```
+## 2. Görselleştirme Çıktıları
+Aşağıdaki grafikler, `ANALYSIS_OBJECTIVES.md`’deki hedeflere ve `METHODOLOGY.md`’deki yöntemlere göre üretilecektir. Her grafik, hem PNG (statik) hem de `plotly` (interaktif) formatında sunulacaktır.
 
-### Kariyer ve Demografik Grafikleri
-```
-11. career_progression_line.png           # Kariyer ilerlemesi
-12. remote_vs_office_comparison.png       # Remote vs office karşılaştırması
-13. education_level_impact.png            # Eğitim seviyesi etkisi
-14. hourly_salary_trend.png               # Saat bazlı ortalama maaş çizgi grafiği
-15. hourly_role_distribution.png          # Saat bazlı rol dağılımı yığılmış çubuk grafiği
-```
+### 2.1. Boxplot Grafikler
+- **Amaç**: Maaş dağılımlarını farklı kategoriler için görselleştirmek.
+- **Detaylar**:
+  - **Kariyer Seviyeleri**: `seniority_level_ic` (Junior, Mid, Senior, Staff Engineer, Team Lead, Architect) için maaş dağılımları (`sns.boxplot(x='seniority_level_ic', y='salary_numeric')`).
+  - **Yönetim Seviyeleri**: `management_level` (Engineering Manager, Director Level Manager, C-Level Manager, Partner) için maaş dağılımları (`sns.boxplot(x='management_level', y='salary_numeric')`).
+  - **İstihdam Türü**: `employment_type` (Tam zamanlı, Yarı zamanlı, Freelance, Kendi işim) için maaş dağılımları (`sns.boxplot(x='employment_type', y='salary_numeric')`).
+  - **Çalışma Modeli**: `work_mode` (Remote, Hybrid, Office) için maaş dağılımları (`sns.boxplot(x='work_mode', y='salary_numeric')`).
+  - **Şirket Lokasyonu**: `company_location` (Türkiye, Avrupa, Amerika, Yurtdışı TR hub) için maaş dağılımları (`sns.boxplot(x='company_location', y='salary_numeric')`).
+  - **Cinsiyet**: `gender` (Erkek, Kadın) için maaş dağılımları (`sns.boxplot(x='gender', y='salary_numeric')`).
+  - **Rol**: `role` (Frontend, Backend, Fullstack, vb.) için maaş dağılımları (`sns.boxplot(x='role', y='salary_numeric')`).
+- **Çıktı**:
+  - PNG: Her boxplot, ayrı bir PNG dosyası olarak kaydedilecek (örn. `boxplot_seniority.png`, `boxplot_employment_type.png`).
+  - Interaktif: Streamlit dashboard’da `plotly` ile kullanıcıların filtreleme yapabileceği versiyonlar.
+- **Başlıklar**:
+  - “Kariyer Seviyelerine Göre Maaş Dağılımı”
+  - “Yönetim Seviyelerine Göre Maaş Dağılımı”
+  - “İstihdam Türüne Göre Maaş Dağılımı”
+  - “Remote mu, Ofis mi? Çalışma Modeline Göre Maaşlar”
+  - “Şirket Lokasyonunun Maaş Üzerindeki Etkisi”
+  - “Cinsiyet ve Maaş: Fark Var mı?”
+  - “Rollerin Maaş Üzerindeki Etkisi”
 
-### İstatistiksel Analiz Grafikleri
-```
-16. correlation_matrix_heatmap.png        # Korelasyon matrisi
-17. statistical_test_results.png          # İstatistiksel test sonuçları
-18. effect_size_comparison.png            # Etki büyüklüğü karşılaştırması
-19. confidence_interval_plots.png         # Güven aralığı grafikleri
-20. distribution_comparison.png           # Dağılım karşılaştırmaları
-21. hourly_career_level_distribution.png  # Saat bazlı kariyer seviyesi dağılımı
-22. hourly_demographic_distribution.png   # Saat bazlı demografik dağılım grafikleri
-```
+### 2.2. Bar Plot Grafikler
+- **Amaç**: Teknoloji, araç ve rollerin maaş getirilerini karşılaştırmak.
+- **Detaylar**:
+  - **Teknoloji ROI**: Tüm teknolojilerin (`languages_used`, `frontend_technologies`, `tools`) maaş ortalamaları, yüksekten düşüğe sıralı (`sns.barplot(x='technology', y='salary_numeric')`). Düşük etkili teknolojiler (%5’ten az fark) hariç tutulabilir.
+  - **Rol Karşılaştırması**: `role` (Frontend, Backend, Fullstack, vb.) için maaş ortalamaları (`sns.barplot(x='role', y='salary_numeric')`).
+  - **İstihdam Türü**: `employment_type` için maaş ortalamaları (`sns.barplot(x='employment_type', y='salary_numeric')`).
+  - **Saat Bazlı Katılım**: Anket doldurma saati (`hour`) ile maaş ortalamaları (`sns.barplot(x='hour', y='salary_numeric')`).
+  - **Cinsiyet Bazlı Teknoloji Kullanımı**: `gender` bazında `lang__*` veya `frontend__*` kullanım oranları (`sns.barplot(x='lang__Python', y='count', hue='gender')`).
+- **Çıktı**:
+  - PNG: Her bar plot, ayrı bir PNG dosyası olarak kaydedilecek (örn. `barplot_technology_roi.png`, `barplot_role.png`).
+  - Interaktif: Streamlit dashboard’da `plotly` ile filtreleme ve sıralama seçenekleri.
+- **Başlıklar**:
+  - “Hangi Teknolojiler Daha Fazla Kazandırıyor?”
+  - “Roller Arasında Maaş Farkları”
+  - “Tam Zamanlı mı, Freelance mi? İstihdam Türüne Göre Maaşlar”
+  - “Anket Katılım Saatine Göre Maaş Trendleri”
+  - “Kadın ve Erkek Geliştiricilerin Teknoloji Tercihleri”
 
-### Ek Analiz Grafikleri
-```
-23. salary_percentiles_by_role.png        # Rol bazlı maaş yüzdelikleri
-24. technology_trend_analysis.png         # Teknoloji trend analizi
-25. geographic_salary_heatmap.png         # Coğrafi maaş haritası
-26. experience_level_distribution.png     # Deneyim seviyesi dağılımı
-27. skill_gap_analysis.png                # Skill gap analizi
-```
+### 2.3. Scatter Plot Grafikler
+- **Amaç**: Deneyim yılı ile maaş arasındaki ilişkiyi görselleştirmek (career timeline).
+- **Detaylar**:
+  - **Deneyim vs. Maaş**: `years_experience` ile `salary_numeric` arasındaki ilişki, `seniority_level_ic` ile renklendirilmiş (`sns.scatterplot(x='years_experience', y='salary_numeric', hue='seniority_level_ic')`).
+- **Çıktı**:
+  - PNG: `scatterplot_experience_salary.png`.
+  - Interaktif: Streamlit dashboard’da `plotly` ile zoom ve filtreleme seçenekleri.
+- **Başlık**: “Deneyim Yılı ve Maaş: Kariyer Yolculuğu”
 
-## Tablolar
+### 2.4. Heatmap Grafikler
+- **Amaç**: Teknoloji/araç kombinasyonlarının maaş etkisini veya saat bazlı katılım trendlerini görselleştirmek.
+- **Detaylar**:
+  - **Teknoloji Kombinasyonları**: `lang__*`, `frontend__*`, `tool__*` arasındaki korelasyon ve maaş etkisi (`sns.heatmap`).
+  - **Saat Bazlı Katılım**: `hour` bazında rol veya maaş dağılımı (`sns.heatmap`).
+- **Çıktı**:
+  - PNG: `heatmap_tech_combinations.png`, `heatmap_hourly_participation.png`.
+  - Interaktif: Streamlit dashboard’da `plotly` ile dinamik heatmap.
+- **Başlıklar**:
+  - “Teknoloji Kombinasyonlarının Maaş Etkisi”
+  - “Anket Katılımında Saat Bazlı Trendler”
 
-### İstatistiksel Sonuç Tabloları
-```
-1. descriptive_statistics.csv             # Tanımlayıcı istatistikler
-2. hypothesis_test_results.csv            # Hipotez test sonuçları
-3. correlation_matrix.csv                 # Korelasyon matrisi
-4. anova_results.csv                      # ANOVA test sonuçları
-5. chi_square_results.csv                 # Chi-square test sonuçları
-6. hourly_analysis_results.csv            # Saat bazlı istatistiksel analiz sonuçları
-```
+### 2.5. Sankey Diyagramı
+- **Amaç**: Kariyer progression’ını görselleştirmek (Junior → Mid → Senior, yöneticilik rolleri).
+- **Detaylar**:
+  - **Kariyer Yolu**: `seniority_level_ic` ve `management_level` arasındaki geçişler (`plotly` ile Sankey diyagramı).
+- **Çıktı**:
+  - PNG: `sankey_career_progression.png`.
+  - Interaktif: Streamlit dashboard’da `plotly` ile kullanıcıların akışı inceleyebileceği versiyon.
+- **Başlık**: “Kariyer Yolculuğu: Junior’dan Senior’a, Yöneticiye”
 
-### Analiz Rapor Tabloları
-```
-6. technology_roi_ranking.csv             # Teknoloji ROI sıralaması
-7. salary_benchmarks.csv                  # Maaş benchmark'ları
-8. career_progression_data.csv            # Kariyer ilerleme verileri
-9. demographic_analysis.csv               # Demografik analiz sonuçları
-10. geographic_comparison.csv             # Coğrafi karşılaştırma
-```
+## 3. Raporlama Çıktıları
+- **Statik Rapor**:
+  - **Format**: LaTeX ile Overleaf üzerinden yazılacak.
+  - **İçerik**:
+    - Giriş: Projenin amacı, hedef kitle (React staj grubu ve geniş kitle).
+    - Analiz Sonuçları: Hipotez test sonuçları (örn. “React bilenler ayda 15 bin TL daha fazla kazanıyor”, p-değeri, etki büyüklüğü).
+    - Görselleştirmeler: Tüm grafikler PNG formatında, `\includegraphics` ile entegre.
+    - Öneriler: React staj grubu için (örn. “React + Zustand öğrenmek maaşı artırabilir”), geniş kitle için (örn. “Avrupa merkezli şirketlerde çalışmak maaşı artırır”).
+  - **Başlıklar**:
+    - “Hangi Teknolojiler Daha Fazla Kazandırıyor?”
+    - “Kariyer Seviyeleri ve Roller Maaşı Nasıl Etkiliyor?”
+    - “Hangi İstihdam Türü Daha Kazançlı?”
+    - “Remote mu, Ofis mi? Çalışma Modeline Göre Maaşlar”
+    - “Cinsiyet ve Maaş: Fark Var mı?”
+  - **Not**: Lokasyon bazlı grafiklerde: “Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır (Office/Hybrid → şirket lokasyonunda). Kesin değildir.”
+- **Çıktı**: PDF formatında LaTeX raporu (`maas_analizi_2025.pdf`).
 
-### Detaylı Analiz Tabloları
-```
-12. effect_size_summary.csv               # Etki büyüklüğü özeti
-13. statistical_power_analysis.csv        # İstatistiksel güç analizi
-14. outlier_analysis_results.csv          # Aykırı değer analizi
-15. data_quality_report.csv               # Veri kalite raporu
-16. benchmark_comparison.csv              # Benchmark karşılaştırması
-```
-
-## Ana Rapor
-
-### LaTeX PDF Raporu
-- **Boyut**: 15-20 sayfa bilimsel rapor
-- **Format**: LaTeX → PDF
+## 4. Interaktif Dashboard
+- **Platform**: Streamlit.
 - **İçerik**:
-  - Executive Summary (2 sayfa)
-  - Introduction (2 sayfa)
-  - Methodology (3 sayfa)
-  - Results (8 sayfa)
-  - Discussion (3 sayfa)
-  - Conclusion (2 sayfa)
-  - References (1 sayfa)
+  - **Filtreleme**: Kullanıcılar `company_location`, `employment_type`, `work_mode`, `role`, `seniority_level_ic`, `gender` bazında filtreleme yapabilir.
+  - **Grafikler**: Boxplot, bar plot, scatter plot, heatmap ve Sankey diyagramı (`plotly` ile interaktif).
+  - **İçgörüler**: Her grafiğin altında kısa açıklamalar (örn. “React bilenler ortalama %X daha fazla kazanıyor”).
+- **Çıktı**: Streamlit uygulaması (`app.py`), yerel veya bulut tabanlı erişim.
 
-### Executive Summary
-- **Boyut**: 2 sayfa özet
-- **İçerik**:
-  - Ana bulgular
-  - Kritik içgörüler
-  - Öneriler
-  - Sonuçlar
+## 5. Çıktıların Kullanım Senaryoları
+- **React Staj Grubu**:
+  - Teknoloji öğrenimi önerileri (örn. “React + Redux öğrenmek maaşı artırabilir”).
+  - Kariyer planlama: Junior’dan Mid’e geçiş için öneriler.
+- **Geniş Kitle**:
+  - Maaş trendleri: Hangi teknolojiler, roller veya çalışma modelleri daha kazançlı?
+  - Lokasyon etkisi: Avrupa veya Amerika merkezli şirketlerde çalışmanın avantajları.
+- **Zafer Ayan’ın LinkedIn Paylaşımı**:
+  - İlgi çekici başlıklar ve görseller (örn. “Hangi Teknolojiler Daha Fazla Kazandırıyor?”).
+  - Kısa, çarpıcı içgörüler (örn. “Remote çalışanlar ayda 20 bin TL daha fazla kazanıyor”).
 
-### Methodology Appendix
-- **Boyut**: Detaylı metodoloji
-- **İçerik**:
-  - İstatistiksel test detayları
-  - Veri işleme adımları
-  - Kalite kontrol sonuçları
-  - Analiz süreci dokümantasyonu
-
-## Dashboard
-
-### Streamlit Web Uygulaması
-- **URL**: Localhost:8501
-- **Özellikler**:
-  - İnteraktif grafikler
-  - Filtreleme seçenekleri
-  - Karşılaştırma modülleri
-  - Veri görselleştirme
-  - İstatistiksel analiz araçları
-
-### Dashboard Sayfaları
-```
-1. Ana Sayfa (Overview)
-2. Maaş Analizi (Salary Analysis)
-3. Teknoloji Karşılaştırması (Technology Comparison)
-4. Kariyer Rehberi (Career Guide)
-5. İstatistiksel Analiz (Statistical Analysis)
-6. Benchmark Karşılaştırması (Benchmark Comparison)
-```
-
-## Metadata ve Konfigürasyon
-
-### Proje Metadata
-```
-1. project_metadata.json                 # Proje bilgileri
-2. analysis_config.yaml                  # Analiz konfigürasyonu
-3. data_quality_report.json              # Veri kalite raporu
-4. statistical_analysis_summary.json     # İstatistiksel analiz özeti
-5. analysis_log.txt                      # Analiz log dosyası
-```
-
-## Kalite Standartları
-
-### Grafik Kalitesi
-- **Çözünürlük**: 300 DPI
-- **Format**: PNG (publication quality)
-- **Boyut**: 12x8 inches (standard)
-- **Renk Paleti**: Tutarlı renk şeması
-- **Font**: Arial, 12pt minimum
-
-### Tablo Formatları
-- **CSV**: Raw data export
-- **LaTeX**: Formatted tables
-- **Excel**: Readable format
-- **JSON**: Structured data
-
-### Rapor Standartları
-- **APA Format**: Academic standards
-- **Citations**: Proper references
-- **Figures**: Numbered and captioned
-- **Tables**: Formatted and labeled
-
-### İstatistiksel Raporlama
-- **Effect Sizes**: Her test için etki büyüklüğü
-- **Confidence Intervals**: %95 güven aralıkları
-- **P-values**: Exact p-values
-- **Sample Sizes**: Tüm analizler için örneklem büyüklüğü
-
-### Grafik Açıklama Standartları
-- **"Bu Ne Anlama Geliyor?" Bölümü**: Her grafiğin altında kısa açıklama
-- **İstatistiksel Terimler**: Basit dilde açıklama
-  - **Box Plot**: "Kutu ortasındaki çizgi ortalama maaşı, kutunun üst ve alt sınırları %75 ve %25'lik dilimleri gösterir"
-  - **Violin Plot**: "Şeklin genişliği o maaş aralığındaki geliştirici sayısını gösterir"
-  - **Histogram**: "Her sütun o maaş aralığındaki geliştirici sayısını gösterir"
-  - **Scatter Plot**: "Her nokta bir geliştiriciyi temsil eder, çizgi trendi gösterir"
-- **Eksen Etiketleri**: Anlaşılır birimler ve açıklamalar
-  - Y-ekseni: "Geliştirici Sayısı" veya "Ortalama Maaş (bin TL)"
-  - X-ekseni: "Maaş Aralığı (bin TL)" veya "Deneyim Yılı"
-- **Ana Bulgular**: Grafikteki en önemli 2-3 bulgu vurgulanmalı
+## 6. Notlar
+- **Erişim**: Google Sheets linki sınırlı (https://docs.google.com/spreadsheets/d/1J_MW7t9e2Yi1cErFe5XCnNGaFqXkrdufgZv9Ggnm-RE/edit?usp=sharing). Tam veri önerilir.
+- **Tekrarlanabilirlik**: Tüm grafikler ve dashboard, `METHODOLOGY.md`’deki kodlarla tekrarlanabilir.
+- **Dil**: Grafik ve raporlar, istatistik bilmeyen okuyucular için anlaşılır bir dilde sunulacak.

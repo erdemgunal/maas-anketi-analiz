@@ -1,5 +1,0 @@
-Analysis_Type,Test_Name,Statistic,P_Value,Significant,Interpretation
-Interaction Analysis,Work Type Effect,40.71857782402077,3.585617144385044e-18,True,Çalışma şekli maaş üzerinde anlamlı etki yaratıyor; Şirket lokasyonu maaş üzerinde anlamlı etki yaratıyor; Çalışma şekli ve lokasyon arasında anlamlı etkileşim var
-Interaction Analysis,Location Effect,121.58719803181344,2.8719693401779283e-74,True,Çalışma şekli maaş üzerinde anlamlı etki yaratıyor; Şirket lokasyonu maaş üzerinde anlamlı etki yaratıyor; Çalışma şekli ve lokasyon arasında anlamlı etkileşim var
-Time-based Analysis,Hourly Salary ANOVA,2.7359714214407846,0.042092897610618275,True,Saat bazlı maaş farkları anlamlı
-Career Progression,Career Level ANOVA,170.35526864620178,9.231592143904042e-71,True,Kariyer seviyeleri arasında anlamlı maaş farkları var

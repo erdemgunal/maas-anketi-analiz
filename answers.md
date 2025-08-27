@@ -1,4 +1,4 @@
-=== MAAS ANKET VERİLERİ - TEKRARSIZ CEVAPLAR ===
+=== MAAS ANKET VERİLERİ - CEVAPLAR ===
 
 📊 Şirket lokasyon:
 --------------------------------------------------
@@ -56,16 +56,17 @@ Kadın
 
 📊 Hangi seviyedesin?:
 --------------------------------------------------
-Architect
 C-Level Manager
 Director Level Manager
 Engineering Manager
+Staff Engineer
+
 Junior
 Mid
 Partner
 Senior
-Staff Engineer
 Team Lead
+Architect
 
 ============================================================
 
