@@ -114,9 +114,6 @@ Aşağıdaki grafikler, `ANALYSIS_OBJECTIVES.md`’deki hedeflere ve `METHODOLOG
 - **Geniş Kitle**:
   - Maaş trendleri: Hangi teknolojiler, roller veya çalışma modelleri daha kazançlı?
   - Lokasyon etkisi: Avrupa veya Amerika merkezli şirketlerde çalışmanın avantajları.
-- **Zafer Ayan’ın LinkedIn Paylaşımı**:
-  - İlgi çekici başlıklar ve görseller (örn. “Hangi Teknolojiler Daha Fazla Kazandırıyor?”).
-  - Kısa, çarpıcı içgörüler (örn. “Remote çalışanlar ayda 20 bin TL daha fazla kazanıyor”).
 
 ## 6. Notlar
 - **Erişim**: Google Sheets linki sınırlı (https://docs.google.com/spreadsheets/d/1J_MW7t9e2Yi1cErFe5XCnNGaFqXkrdufgZv9Ggnm-RE/edit?usp=sharing). Tam veri önerilir.

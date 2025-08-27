@@ -1,6 +1,6 @@
 # Başarı Kriterleri
 
-Bu belge, 2025 Yazılım Endüstrisi Maaş Analizi projesinin başarı kriterlerini tanımlamaktadır. Kriterler, projenin hedeflerine (`ANALYSIS_OBJECTIVES.md`), veri işleme gereksinimlerine (`DATASET_SPECIFICATIONS.md`, `METHODOLOGY.md`), beklenen çıktılara (`EXPECTED_OUTPUTS.md`), ürün gereksinimlerine (`PRD.md`) ve teknik yığına (TECHNICAL_STACK.md) uygun olup olmadığını değerlendirir. Proje, React stajyer grubu (~250 geliştirici) ve daha geniş bir kitle (ör. yazılım endüstrisi meraklıları, Zafer Ayan'ın LinkedIn takipçileri) için tasarlanmıştır.
+Bu belge, 2025 Yazılım Endüstrisi Maaş Analizi projesinin başarı kriterlerini tanımlamaktadır. Kriterler, projenin hedeflerine (`ANALYSIS_OBJECTIVES.md`), veri işleme gereksinimlerine (`DATASET_SPECIFICATIONS.md`, `METHODOLOGY.md`), beklenen çıktılara (`EXPECTED_OUTPUTS.md`), ürün gereksinimlerine (`PRD.md`) ve teknik yığına (TECHNICAL_STACK.md) uygun olup olmadığını değerlendirir. Proje, React stajyer grubu (~250 geliştirici) ve daha geniş bir kitle (ör. yazılım endüstrisi meraklıları, LinkedIn takipçileri) için tasarlanmıştır.
 
 ## 1. Genel Başarı Kriterleri
 Projenin başarısı, aşağıdaki ana kategorilerde değerlendirilecektir:
@@ -68,7 +68,7 @@ Projenin başarısı, aşağıdaki ana kategorilerde değerlendirilecektir:
 ### 2.5. Etkileşim ve Paylaşım
 - **LinkedIn Paylaşımı**:
   - **Kriter**: En az 1 çarpıcı grafik (örn. bar plot: “Hangi Teknolojiler Daha Fazla Kazandırıyor?”) ve başlık, LinkedIn’de paylaşılabilir olmalı.
-  - **Ölçüm**: Tahmini 100+ etkileşim (beğeni, yorum, paylaşım); Zafer Ayan’ın paylaşımı sonrası geri bildirim.
+  - **Ölçüm**: Tahmini 100+ etkileşim (beğeni, yorum, paylaşım); paylaşımlar sonrası geri bildirim.
   - **Referans**: `PRD.md`’deki kullanım senaryoları.
 - **Portfolyo Değeri**:
   - **Kriter**: Rapor ve dashboard, portfolyo için profesyonel bir çıktı olarak kullanılabilir olmalı.

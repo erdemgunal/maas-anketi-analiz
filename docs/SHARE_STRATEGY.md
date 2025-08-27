@@ -1,6 +1,6 @@
 # Paylaşım Stratejisi
 
-Bu belge, **2025 Yazılım Sektörü Maaş Analizi** projesinin sonuçlarını React stajyer grubu (~250 geliştirici) ile WhatsApp üzerinden paylaşma ve raporu daha geniş bir kitleye (ör. yazılım sektörü meraklıları, Zafer Ayan'ın LinkedIn takipçileri) yayma stratejisini özetlemektedir. Strateji, projenin hedefleri (`ANALYSIS_OBJECTIVES.md`), çıktıları (`EXPECTED_OUTPUTS.md`), gereksinimleri (`PRD.md`) ve başarı kriterleri (`SUCCESS_CRITERIA.md`) ile uyumludur. Projenin ulusal kapsamını yansıtmak için tüm içerik İngilizcedir.
+Bu belge, **2025 Yazılım Sektörü Maaş Analizi** projesinin sonuçlarını React stajyer grubu (~250 geliştirici) ile WhatsApp üzerinden paylaşma ve raporu daha geniş bir kitleye (ör. yazılım sektörü meraklıları, LinkedIn takipçileri) yayma stratejisini özetlemektedir. Strateji, projenin hedefleri (`ANALYSIS_OBJECTIVES.md`), çıktıları (`EXPECTED_OUTPUTS.md`), gereksinimleri (`PRD.md`) ve başarı kriterleri (`SUCCESS_CRITERIA.md`) ile uyumludur. Projenin ulusal kapsamını yansıtmak için tüm içerik İngilizcedir.
 
 ## 1. React Stajyer Grubu için WhatsApp İçeriği
 ### 1.1. Amaç
@@ -45,7 +45,7 @@ Kariyerinizde bir sonraki adımınız ne olacak? Hadi tartışalım! 👇
 ## 2. Rapor Yaygınlaştırma Stratejisi
 ### 2.1. Amaç
 - **Hedef**: Proje çıktılarını (LaTeX raporu, Streamlit kontrol paneli, ana görseller) daha geniş bir kitleyle paylaşarak görünürlüğü, güvenilirliği ve portföy değerini en üst düzeye çıkarmak.
-- **Hedef Kitlesi**: Yazılım endüstrisi profesyonelleri, meraklıları ve Zafer Ayan'ın LinkedIn ağı.
+- **Hedef Kitlesi**: Yazılım endüstrisi profesyonelleri, meraklıları ve LinkedIn ağı.
 - **Kanallar**: LinkedIn (birincil), portföy web siteleri ve ilgili teknoloji toplulukları (ör. Reddit, Discord).
 
 ### 2.2. LinkedIn Paylaşımı
@@ -78,7 +78,6 @@ Kariyerinizde bir sonraki adımınız ne olacak? Hadi tartışalım! 👇
 
 ### 2.3. Portföy Entegrasyonu
 - **İçerik**:
-  - Projeyi Zafer Ayan'ın portföyüne ekleyin (ör. kişisel web sitesi, GitHub).
   - Proje özetini (`PRD.md` dosyasından), önemli görselleri (PNG grafikleri) ve aşağıdaki bağlantıları ekleyin:
     - LaTeX raporu (`salary_analysis_2025.pdf`).
 - Streamlit kontrol paneli (Streamlit Cloud URL).
@@ -109,15 +108,15 @@ Kariyerinizde bir sonraki adımınız ne olacak? Hadi tartışalım! 👇
 ## 3. Uygulama Planı
 - **WhatsApp Paylaşımı**:
   - **Zamanlama**: Proje tamamlandıktan sonra 24 saat içinde paylaşın (5. aşama sonrası, `SUCCESS_CRITERIA.md`).
-  - **Sorumlu**: Zafer Ayan veya proje lideri.
+  - **Sorumlu**: Proje lideri.
   - **Hazırlık**: `barplot_technology_roi.png` dosyasını önceden oluşturun ve raporu/kontrol panelini Google Drive/Streamlit Cloud'a yükleyin.
 - **LinkedIn Paylaşımı**:
   - **Zamanlama**: Proje tamamlandıktan sonra 48 saat içinde ilk paylaşım, 1 hafta boyunca takip paylaşımları.
-  - **Sorumlu**: Zafer Ayan.
+  - **Sorumlu**: Proje lideri.
   - **Hazırlık**: `/docs/figures` içinden 2-3 PNG seçin, hashtag'lerle paylaşım taslakları hazırlayın ve Bitly ile bağlantıları kısaltın.
 - **Portföy Entegrasyonu**:
   - **Zamanlama**: Proje tamamlandıktan sonra 1 hafta içinde portföyü güncelleyin.
-  - **Sorumlu**: Zafer Ayan veya portföy yöneticisi.
+  - **Sorumlu**: Proje lideri veya portföy yöneticisi.
   - **Hazırlık**: Özet, görseller ve bağlantılar içeren proje sayfası oluşturun.
 - **Topluluk Paylaşımı**:
   - **Zamanlama**: LinkedIn gönderilerinden sonraki 1 hafta içinde 1-2 toplulukta paylaşın.
