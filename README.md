@@ -1,6 +1,6 @@
 # Dokümantasyon Paketi - 2025 Maaş Anketi Analizi
 
-Bu klasör, **2025 Türkiye Yazılım Sektörü Maaş Analizi** projesinin tüm dokümantasyonunu içermektedir.
+Bu klasör, **2025 Yazılım Sektörü Maaş Analizi** projesinin tüm dokümantasyonunu içermektedir.
 
 ## Ana Doküman
 
