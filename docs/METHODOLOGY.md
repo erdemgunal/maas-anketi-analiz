@@ -343,7 +343,6 @@ print(f"Deneyim-Maaş korelasyonu: r = {corr:.3f}, p-değeri = {p_value:.3f}")
 ## Notlar
 
 - **Erişim**: Google Sheets linki sınırlı (https://docs.google.com/spreadsheets/d/1J_MW7t9e2Yi1cErFe5XCnNGaFqXkrdufgZv9Ggnm-RE/edit?usp=sharing). Örnek veri (100 satır) ile test yapıldı, tam veri (n=2,970) önerilir.
-- **Gizlilik**: Analizler sadece agregasyon seviyesinde yapılacak, bireysel veriler k-anonimite (n≥10) ile maskelenecek.
-- **Timestamp**: Anket 2 günde toplandığından, zaman bazlı analiz sınırlı (örn. saatlik trendler anlamlı olmayabilir).
+- **Timestamp**: Anket 2 günde toplandığından, zaman bazlı analiz sınırlı (örn. saatlik trendler anlamlız).
 - **Çalışan Lokasyon Tahmini**: `is_likely_in_company_location` feature’ı, grafiklerde ve alt grup analizlerinde kullanılacak. Grafiklerde not zorunlu: “Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır (Office/Hybrid → şirket lokasyonunda). Kesin değildir.”
 - **Okuyucu Odaklı Analiz**: Grafikler ve hipotez testleri, istatistik bilmeyen okuyucular için anlaşılır ve merak uyandıran ilişkiler (örn. maaş-lokasyon, maaş-rol, maaş-dil, deneyim-maaş) üzerine odaklanacak.

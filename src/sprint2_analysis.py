@@ -9,15 +9,15 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.express as px
 import plotly.graph_objects as go
-from scipy.stats import ttest_ind, mannwhitneyu, f_oneway, kruskal
+from scipy.stats import ttest_ind, f_oneway, kruskal
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
 sns.set_palette("husl")
 plt.rcParams['font.family'] = 'DejaVu Sans'
 
 FIG_DIR = 'figures'
-LOCATION_NOTE = "Note: Estimated location is inferred from company location and work mode (Office/Hybrid → company location). Not definitive."
+LOCATION_NOTE = 'Note: Estimated location is inferred from company location and work mode (Office/Hybrid → company location). Not definitive. "Yurtdışı TR hub" responses are excluded from location-based inference.'
 
 def load_data() -> pd.DataFrame:
     df = pd.read_csv('data/2025_cleaned_data.csv')
@@ -41,23 +41,38 @@ def boxplots(df: pd.DataFrame):
     plt.figure(figsize=(12, 6))
     sns.boxplot(data=df, x='seniority_level_ic', y='salary_numeric')
     plt.title('Salary Distribution by Career Level', fontsize=14, fontweight='bold')
-    plt.xlabel('Career Level (0=Management, 1=Junior, 2=Mid, 3=Senior, 4=Staff, 5=Architect)')
-    plt.ylabel('Monthly Net Salary (thousand TL)')
+    plt.xlabel('Career Level (0=Management, 1=Junior, 2=Mid, 3=Senior, 4=Staff, 5=Architect)', fontsize=18)
+    plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
     plt.tight_layout()
     plt.savefig(os.path.join(FIG_DIR, 'boxplot_seniority.png'), dpi=300, bbox_inches='tight')
     plt.close()
 
-    # Management Level vs Salary (if exists)
-    if 'management_level' in df.columns:
-        plt.figure(figsize=(12, 6))
-        sns.boxplot(data=df, x='management_level', y='salary_numeric')
-        plt.title('Salary Distribution by Management Level', fontsize=14, fontweight='bold')
-        plt.xlabel('Management Level')
-        plt.ylabel('Monthly Net Salary (thousand TL)')
-        plt.xticks(rotation=45)
-        plt.tight_layout()
-        plt.savefig(os.path.join(FIG_DIR, 'boxplot_management_level.png'), dpi=300, bbox_inches='tight')
-        plt.close()
+    # Management Level vs Salary (derived from is_manager + management_* one-hots)
+    if 'is_manager' in df.columns:
+        management_cols = [c for c in df.columns if c.startswith('management_')]
+        managers = df[df['is_manager'] == 1].copy()
+        if not managers.empty and management_cols:
+            # Derive a human-readable management level per row from one-hot columns
+            def get_management_level(row):
+                for col in management_cols:
+                    try:
+                        if row[col] == 1:
+                            return col.replace('management_', '').replace('_', ' ')
+                    except KeyError:
+                        continue
+                return 'Unknown'
+
+            managers['management_level_label'] = managers.apply(get_management_level, axis=1)
+            if managers['management_level_label'].nunique() > 1 or managers['management_level_label'].iloc[0] != 'Unknown':
+                plt.figure(figsize=(12, 6))
+                sns.boxplot(data=managers, x='management_level_label', y='salary_numeric')
+                plt.title('Salary Distribution by Management Level', fontsize=14, fontweight='bold')
+                plt.xlabel('Management Level', fontsize=18)
+                plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
+                plt.xticks(rotation=45)
+                plt.tight_layout()
+                plt.savefig(os.path.join(FIG_DIR, 'boxplot_management_level.png'), dpi=300, bbox_inches='tight')
+                plt.close()
 
     # Work Mode vs Salary
     work_modes = []
@@ -71,9 +86,9 @@ def boxplots(df: pd.DataFrame):
                 work_labels.append(mode)
     if work_modes:
         plt.figure(figsize=(10, 6))
-        plt.boxplot(work_modes, labels=work_labels)
+        plt.boxplot(work_modes, tick_labels=work_labels)
         plt.title('Salary Distribution by Work Mode', fontsize=14, fontweight='bold')
-        plt.ylabel('Monthly Net Salary (thousand TL)')
+        plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
         plt.tight_layout()
         plt.savefig(os.path.join(FIG_DIR, 'boxplot_work_mode.png'), dpi=300, bbox_inches='tight')
         plt.close()
@@ -97,9 +112,9 @@ def boxplots(df: pd.DataFrame):
                 loc_labels.append(location_label_map.get(loc, loc.replace('_', ' ')))
     if loc_series:
         plt.figure(figsize=(12, 6))
-        plt.boxplot(loc_series, labels=loc_labels)
+        plt.boxplot(loc_series, tick_labels=loc_labels)
         plt.title('Salary Distribution by Company Location', fontsize=14, fontweight='bold')
-        plt.ylabel('Monthly Net Salary (thousand TL)')
+        plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
         plt.figtext(0.5, 0.01, LOCATION_NOTE, ha='center', fontsize=9, style='italic')
         plt.tight_layout()
         plt.savefig(os.path.join(FIG_DIR, 'boxplot_company_location.png'), dpi=300, bbox_inches='tight')
@@ -109,8 +124,8 @@ def boxplots(df: pd.DataFrame):
     plt.figure(figsize=(8, 6))
     sns.boxplot(data=df, x='gender', y='salary_numeric')
     plt.title('Salary Distribution by Gender', fontsize=14, fontweight='bold')
-    plt.xlabel('Gender (0=Male, 1=Female)')
-    plt.ylabel('Monthly Net Salary (thousand TL)')
+    plt.xlabel('Gender (0=Male, 1=Female)', fontsize=18)
+    plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
     plt.tight_layout()
     plt.savefig(os.path.join(FIG_DIR, 'boxplot_gender.png'), dpi=300, bbox_inches='tight')
     plt.close()
@@ -135,9 +150,9 @@ def boxplots(df: pd.DataFrame):
                 labels.append(employment_label_map.get(raw, raw.replace('_', ' ')))
         if data:
             plt.figure(figsize=(12, 6))
-            plt.boxplot(data, labels=labels)
+            plt.boxplot(data, tick_labels=labels)
             plt.title('Salary Distribution by Employment Type', fontsize=14, fontweight='bold')
-            plt.ylabel('Monthly Net Salary (thousand TL)')
+            plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
             plt.xticks(rotation=20)
             plt.tight_layout()
             plt.savefig(os.path.join(FIG_DIR, 'boxplot_employment_type.png'), dpi=300, bbox_inches='tight')
@@ -162,7 +177,7 @@ def barplots(df: pd.DataFrame):
         bars = plt.barh(names, means, color='skyblue')
         plt.gca().invert_yaxis()
         plt.title('Average Salary by Role (Top 15)', fontsize=14, fontweight='bold')
-        plt.xlabel('Average Monthly Net Salary (thousand TL)')
+        plt.xlabel('Average Monthly Net Salary (thousand TL)', fontsize=18)
         for i, (bar, m, n) in enumerate(zip(bars, means, counts)):
             plt.text(m + 2, i, f'{m:.1f}\n({n} people)', va='center', fontsize=9)
         plt.tight_layout()
@@ -187,8 +202,8 @@ def barplots(df: pd.DataFrame):
             bars = plt.barh(names, rois, color=colors)
             plt.gca().invert_yaxis()
             plt.title(title, fontsize=14, fontweight='bold')
-            plt.xlabel('Average Salary Difference vs Non-users (thousand TL)')
-            plt.ylabel(ylabel)
+            plt.xlabel('Average Salary Difference vs Non-users (thousand TL)', fontsize=18)
+            plt.ylabel(ylabel, fontsize=18)
             for i, (bar, r, n) in enumerate(zip(bars, rois, counts)):
                 xoff = 1 if r >= 0 else -1
                 halign = 'left' if r >= 0 else 'right'
@@ -235,11 +250,11 @@ def gender_technology_usage(df: pd.DataFrame):
             plt.figure(figsize=(14, 8))
             plt.bar(x - width/2, male_pct, width, label='Male', color='skyblue')
             plt.bar(x + width/2, female_pct, width, label='Female', color='lightcoral')
-            plt.xlabel('Programming Language')
-            plt.ylabel('Usage Percentage (%)')
+            plt.xlabel('Programming Language', fontsize=18)
+            plt.ylabel('Usage Percentage (%)', fontsize=18)
             plt.title('Programming Language Usage by Gender (Top 10)', fontsize=14, fontweight='bold')
             plt.xticks(x, langs, rotation=45)
-            plt.legend()
+            plt.legend(loc='upper right', frameon=True, fontsize="large", fancybox=True, shadow=True, borderpad=1)
             plt.tight_layout()
             plt.savefig(os.path.join(FIG_DIR, 'barplot_gender_programming.png'), dpi=300, bbox_inches='tight')
             plt.close()
@@ -272,11 +287,11 @@ def gender_technology_usage(df: pd.DataFrame):
             plt.figure(figsize=(12, 6))
             plt.bar(x - width/2, male_pct, width, label='Male', color='skyblue')
             plt.bar(x + width/2, female_pct, width, label='Female', color='lightcoral')
-            plt.xlabel('Frontend Technology')
-            plt.ylabel('Usage Percentage (%)')
+            plt.xlabel('Frontend Technology', fontsize=18)
+            plt.ylabel('Usage Percentage (%)', fontsize=18)
             plt.title('Frontend Technology Usage by Gender (Top 8)', fontsize=14, fontweight='bold')
             plt.xticks(x, techs, rotation=45)
-            plt.legend()
+            plt.legend(loc='upper right', frameon=True, fontsize="large", fancybox=True, shadow=True, borderpad=1)
             plt.tight_layout()
             plt.savefig(os.path.join(FIG_DIR, 'barplot_gender_frontend.png'), dpi=300, bbox_inches='tight')
             plt.close()
@@ -288,8 +303,8 @@ def scatter_career_timeline(df: pd.DataFrame):
     plt.figure(figsize=(10, 6))
     sns.scatterplot(data=df, x='experience_years', y='salary_numeric', hue='seniority_level_ic', palette='viridis', s=25, edgecolor=None)
     plt.title('Experience vs Salary (colored by Career Level)', fontsize=14, fontweight='bold')
-    plt.xlabel('Years of Experience')
-    plt.ylabel('Monthly Net Salary (thousand TL)')
+    plt.xlabel('Years of Experience', fontsize=18)
+    plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
     plt.legend(title='Career Level', bbox_to_anchor=(1.02, 1), loc='upper left')
     plt.tight_layout()
     plt.savefig(os.path.join(FIG_DIR, 'scatter_experience_salary.png'), dpi=300, bbox_inches='tight')
@@ -334,8 +349,8 @@ def hourly_participation(df: pd.DataFrame):
     plt.figure(figsize=(12, 6))
     sns.barplot(data=hourly, x='hour', y='avg_salary', color='steelblue')
     plt.title('Average Salary by Survey Hour', fontsize=14, fontweight='bold')
-    plt.xlabel('Hour of Day (0-23)')
-    plt.ylabel('Average Monthly Net Salary (thousand TL)')
+    plt.xlabel('Hour of Day (0-23)', fontsize=18)
+    plt.ylabel('Average Monthly Net Salary (thousand TL)', fontsize=18)
     plt.tight_layout()
     plt.savefig(os.path.join(FIG_DIR, 'barplot_hourly_avg_salary.png'), dpi=300, bbox_inches='tight')
     plt.close()
@@ -344,8 +359,8 @@ def hourly_participation(df: pd.DataFrame):
     plt.figure(figsize=(12, 6))
     sns.barplot(data=hourly, x='hour', y='participants', color='indianred')
     plt.title('Participants by Survey Hour', fontsize=14, fontweight='bold')
-    plt.xlabel('Hour of Day (0-23)')
-    plt.ylabel('Number of Participants')
+    plt.xlabel('Hour of Day (0-23)', fontsize=18)
+    plt.ylabel('Number of Participants', fontsize=18)
     plt.tight_layout()
     plt.savefig(os.path.join(FIG_DIR, 'barplot_hourly_participants.png'), dpi=300, bbox_inches='tight')
     plt.close()
@@ -365,8 +380,8 @@ def hourly_participation(df: pd.DataFrame):
         plt.figure(figsize=(12, 6))
         sns.heatmap(role_mat.T, cmap='Blues', cbar_kws={'label': 'Share at Hour'})
         plt.title('Role Distribution by Hour (Share)', fontsize=14, fontweight='bold')
-        plt.xlabel('Hour of Day (0-23)')
-        plt.ylabel('Role')
+        plt.xlabel('Hour of Day (0-23)', fontsize=18)
+        plt.ylabel('Role', fontsize=18)
         plt.tight_layout()
         plt.savefig(os.path.join(FIG_DIR, 'heatmap_roles_by_hour.png'), dpi=300, bbox_inches='tight')
         plt.close()
@@ -513,6 +528,84 @@ def perform_statistical_tests(df: pd.DataFrame):
         print(f"  Effect size (Cohen's d): {result['effect_size']:.3f}")
         print(f"  Significant: {result['significant']}")
     
+    # ================= GROUP COMPARISONS: Seniority Levels =================
+    if 'seniority_level_ic' in df.columns:
+        valid = df[['seniority_level_ic', 'salary_numeric']].dropna()
+        groups = [g['salary_numeric'].values for _, g in valid.groupby('seniority_level_ic') if len(g) >= 10]
+        labels = [str(k) for k, g in valid.groupby('seniority_level_ic') if len(g) >= 10]
+        if len(groups) >= 2:
+            try:
+                f_stat, p_anova = f_oneway(*groups)
+            except Exception:
+                f_stat, p_anova = np.nan, np.nan
+            try:
+                h_stat, p_kruskal = kruskal(*groups)
+            except Exception:
+                h_stat, p_kruskal = np.nan, np.nan
+
+            print("\nSeniority level group comparison:")
+            print(f"  Groups (n>=10): {labels}")
+            print(f"  ANOVA p-value: {p_anova:.4f}" if not np.isnan(p_anova) else "  ANOVA p-value: NA")
+            print(f"  Kruskal-Wallis p-value: {p_kruskal:.4f}" if not np.isnan(p_kruskal) else "  Kruskal-Wallis p-value: NA")
+
+            # Tukey HSD post-hoc
+            try:
+                tukey = pairwise_tukeyhsd(endog=valid['salary_numeric'], groups=valid['seniority_level_ic'].astype(str), alpha=0.05)
+                print("  Tukey HSD (significant pairs):")
+                # Extract significant pairs
+                for res in tukey.summary().data[1:]:
+                    grp1, grp2, meandiff, p_adj, lower, upper, reject = res
+                    if reject:
+                        print(f"    {grp1} vs {grp2}: diff={meandiff:.1f}, p_adj={p_adj:.4f}")
+            except Exception:
+                print("  Tukey HSD: NA")
+
+    # ================= GROUP COMPARISONS: Management Levels =================
+    if 'is_manager' in df.columns:
+        management_cols = [c for c in df.columns if c.startswith('management_')]
+        managers = df[df['is_manager'] == 1].copy()
+        if not managers.empty and management_cols:
+            def get_management_level(row):
+                for col in management_cols:
+                    try:
+                        if row[col] == 1:
+                            return col.replace('management_', '').replace('_', ' ')
+                    except KeyError:
+                        continue
+                return 'Unknown'
+
+            managers['management_level_label'] = managers.apply(get_management_level, axis=1)
+            managers = managers[managers['management_level_label'] != 'Unknown']
+            if not managers.empty:
+                valid_m = managers[['management_level_label', 'salary_numeric']].dropna()
+                mgroups = [g['salary_numeric'].values for _, g in valid_m.groupby('management_level_label') if len(g) >= 5]
+                mlabels = [k for k, g in valid_m.groupby('management_level_label') if len(g) >= 5]
+                if len(mgroups) >= 2:
+                    try:
+                        f_stat_m, p_anova_m = f_oneway(*mgroups)
+                    except Exception:
+                        f_stat_m, p_anova_m = np.nan, np.nan
+                    try:
+                        h_stat_m, p_kruskal_m = kruskal(*mgroups)
+                    except Exception:
+                        h_stat_m, p_kruskal_m = np.nan, np.nan
+
+                    print("\nManagement level group comparison:")
+                    print(f"  Groups (n>=5): {mlabels}")
+                    print(f"  ANOVA p-value: {p_anova_m:.4f}" if not np.isnan(p_anova_m) else "  ANOVA p-value: NA")
+                    print(f"  Kruskal-Wallis p-value: {p_kruskal_m:.4f}" if not np.isnan(p_kruskal_m) else "  Kruskal-Wallis p-value: NA")
+
+                    # Tukey HSD post-hoc
+                    try:
+                        tukey_m = pairwise_tukeyhsd(endog=valid_m['salary_numeric'], groups=valid_m['management_level_label'], alpha=0.05)
+                        print("  Tukey HSD (significant pairs):")
+                        for res in tukey_m.summary().data[1:]:
+                            grp1, grp2, meandiff, p_adj, lower, upper, reject = res
+                            if reject:
+                                print(f"    {grp1} vs {grp2}: diff={meandiff:.1f}, p_adj={p_adj:.4f}")
+                    except Exception:
+                        print("  Tukey HSD: NA")
+
     return results
 
 # ============ MAIN ==========

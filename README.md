@@ -261,7 +261,7 @@ Bu proje, eğitim ve araştırma amaçlı tasarlanmıştır. Bulguları kullanı
 
 ---
 
-**Rapor hazırlayan**: Zafer Ayan  
+**Rapor hazırlayan**: Hakkı Günal
 **Veri toplama dönemi**: 20-21 Ağustos 2025  
 **Toplam katılımcı sayısı**: 2.969 yazılım uzmanı  
 **Önemli içgörü**: Uzaktan çalışma 22,6 bin TL prim sağlıyor, Avrupalı şirketler 70,0 bin TL daha fazla teklif ediyor

@@ -1,5 +1,5 @@
 # Product Requirements Document (PRD)  
-## Proje: 2025 Türkiye Yazılım Sektörü Maaş Analizi
+## Proje: 2025 Yazılım Sektörü Maaş Analizi
 
 ---
 
@@ -53,8 +53,15 @@ Hedef kitle ikiye ayrılır:
     - sütun adları: `lang__Python`, `lang__JavaScript`, `frontend__React`, `tool__Redux`, …  
   - `salary_range` → `salary_numeric`: orta nokta haritalaması; üst sınır `300+` → `350` (capping).  
   - **Tahmini lokasyon**: `is_likely_in_company_location`  
-    - kural: `work_mode` ∈ {Office, Hybrid} ⇒ 1 (şirket lokasyonunda olması muhtemel), aksi 0.  
-    - raporlarda şu uyarı zorunlu: *“Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır. Kesin değildir.”*
+    - Kurallar:  
+      - Şirket Lokasyon ∈ {Türkiye, Avrupa, Amerika}  
+      - Çalışma Şekli = Office → 1  
+      - Çalışma Şekli = Hybrid → 1  
+      - Çalışma Şekli = Remote → 0  
+      - Şirket Lokasyon = Yurtdışı TR hub  
+        - Çalışma Şekli = Remote → 0 (Türkiye’de olabilir ama net değil)  
+        - Çalışma Şekli = Hybrid veya Office → 0 (aykırı değer say → direkt dışarıda bırak)  
+    - Raporlarda şu uyarı zorunlu: *“Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır. Kesin değildir.”*
 
 
 ---

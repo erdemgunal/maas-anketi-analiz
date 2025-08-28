@@ -263,8 +263,45 @@ def main():
             role_df = pd.DataFrame(rows).sort_values('Average Salary', ascending=False).head(15)
             fig = px.bar(role_df, x='Average Salary', y='Role', 
                         title="Highest Paying Roles",
-                        labels={'Average Salary': 'Monthly Net Salary (thousand TL)'})
+                        labels={'Average Salary': 'Monthly Net Salary (thousand TL)'} )
             st.plotly_chart(fig, use_container_width=True)
+
+        # Sankey: Career Level → Role distribution (interactive)
+        st.subheader("Career Level → Role Flow (Sankey)")
+        try:
+            level_map = {0: 'Management', 1: 'Junior', 2: 'Mid', 3: 'Senior', 4: 'Staff', 5: 'Architect'}
+            role_cols = [c for c in filtered_df.columns if c.startswith('role_')]
+            flows = []  # (level_name, role_name, count)
+            for lvl, lvl_name in level_map.items():
+                subset = filtered_df[filtered_df['seniority_level_ic'] == lvl]
+                if subset.empty:
+                    continue
+                for rc in role_cols:
+                    role_name = rc.replace('role_', '').replace('_', ' ')
+                    count = int((subset[rc] == 1).sum())
+                    if count > 0:
+                        flows.append((lvl_name, role_name, count))
+
+            if flows:
+                levels = sorted(list({f[0] for f in flows}), key=lambda x: list(level_map.values()).index(x))
+                roles = sorted(list({f[1] for f in flows}))
+                nodes = levels + roles
+                node_index = {n: i for i, n in enumerate(nodes)}
+
+                source = [node_index[s] for s, _, _ in flows]
+                target = [node_index[t] for _, t, _ in flows]
+                value = [v for _, _, v in flows]
+
+                sankey_fig = go.Figure(data=[go.Sankey(
+                    node=dict(pad=15, thickness=18, line=dict(color='black', width=0.5), label=nodes),
+                    link=dict(source=source, target=target, value=value)
+                )])
+                sankey_fig.update_layout(title_text='Career Level to Role Distribution', font_size=12)
+                st.plotly_chart(sankey_fig, use_container_width=True)
+            else:
+                st.info("Not enough data to display the Sankey diagram with current filters.")
+        except Exception as e:
+            st.warning(f"Could not render Sankey diagram: {e}")
 
     with tab3:
         st.header("🌍 Location & Work Mode Analysis")

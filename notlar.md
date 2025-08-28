@@ -9,6 +9,16 @@ Raporlama aşamasında, Individual Contributor seviyeleri **tek bir ordinal ekse
 
 - Çalışan lokasyonu tahmini, şirket lokasyonu ve çalışma şekline dayanır; %100 doğru olmayabilir. calisma sekli hybrid veya office ise buyuk bir ihtimal sirket lokasyonu
 
+"Kurallar:
+Şirket Lokasyon ∈ {Türkiye, Avrupa, Amerika}
+Çalışma Şekli = Office → 1
+Çalışma Şekli = Hybrid → 1
+Çalışma Şekli = Remote → 0
+Şirket Lokasyon = Yurtdışı TR hub
+Çalışma Şekli = Remote → 0 (Türkiye’de olabilir ama net değil)
+Çalışma Şekli = Hybrid veya Office → 0 (aykırı değer say → direkt dışarıda bırak)" seklinde guncellendi is likely company location degeri icin yurtdisi tr hub cikarildi
+
+
 - kadin erkek maas analizinde "Mann-Whitney" grafigi
 
 - cleaned_data.csv dosyasi icerisinde kolon isimleri "Staff Engineer" seviyesi icin "management_Staff Engineer" seklinde yaziliyor. veya "SAP Developer" rolu icin "role_SAP Developer" seklinde aralarinda bosluklari bu sekilde birakacak miyiz? veya "Objective C" icin "lang__Objective C" bunun disinda turkce karakterler icin nasil bir yol izlememiz gerekiyor sirket lokasyonu "Yurtdışı TR hub" icin "company_location_Yurtdışı TR hub" seklinde kullaniliyor. hem aralari acik hemde turkce. buna gore PROJECT_PLAN yi ve ilgili dokumantasyonlari guncelleyelim
@@ -16,23 +26,11 @@ Raporlama aşamasında, Individual Contributor seviyeleri **tek bir ordinal ekse
 - cleaned_data nin tutarlili cok onemli
 
 
-
-ai modeline saglanan veriler ile bu yorumlar yapilacaktir. '''
-*   **Kariyer Gelişimi İçgörülerinin Eksikliği (Skill Development)**:
-    *   `ANALYSIS_OBJECTIVES.md`, hangi teknolojilerin kariyer ilerlemesini hızlandırdığına dair içgörüler ("React + Zustand öğrenenler Mid seviyesine %X daha hızlı geçiyor") beklemektedir.
-    *   Bu türden bir analiz veya içgörü **rapor metninde yer almamaktadır**.
-
-*   **React Staj Grubu için Spesifik Önerilerin Yetersizliği**:
-    *   Projenin temel hedeflerinden biri, **React staj grubuna yönelik somut, eyleme dönüştürülebilir tavsiyeler** sunmaktır. Örneğin, "React’e ek olarak Zustand veya Firebase öğrenmek maaş getirisini artırabilir" veya "Mid’den Senior’a geçiş için React + Redux öğrenmek maaşı %X artırıyor" gibi öneriler beklenmektedir.
-    *   Mevcut rapordaki "Recommendations" bölümü oldukça geneldir ve React staj grubuna özel teknoloji öğrenimi veya kariyer ilerlemesi tavsiyeleri **içermemektedir**. Bu, ana hedef kitle için önemli bir eksikliktir.
-    '''
+PRD.MD:5.3 Interaktif Dashboard (Streamlit + Plotly) (zenginlestirilebilir) feature
 
 
-2. "Mid’den Senior’a geçiş için React + Redux öğrenmek maaşı %X artırıyor" yorumu için gerekenler:
-Bu yorumu yapabilmek için, Kariyer Gelişimi (Career Progression), Skill Development Pattern’ları ve Kariyer Seviyeleri ve Maaş İlişkisi analizlerine ihtiyaç duyarız.
-• Gerekli Veri Sütunları:
-    ◦ salary_numeric: Maaş bilgisi.
-    ◦ seniority_level_ic: Teknik kariyer seviyeleri (Junior, Mid, Senior, Staff Engineer, Team Lead, Architect). Bu sütun, ordinal olarak kodlanmış olmalıdır (örn. Junior=1, Mid=2, Senior=3).
-    ◦ management_level: Yönetim seviyeleri (Engineering Manager, Director Level Manager, C-Level Manager, Partner).
-    ◦ frontend_technologies: React gibi frontend teknolojileri.
-    ◦ tools: Redux gibi araçlar.
+
+kariyer_progression.png junior mid senior icin lokasyon bazli degil direkt genel guncelleniyor
+
+
+tech_combo_top Hiçbiri ve Kullanmıyorum analiz disi

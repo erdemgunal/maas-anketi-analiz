@@ -1,6 +1,6 @@
 # Analiz Hedefleri
 
-Bu doküman, `2025_maas_anket.csv` veri setinden (`2025_cleaned_data.csv` olarak işlenmiş hali) elde edilecek analiz hedeflerini ve hipotezleri tanımlar. Analizler, React staj grubu (~250 yazılımcı) için tasarlanmıştır ve istatistik bilmeyen okuyuculara hitap edecek şekilde iş dünyası dostu, anlaşılır içgörüler sunar. Rapor, React staj grubu dışına çıkıp Zafer Ayan'ın LinkedIn hesabında veya portfolyoda paylaşıldığında daha geniş bir kitleye (örn. yazılım sektöründe maaş merak edenler) ulaşacak. Bu yüzden, analizler hem React odaklı içgörüler sunarken hem de genel sektör trendlerini kapsayacak. Odak noktaları:
+Bu doküman, `2025_maas_anket.csv` veri setinden (`2025_cleaned_data.csv` olarak işlenmiş hali) elde edilecek analiz hedeflerini ve hipotezleri tanımlar. Analizler, React staj grubu (~250 yazılımcı) için tasarlanmıştır ve istatistik bilmeyen okuyuculara hitap edecek şekilde iş dünyası dostu, anlaşılır içgörüler sunar. Rapor, React staj grubu dışına çıkıp LinkedIn hesabında veya portfolyoda paylaşıldığında daha geniş bir kitleye (örn. yazılım sektöründe maaş merak edenler) ulaşacak. Bu yüzden, analizler hem React odaklı içgörüler sunarken hem de genel sektör trendlerini kapsayacak. Odak noktaları:
 
 - Yazılım sektöründe maaşları etkileyen faktörlerin (lokasyon, deneyim, seviye, teknoloji kullanımı, rol) analizi.
 - Geniş kitle için pratik içgörüler: Hangi teknolojiler maaşı artırır? Kariyer nasıl ilerler? Hangi beceriler geliştirilmeli?

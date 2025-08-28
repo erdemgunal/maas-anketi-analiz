@@ -198,7 +198,7 @@ def generate_latex_report():
 
 \\title{{\\textbf{{2025 Software Industry Salary Analysis Report}}}}
 \\subtitle{{\\textit{{Which Technologies Pay More? How Do Career Levels and Roles Affect Salaries?}}}}
-\\author{{Zafer Ayan}}
+\\author{{Hakkı Günal}}
 \\date{{\\today}}
 
 \\begin{{document}}
@@ -653,7 +653,7 @@ Non-React Users & {tests['react_vs_non_react']['non_react_count']:,} & {tests['r
 \\vspace{{2cm}}
 
 \\begin{{center}}
-\\textbf{{Report prepared by:}} Zafer Ayan\\\\
+\\textbf{{Report prepared by:}} Hakkı Günal\\\\
 \\textbf{{Data collection period:}} August 20-21, 2025\\\\
 \\textbf{{Total participants:}} {stats['total_participants']:,} software professionals\\\\
 \\textbf{{Report generation date:}} {datetime.now().strftime('%B %d, %Y')}\\\\

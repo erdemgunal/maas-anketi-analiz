@@ -47,9 +47,11 @@ Bu doküman, **Yazılım Sektörü Maaş Analizi 2025** projesinde kullanılan t
 ## 6. Raporlama Aracı
 - **LaTeX (TeX Live 2024, Overleaf)**:
   - **Amaç**: Statik PDF rapor (`maas_analizi_2025.pdf`) üretimi.
-  - **Paketler**: `geometry`, `graphicx`, `booktabs`, `amsmath` (PDFLaTeX uyumlu).
-  - **Örnek Kullanım**: `\includegraphics[width=\textwidth]{boxplot_seniority.png}`.
-  - **Font**: Noto Serif (Türkçe karakter desteği için).
+  - **Dil**: İngilizce (`babel` paketi ile `english`).
+  - **Kodlama**: UTF-8 (`inputenc` ile `utf8`).
+  - **Paketler**: `geometry`, `graphicx`, `booktabs`, `array`, `longtable`, `titling`, `float`, `hyperref`, `amsmath`, `amsfonts`, `amssymb`, `tikz` (PDFLaTeX uyumlu).
+  - **Örnek Kullanım**: `\includegraphics[width=\textwidth]{figures/barplot_programming_roi.png}`.
+  - **Font**: Latin Modern (varsayılan); gerekirse `Noto Serif` alternatif olarak kullanılabilir.
 
 ## 7. Bağımlılıklar ve Ortam
 - **Ortam**: Python virtual environment (`venv`) veya Jupyter Notebook.
@@ -57,10 +59,8 @@ Bu doküman, **Yazılım Sektörü Maaş Analizi 2025** projesinde kullanılan t
   ```bash
   pip install pandas==2.2.2 numpy==1.26.4 scikit-learn==1.4.2 scipy==1.12.0 statsmodels==0.14.1 seaborn==0.13.2 matplotlib==3.8.3 plotly==5.18.0 streamlit==1.31.0
   ```
-- **Test Ortamı**: 100 satırlık örnek veriyle test edildi, tam veri (n=2,970) için genellenebilir.
 - **Erişim**: Google Sheets linki sınırlı (https://docs.google.com/spreadsheets/d/1J_MW7t9e2Yi1cErFe5XCnNGaFqXkrdufgZv9Ggnm-RE/edit?usp=sharing).
 
 ## 8. Notlar
 - **Tekrarlanabilirlik**: Kodlar, Jupyter Notebook veya Python script’lerinde dokümante edilecek.
-- **Gizlilik**: Analizler, k-anonimite (n≥10) ile agregasyon seviyesinde.
 - **Hedef Kitle**: Araçlar, React staj grubu ve geniş kitle için anlaşılır çıktılar üretmek için optimize edildi.
