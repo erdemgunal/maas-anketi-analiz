@@ -101,6 +101,8 @@
    - Varsayım: `company_location` ve `work_mode` kombinasyonuna göre çalışanın lokasyonu tahmin edilebilir.
    - Kural: `company_location="Avrupa"` ve `work_mode="Office"` veya `work_mode="Hybrid"` ise, çalışanın büyük olasılıkla Avrupa'da bulunduğu varsayılır.
    - Not: Bu varsayım grafiklerde kullanılacak, ancak şu notla: "Çalışan lokasyonu tahmini, şirket lokasyonu ve çalışma şekline dayanır; %100 doğru olmayabilir."
+   - Görselleştirme notu: `is_likely_in_company_location == 1` filtresiyle üretilen kariyer gelişim çizgilerinde uyarı ibaresi zorunludur.
+
 
 ## Notlar
 - **Gizlilik**: Sadece agregasyon seviyesinde raporlama, bireysel veriler k-anonimite (n≥10) ile maskelenecek.

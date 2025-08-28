@@ -294,6 +294,13 @@ print(tukey)
     - Lokasyon tahmini analizi: `sns.boxplot(x='is_likely_in_company_location', y='salary_numeric')`.
     - Programlama dili kullanımı: `sns.barplot(x='lang__Python', y='salary_numeric')`.
     - Deneyim vs. maaş ilişkisi: `sns.scatterplot(x='experience_years', y='salary_numeric')` (Pearson korelasyonu ile desteklenir).
+    - Kariyer Gelişim Grafiği (Career Progression - Salary Growth): `is_likely_in_company_location == 1` filtresiyle, `company_location ∈ {Türkiye, Avrupa, Amerika}` için `seniority_level_ic ∈ {1,2,3}` (Junior, Mid, Senior) bazında ortalama `salary_numeric` çizgileri.
+    - Top Tech Combinations by Role: `role` x (diller: `lang__*` + frontend: `frontend__*` + araçlar: `tool__*`) kombinasyonlarının ortalama `salary_numeric` karşılaştırması; "Hiçbiri" ve "Kullanmıyorum" etiketleri analiz dışı bırakılır; en yüksek ve en düşük ilk 10 kombinasyon raporlanır.
+    - Korelasyon Isı Haritası: `salary_numeric`, `experience_years`, `seniority_level_ic`, seçili teknoloji/araç sütunları için Pearson korelasyon matrisi (mutlak değeri en yüksek ilk 20 özellik vurgulanır).
+    - Work Type x Location Isı Haritası: `work_mode` x `company_location` kesişimlerinde ortalama `salary_numeric` (n≥10 hücreler gösterilir).
+    - Çalışma Düzeni ve Rol (Work Arrangement by Role): Örneklem sayısı en yüksek 10–15 rol için `work_mode` yüzdelik yığılmış bar (100% stacked); opsiyonel olarak rol başına ortalama maaş çizgisi.
+    - Araç Benimseme Grafiği (Top Tool Adoption by Role): `tool__*` sütunlarının rol bazında ortalamaları (kullanım oranı) ile ısı haritası; "Kullanmıyorum" hariç; n≥20 roller.
+    - Keman Grafiği (Skill Diversity): Toplam beceri çeşitliliği (`skill_diversity_total`) ile `salary_numeric` dağılımının `sns.violinplot` ile görselleştirilmesi.
     - **Not**: Tüm sütun isimleri temizlenmiş haliyle kullanılır (örn. `management_Staff_Engineer`, `company_location_Yurtdisi_TR_hub`).
   - **Not**: Grafikler, “maaş farkı”, “popüler teknolojiler”, “deneyim-maaş ilişkisi” gibi merak uyandıran ilişkilere odaklanacak. `company_location` içeren grafiklerde şu not eklenecek:
     - “Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır (Office/Hybrid → şirket lokasyonunda). Kesin değildir.”

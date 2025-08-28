@@ -28,7 +28,7 @@ Kariyerinizde bir sonraki adımınız ne olacak? Hadi tartışalım! 👇
 
 ### 1.3. İçerik Yönergeleri
 - **Uzunluk**: WhatsApp'ta okunabilirliği sağlamak için 100-150 kelime.
-- **Görsel**: Teknoloji ROI'sini veya kariyer gelişimini gösteren bir adet dikkat çekici PNG (örneğin, `EXPECTED_OUTPUTS.md` dosyasındaki `barplot_technology_roi.png`) ekleyin.
+- **Görsel**: Teknoloji ROI'sini veya kariyer gelişimini gösteren bir adet dikkat çekici PNG (örneğin, `EXPECTED_OUTPUTS.md` dosyasındaki `barplot_technology_roi.png` veya yeni “Career Progression - Salary Growth” çizgi grafiği) ekleyin.
 - **Öngörüler**: `PRD.md` dosyasından 2-3 uygulanabilir öneriyi (ör. “React + Zustand öğrenin”, “Avrupa merkezli şirketleri hedefleyin”) vurgulayın.
 - **Bağlantılar**: Aşağıdakilere doğrudan erişim sağlayın:
 - Streamlit kontrol paneli (Streamlit Cloud veya yerel URL).
@@ -66,7 +66,7 @@ Kariyerinizde bir sonraki adımınız ne olacak? Hadi tartışalım! 👇
     Teknoloji maaşlarının geleceğini tartışalım! 💬 #YazılımGeliştirme #TeknolojiMaaşları #VeriAnalizi
     [Ekli: barplot_technology_roi.png veya sankey_career_progression.png]
     ```
-  - **Görseller**: `EXPECTED_OUTPUTS.md` dosyasından 1-2 adet PNG dosyası (ör. `barplot_technology_roi.png`, `sankey_career_progression.png`) ekleyin.
+  - **Görseller**: `EXPECTED_OUTPUTS.md` dosyasından 1-2 adet PNG dosyası (ör. `barplot_technology_roi.png`, `sankey_career_progression.png`, `line_career_progression.png`, `heatmap_correlation.png`) ekleyin.
   - **Başlıklar**: `PRD.md` dosyasından ilgi çekici başlıklar (ör. “Hangi Teknolojiler Daha Fazla Kazandırıyor?”, “Uzaktan Çalışma ve Ofis Çalışması: Maaş Dağılımı”).
 - **Sıklık**: Görünürlüğü korumak için 1 hafta boyunca 2-3 gönderi (ör. teknoloji ROI için bir gönderi, kariyer gelişimi için bir gönderi).
 - **Hashtag'ler**: #SoftwareDevelopment, #TechSalaries, #DataAnalysis, #ReactJS, #CareerGrowth.

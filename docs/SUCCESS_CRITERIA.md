@@ -40,7 +40,7 @@ Projenin başarısı, aşağıdaki ana kategorilerde değerlendirilecektir:
 ### 2.3. Görselleştirme Kalitesi
 - **Grafik Üretimi**:
   - **Kriter**: Tüm grafikler (boxplot, bar plot, scatter plot, heatmap, Sankey diyagramı) hem PNG hem interaktif (`plotly`) formatta üretilmeli.
-  - **Ölçüm**: En az 10 PNG dosyası (örn. `boxplot_seniority.png`, `barplot_technology_roi.png`) ve Streamlit dashboard’da 5+ interaktif grafik.
+  - **Ölçüm**: En az 17 PNG dosyası (mevcutlara ek 7 yeni grafik: Career Progression line, Top Tech Combinations by Role, Korelasyon Isı Haritası, Work Type x Location heatmap, Work Arrangement by Role stacked bar, Skill Diversity violin, ayrıca gerektiğinde türev varyantlar) ve Streamlit dashboard’da 7+ yeni interaktif grafik.
   - **Referans**: `EXPECTED_OUTPUTS.md`’deki grafik tanımları.
 - **Netlik**:
   - **Kriter**: Grafikler, istatistik bilmeyen kullanıcılar için anlaşılır başlıklar ve etiketler içermeli (örn. “Hangi Teknolojiler Daha Fazla Kazandırıyor?”).
@@ -50,6 +50,7 @@ Projenin başarısı, aşağıdaki ana kategorilerde değerlendirilecektir:
   - **Kriter**: `company_location` veya `is_likely_in_company_location` içeren grafiklerde şu not zorunlu: “Tahmini lokasyon, şirket lokasyonu ve çalışma şekline dayanır (Office/Hybrid → şirket lokasyonunda). Kesin değildir.”
   - **Ölçüm**: Tüm ilgili grafiklerde notun varlığı kontrol edilmeli.
   - **Referans**: `DATASET_SPECIFICATIONS.md` ve `EXPECTED_OUTPUTS.md`.
+  - **Ek Not**: Career Progression line grafiğinde `is_likely_in_company_location == 1` filtresi uygulandığı belirtilmelidir.
 
 ### 2.4. Kullanıcı Deneyimi (UX)
 - **Rapor Anlaşılırlığı**:
@@ -62,7 +63,7 @@ Projenin başarısı, aşağıdaki ana kategorilerde değerlendirilecektir:
   - **Referans**: `PRD.md`’deki dashboard özellikleri.
 - **Öneriler**:
   - **Kriter**: React staj grubu için en az 3 kullanılabilir öneri (örn. “React + Zustand öğrenmek maaşı %X artırır”), geniş kitle için 5+ içgörü (örn. “Avrupa merkezli şirketler %X daha fazla ödüyor”).
-  - **Ölçüm**: Rapor ve dashboard’da öneri/innergörü sayısı, kullanıcı testinde %80+ faydalı bulunma.
+  - **Ölçüm**: Rapor ve dashboard’da öneri/içgörü sayısı.
   - **Referans**: `ANALYSIS_OBJECTIVES.md` ve `PRD.md`.
 
 ### 2.5. Etkileşim ve Paylaşım

@@ -28,6 +28,7 @@ Grafikler ve test sonuçları, METHODOLOGY.MD’de tanımlı yöntemlerle (T-tes
 - **Görselleştirme**: 
   - Bar plot: `sns.barplot(x='technology', y='salary_numeric')` ile tüm teknolojilerin (örn. Python, JavaScript, React, Vue, Redux, Zustand) maaş ortalamaları, getiriye göre sıralı (yüksekten düşüğe). Düşük oranlı teknolojiler (%5’ten az fark) hariç tutulabilir.
   - Heatmap: Teknoloji/araç kombinasyonlarının maaş etkisi (`sns.heatmap`).
+  - Top Tech Combinations by Role: `role` x (dil + frontend + tool) kombinasyonlarının ortalama `salary_numeric` açısından en yüksek ve en düşük ilk 10 kombinasyonunun listesi/grafiği. "Hiçbiri" ve "Kullanmıyorum" etiketleri hariç tutulur.
 - **Çıktı**: 
   - ROI sıralaması: “Python + React kombinasyonu maaşı %X artırıyor.”
   - React staj grubu için öneri: “React’e ek olarak Zustand veya Firebase öğrenmek maaş getirisini artırabilir.”
@@ -94,6 +95,12 @@ Grafikler ve test sonuçları, METHODOLOGY.MD’de tanımlı yöntemlerle (T-tes
     - Sankey diyagramı: Kariyer progression haritası (Junior → Mid → Senior, yöneticilik rolleri).
   - **Çıktı**: Ortalama maaş farkı, p-değeri ve etki büyüklüğü (eta-squared); React staj grubu için içgörü: “Mid’den Senior’a geçiş için React + Redux öğrenmek maaşı %X artırıyor; yöneticilik rolleri maaşı %Y artırabilir.”
 
+- **Kariyer Gelişim Grafiği (Career Progression - Salary Growth)**:
+  - **Soru**: `is_likely_in_company_location == 1` varsayımıyla Türkiye, Avrupa ve Amerika’da Junior → Mid → Senior geçişlerinde maaş gelişimi nasıl farklılaşıyor?
+  - **Yöntem**: `company_location ∈ {Türkiye, Avrupa, Amerika}` ve `is_likely_in_company_location == 1` filtresiyle, `seniority_level_ic ∈ {1,2,3}` için ortalama `salary_numeric` değerlerini hesapla.
+  - **Görselleştirme**: Her lokasyon için ayrı çizgi ile `seniority_level_ic` eksenine karşı ortalama maaş (3 noktalı çizgiler). Başlık ve not: “Tahmini lokasyon varsayımı kullanılmıştır”.
+  - **Çıktı**: “Hangi lokasyonda kariyer ilerledikçe maaş daha hızlı artıyor?” sorusuna yanıt.
+
 - **Deneyim vs. Maaş İlişkisi (Career Timeline)**:
   - **Soru**: Deneyim yılı (`years_experience`) arttıkça maaş artıyor mu? Seviye (`seniority_level_ic`) ile birlikte nasıl bir eğri oluşuyor?
   - **Yöntem**: Pearson korelasyonu (`years_experience` ile `salary_numeric`). Ek analiz: `years_experience` ve `seniority_level_ic` kombinasyonu için 2D scatter plot.
@@ -113,20 +120,33 @@ Grafikler ve test sonuçları, METHODOLOGY.MD’de tanımlı yöntemlerle (T-tes
 - **Görselleştirme**: Boxplot (`sns.boxplot(x='role', y='salary_numeric')`).
 - **Çıktı**: Ortalama maaş farkları, p-değeri ve etki büyüklüğü (eta-squared); React staj grubu için içgörü: “Frontend rolleri %X daha fazla kazanıyor, React öğrenimi bu farkı artırabilir.”
 
-### 5. İstihdam Türü Analizi
+- **Çalışma Düzeni ve Rol (Work Arrangement Distribution by Role)**:
+  - **Soru**: Popüler rollerde Remote/Hybrid/Office tercihleri nasıl dağılır ve maaşı nasıl etkiler?
+  - **Yöntem**: Örneklem sayısı en yüksek ilk 10–15 rolü seç; her rol için `work_mode` yüzdelik dağılımını hesapla.
+  - **Görselleştirme**: Yığılmış yüzdelik bar grafiği (stacked 100%). İsteğe bağlı ikincil eksende rolün ortalama maaşı çizgi olarak eklenebilir.
+  - **Çıktı**: Hangi roller uzaktan çalışmaya daha yatkın ve bu tercihler maaşla nasıl ilişkilidir?
+
+### 5. Araç Benimseme Grafiği (Top Tool Adoption by Role)
+- **Amaç**: Belirli rollerdeki çalışanların kullandığı araçların (`tools`) kullanım oranlarını göstermek; rol bazında yaygın becerileri görünür kılmak.
+- **Analiz**: `role` ve `tools` değişkenlerinden hareketle, her rol için en çok benimsenen araçların yüzdelik dağılımı. “Kullanmıyorum” cevapları analiz dışı bırakılacak.
+- **Yöntem**: Çoklu seçim parsing sonrası `tool__*` sütunlarının rol bazında ortalama (kullanım oranı) hesaplanması; örneklem büyüklüğü yeterli olan (n≥20) popüler rollerle sınırlandırma.
+- **Görselleştirme**: Isı haritası veya yatay bar matrisi; satırlar roller, sütunlar araçlar; hücre değeri yüzdelik benimseme oranı.
+- **Çıktı**: “Backend rollerinde en yaygın araçlar X,Y,Z; Frontend için A,B,C.” Öğrenim öncelikleri için öneriler.
+
+### 6. İstihdam Türü Analizi
 - **Soru**: Farklı istihdam türleri (`employment_type`, örn. Full-time, Part-time, Contract, Freelance) arasında maaş farkları var mı?
 - **Yöntem**: ANOVA veya Kruskal-Wallis testi (`employment_type` için `salary_numeric`). Post-hoc test (Tukey HSD) ile hangi kategorilerin farklılaştığı incelenecek.
 - **Görselleştirme**: Boxplot (`sns.boxplot(x='employment_type', y='salary_numeric')`). Streamlit dashboard’da interaktif bar plot (`plotly`) eklenebilir.
 - **Çıktı**: Ortalama maaş farkları, p-değeri ve etki büyüklüğü (eta-squared); React staj grubu ve geniş kitle için içgörü: “Tam zamanlı pozisyonlar maaşı %X artırabilir, Freelance ise esneklik sunar.”
 
-### 6. Saat Bazlı Anket Katılımı
+### 7. Saat Bazlı Anket Katılımı
 - **Hedef**: Anketin doldurulma zamanına göre katılımcıların maaş, rol, kariyer seviyesi ve demografik özelliklerindeki değişimleri incelemek.
 - **Amaç**: Veri toplama sürecindeki eğilimleri anlamak (örn. gece dolduranlar daha deneyimli mi?).
 - **Yöntem**: `timestamp`’tan saat türet (`df['hour'] = pd.to_datetime(df['timestamp']).dt.hour`), `groupby('hour')` ile maaş, rol ve demografik ortalama. ANOVA veya Kruskal-Wallis testi.
 - **Görselleştirme**: Bar plot (`sns.barplot(x='hour', y='salary_numeric')`) veya heatmap (saat bazlı rol dağılımı).
 - **Çıktı**: Saat bazlı maaş ortalamaları, rol ve demografik grafikler, p-değeri ve etki büyüklüğü (eta-squared); React staj grubu için içgörü: “Gece aktif olanlar daha deneyimli, akşam saatlerinde network fırsatlarını değerlendir.”
 
-## 7. Görselleştirme ve Raporlama
+## 8. Görselleştirme ve Raporlama
 - **Amaç**: Analiz sonuçlarını React staj grubu ve geniş kitle için anlaşılır ve çekici bir şekilde sunmak.
 - **Araçlar**: `seaborn`, `matplotlib`, Streamlit için `plotly`.
 - **Grafik Türleri**:
@@ -134,6 +154,9 @@ Grafikler ve test sonuçları, METHODOLOGY.MD’de tanımlı yöntemlerle (T-tes
   - **Bar Plot**: Kategorik karşılaştırmalar (teknolojiler, araçlar, roller, istihdam türü).
   - **Scatter Plot**: Sayısal ilişkiler (deneyim vs. maaş, career timeline).
   - **Heatmap**: Teknoloji/araç kombinasyonları veya saat bazlı katılım.
+  - **Korelasyon Isı Haritası**: `salary_numeric` ile `experience_years`, `seniority_level_ic`, teknoloji ve araç kullanım sütunlarının korelasyon matrisi.
+  - **Work Type x Location Isı Haritası**: `work_mode` x `company_location` kombinasyonlarında ortalama `salary_numeric`.
+  - **Keman Grafiği (Skill Diversity)**: Dil/araç çeşitliliğinin (`skill_diversity_total`) maaş dağılımına etkisi.
   - **Sankey Diyagramı**: Kariyer progression haritası (Junior → Mid → Senior, yöneticilik rolleri).
 - **Raporlama**:
   - Tüm grafikler (boxplot, bar plot, scatter plot, heatmap, Sankey diyagramı ve career timeline) PNG formatında kaydedilip LaTeX raporuna `\includegraphics` komutuyla eklenecek.
@@ -144,6 +167,6 @@ Grafikler ve test sonuçları, METHODOLOGY.MD’de tanımlı yöntemlerle (T-tes
   - Başlıklar: “Hangi Teknolojiler Daha Fazla Kazandırıyor?”, “Kariyer Seviyeleri ve Roller Maaşı Nasıl Etkiliyor?”, “Hangi İstihdam Türü Daha Kazançlı?”
 - **Çıktı**: PNG formatında statik grafikler ve Streamlit interaktif dashboard. LaTeX raporunda tüm grafikler `\includegraphics` ile entegre edilecek.
 
-## 7. Notlar
+## 9. Notlar
 - **Okuyucu Odaklılık**: Analizler, “Hangi teknoloji maaşı artırır?”, “Kariyer nasıl ilerler?” gibi sorularla sunulacak. Teknik terimler yerine sezgisel ifadeler (örn. “anlamlı fark var mı?”).
 - **Erişim**: Google Sheets linki sınırlı (https://docs.google.com/spreadsheets/d/1J_MW7t9e2Yi1cErFe5XCnNGaFqXkrdufgZv9Ggnm-RE/edit?usp=sharing). Tam veri önerilir.

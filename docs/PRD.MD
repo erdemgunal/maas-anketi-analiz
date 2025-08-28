@@ -81,8 +81,10 @@ Hedef kitle ikiye ayrılır:
 - **Boxplot**: Seviye, yönetim, istihdam türü, çalışma modeli, lokasyon, cinsiyet, rol.  
 - **Bar Plot**: Teknoloji ROI, rol, istihdam türü, saat bazlı maaş trendleri, cinsiyet bazlı teknoloji tercihleri.  
 - **Scatter Plot**: Deneyim yılı vs. maaş (kariyer timeline).  
-- **Heatmap**: Teknoloji/araç kombinasyonlarının maaş etkisi, saat bazlı katılım.  
+- **Heatmap**: Teknoloji/araç kombinasyonlarının maaş etkisi, saat bazlı katılım, korelasyon ısı haritası, Work Type x Location maaş matrisi.  
 - **Sankey Diyagramı**: Kariyer progression (Junior → Mid → Senior → Yöneticilik).  
+- **Line Plot**: Career Progression - Salary Growth (`is_likely_in_company_location == 1` filtresiyle Türkiye/Avrupa/Amerika için Junior→Mid→Senior maaş gelişimi).  
+- **Violin Plot**: Skill Diversity (dil+frontend+tool çeşitliliği) ile maaş dağılımı.  
 
 ---
 

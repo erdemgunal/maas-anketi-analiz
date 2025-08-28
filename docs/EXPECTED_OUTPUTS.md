@@ -42,6 +42,7 @@ Aşağıdaki grafikler, `ANALYSIS_OBJECTIVES.md`’deki hedeflere ve `METHODOLOG
   - **İstihdam Türü**: `employment_type` için maaş ortalamaları (`sns.barplot(x='employment_type', y='salary_numeric')`).
   - **Saat Bazlı Katılım**: Anket doldurma saati (`hour`) ile maaş ortalamaları (`sns.barplot(x='hour', y='salary_numeric')`).
   - **Cinsiyet Bazlı Teknoloji Kullanımı**: `gender` bazında `lang__*` veya `frontend__*` kullanım oranları (`sns.barplot(x='lang__Python', y='count', hue='gender')`).
+  - **Top Tech Combinations by Role**: `role` x (dil + frontend + tool) birleşimlerinin ortalama `salary_numeric` açısından en yüksek/en düşük ilk 10 kombinasyonu ("Hiçbiri"/"Kullanmıyorum" hariç).
 - **Çıktı**:
   - PNG: Her bar plot, ayrı bir PNG dosyası olarak kaydedilecek (örn. `barplot_technology_roi.png`, `barplot_role.png`).
   - Interaktif: Streamlit dashboard’da `plotly` ile filtreleme ve sıralama seçenekleri.
@@ -66,6 +67,8 @@ Aşağıdaki grafikler, `ANALYSIS_OBJECTIVES.md`’deki hedeflere ve `METHODOLOG
 - **Detaylar**:
   - **Teknoloji Kombinasyonları**: `lang__*`, `frontend__*`, `tool__*` arasındaki korelasyon ve maaş etkisi (`sns.heatmap`).
   - **Saat Bazlı Katılım**: `hour` bazında rol veya maaş dağılımı (`sns.heatmap`).
+  - **Korelasyon Isı Haritası**: `salary_numeric` ile `experience_years`, `seniority_level_ic` ve teknoloji/araç sütunları arasındaki ilişkiler.
+  - **Work Type x Location**: `work_mode` x `company_location` kombinasyonlarında ortalama maaş seviyeleri (n≥10 filtreli).
 - **Çıktı**:
   - PNG: `heatmap_tech_combinations.png`, `heatmap_hourly_participation.png`.
   - Interaktif: Streamlit dashboard’da `plotly` ile dinamik heatmap.
@@ -74,6 +77,28 @@ Aşağıdaki grafikler, `ANALYSIS_OBJECTIVES.md`’deki hedeflere ve `METHODOLOG
   - “Anket Katılımında Saat Bazlı Trendler”
 
 ### 2.5. Sankey Diyagramı
+### 2.6. Çalışma Düzeni ve Rol Grafiği (Work Arrangement Distribution by Role)
+- **Amaç**: Roller bazında Remote/Hybrid/Office dağılımlarını yüzdelik olarak göstermek; uzak çalışmaya yatkın rolleri belirlemek.
+- **Detaylar**:
+  - En yüksek örneklem sayısına sahip 10–15 rol seçilir.
+  - Her rol için `work_mode` dağılımı yüzdeye normalize edilir (100% stacked bar).
+- **Çıktı**:
+  - PNG: `barplot_work_arrangement_by_role.png`.
+  - Interaktif: Streamlit’de filtrelenebilir stacked bar.
+- **Başlık**: “Rollere Göre Çalışma Düzeni Dağılımı (Remote/Hybrid/Office)”
+
+### 2.7. Araç Benimseme Grafiği (Top Tool Adoption by Role)
+- **Amaç**: Roller bazında en yaygın kullanılan araçları yüzdelik olarak göstermek; öğrenim önceliklerine rehberlik etmek.
+- **Detaylar**:
+  - `tool__*` sütunlarının rol bazında ortalamaları (benimseme oranı) hesaplanır; “Kullanmıyorum” hariç.
+  - En çok benimsenen ilk N araç vurgulanır veya ısı haritası ile tam matris sunulur.
+- **Çıktı**:
+  - PNG: `heatmap_tool_adoption_by_role.png` veya `barplot_top_tools_by_role.png`.
+  - Interaktif: Streamlit’de rol ve araç filtresiyle ısı haritası.
+- **Başlık**: “Rollere Göre En Çok Benimsenen Araçlar”
+### 2.6. Çizgi ve Keman Grafikler
+- **Career Progression - Salary Growth (Line Plot)**: `is_likely_in_company_location == 1` filtresiyle Türkiye/Avrupa/Amerika için `seniority_level_ic` (1,2,3) boyunca ortalama `salary_numeric` çizgileri.
+- **Skill Diversity (Violin Plot)**: `skill_diversity_total` grupları (örn. düşük/orta/yüksek) için maaş dağılımı.
 - **Amaç**: Kariyer progression’ını görselleştirmek (Junior → Mid → Senior, yöneticilik rolleri).
 - **Detaylar**:
   - **Kariyer Yolu**: `seniority_level_ic` ve `management_level` arasındaki geçişler (`plotly` ile Sankey diyagramı).
