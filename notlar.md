@@ -31,3 +31,5 @@ Raporlama aşamasında, Individual Contributor seviyeleri **tek bir ordinal ekse
 
 - tech_combo_top Hiçbiri ve Kullanmıyorum analiz disi
 
+
+heatmap_correlation.png nedir hala anlamadim?

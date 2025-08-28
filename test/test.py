@@ -1,76 +1,70 @@
 import pandas as pd
-# import json
-# from collections import Counter
-
-# def count_languages(csv_path: str) -> dict:
-#     df = pd.read_csv(csv_path)
-#     # Split by comma, strip whitespace, drop empties, count frequencies
-#     split_series = (
-#         df['Hangi programlama dillerini kullanıyorsun']
-#         .dropna()
-#         .astype(str)
-#         .str.split(',')
-#     )
-
-#     language_counter: Counter = Counter()
-#     for languages in split_series:
-#         for language in languages:
-#             cleaned = language.strip()
-#             if cleaned:
-#                 language_counter[cleaned] += 1
-
-#     return dict(language_counter)
+import json
 
 
-# def count_one_hot_programming(csv_path: str) -> dict:
-#     df = pd.read_csv(csv_path)
-#     programming_columns = [c for c in df.columns if c.startswith('programming_')]
-
-#     counts: dict = {}
-#     for column_name in programming_columns:
-#         # Coerce non-numeric to NaN, fill as 0, cast to int, then sum
-#         column_sum = (
-#             pd.to_numeric(df[column_name], errors='coerce')
-#             .fillna(0)
-#             .astype(int)
-#             .sum()
-#         )
-#         counts[column_name] = int(column_sum)
-
-#     return counts
+CSV_PATH = "/Users/erdemgunal/Desktop/salary_analysis_project/data/2025_cleaned_data.csv"
 
 
-# if __name__ == "__main__":
-#     free_text_counts = count_languages('data/2025_maas_anket.csv')
-#     one_hot_counts = count_one_hot_programming('data/2025_cleaned_data.csv')
-#     print(json.dumps({
-#         'free_text_counts': free_text_counts,
-#         'one_hot_counts': one_hot_counts,
-#     }, indent=4, ensure_ascii=False))
+def compute_avg_salary_by_level_and_location() -> dict:
+    df = pd.read_csv(CSV_PATH)
+
+    # Seniority name from ordinal
+    level_map = {1: "Junior", 2: "Mid", 3: "Senior", 4: "Staff", 5: "Team Lead", 6: "Architect"}
+    if "seniority_level_ic" not in df.columns:
+        raise KeyError("'seniority_level_ic' column not found in cleaned dataset")
+    df["level_name"] = df["seniority_level_ic"].map(level_map)
+
+    # Infer company location label from one-hot columns
+    def infer_loc(row):
+        if row.get("company_location_Turkiye", 0) == 1:
+            return "Türkiye"
+        if row.get("company_location_Avrupa", 0) == 1:
+            return "Avrupa"
+        if row.get("company_location_Amerika", 0) == 1:
+            return "Amerika"
+        return None
+
+    df["company_location_label"] = df.apply(infer_loc, axis=1)
+
+    # Filter is_manager == 0 and target levels
+    if "is_manager" not in df.columns:
+        raise KeyError("'is_manager' column not found in cleaned dataset")
+    target_levels = ["Junior", "Mid", "Senior"]
+    target_locs = ["Türkiye", "Avrupa", "Amerika"]
+
+    filtered = df[(df["is_manager"] == 0) & (df["level_name"].isin(target_levels))]
+
+    result = {}
+    for lvl in target_levels:
+        lvl_dict = {}
+        for loc in target_locs:
+            mask = (filtered["level_name"] == lvl) & (filtered["company_location_label"] == loc)
+            series = filtered.loc[mask, "salary_numeric"]
+            lvl_dict[loc] = float(series.mean()) if not series.empty else None
+        result[lvl] = lvl_dict
+    return result
 
 
-def print_calisma_sekli_for_yurtdisi_tr_hub(csv_path: str) -> None:
-    df = pd.read_csv(csv_path, encoding='utf-8', encoding_errors='ignore')
-    if 'Şirket lokasyon' not in df.columns or 'Çalışma şekli' not in df.columns:
-        missing = [c for c in ['Şirket lokasyon', 'Çalışma şekli'] if c not in df.columns]
-        raise KeyError(f"Eksik kolon(lar): {', '.join(missing)}. Dosya: {csv_path}")
-
-    mask = df['Şirket lokasyon'] == 'Yurtdışı TR hub'
-    values = df.loc[mask, 'Çalışma şekli']
-
-    print('Filtre: Şirket lokasyon == "Yurtdışı TR hub"')
-    print('\nÇalışma şekli değerleri:')
-    if values.dropna().empty:
-        print('(Kayıt bulunamadı)')
-    else:
-        print(values.dropna().to_string(index=False))
-
-    print('\nDağılım (value_counts):')
-    if values.dropna().empty:
-        print('(Boş)')
-    else:
-        print(values.dropna().value_counts().to_string())
-
+def main() -> None:
+    res = compute_avg_salary_by_level_and_location()
+    # print(json.dumps(res, indent=4))
+    # {
+    #     "Junior": {
+    #         "Türkiye": 52.42908827785818,
+    #         "Avrupa": 112.16666666666667,
+    #         "Amerika": 102.72222222222223
+    #     },
+    #     "Mid": {
+    #         "Türkiye": 80.60634146341464,
+    #         "Avrupa": 130.7325581395349,
+    #         "Amerika": 130.5
+    #     },
+    #     "Senior": {
+    #         "Türkiye": 124.60147058823529,
+    #         "Avrupa": 194.3372093023256,
+    #         "Amerika": 180.9
+    #     }
+    # }
 
 if __name__ == "__main__":
-    print_calisma_sekli_for_yurtdisi_tr_hub('data/2025_maas_anket.csv')
+    main()

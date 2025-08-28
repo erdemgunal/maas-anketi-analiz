@@ -608,6 +608,328 @@ def perform_statistical_tests(df: pd.DataFrame):
 
     return results
 
+# ============ NEW PLOTS FROM DOCS ============
+
+def career_progression_salary_growth(df: pd.DataFrame):
+    """Line plot: salary growth across career levels (1=Junior,2=Mid,3=Senior) per company location,
+    filtered to likely-in-company-location respondents.
+    """
+    print('Creating career progression (salary growth) line plot...')
+    has_likely = 'is_likely_in_company_location' in df.columns
+    subset = df[df['seniority_level_ic'].isin([1, 2, 3])]
+    if has_likely:
+        subset = subset[subset['is_likely_in_company_location'] == 1]
+    if subset.empty:
+        return
+
+    # Map columns for company locations if one-hot encoded
+    loc_map = {
+        'Turkiye': 'Türkiye',
+        'Avrupa': 'Europe',
+        'Amerika': 'America'
+    }
+    # Build tidy frame: for each location column present, compute means by seniority 1-3
+    plt.figure(figsize=(10, 6))
+    has_any = False
+    for raw, label in loc_map.items():
+        col = f'company_location_{raw}'
+        if col in df.columns:
+            # Primary attempt: with likely filter if available
+            grp = subset[subset[col] == 1].groupby('seniority_level_ic')['salary_numeric'].mean()
+            x = [1, 2, 3]
+            y = [grp.get(1, np.nan), grp.get(2, np.nan), grp.get(3, np.nan)]
+
+            # Fallback 1: if any NaN, recompute without likely-location filter
+            if any(np.isnan(y)):
+                grp2 = df[(df[col] == 1) & (df['seniority_level_ic'].isin([1, 2, 3]))].groupby('seniority_level_ic')['salary_numeric'].mean()
+                y = [
+                    grp2.get(1, y[0]),
+                    grp2.get(2, y[1]),
+                    grp2.get(3, y[2])
+                ]
+            if not np.all(np.isnan(y)):
+                plt.plot(x, y, marker='o', label=label)
+                has_any = True
+    if not has_any:
+        plt.close()
+        return
+    plt.title('Career Progression - Salary Growth (Junior → Senior)', fontsize=14, fontweight='bold')
+    plt.xlabel('Career Level (1=Junior, 2=Mid, 3=Senior)', fontsize=18)
+    plt.ylabel('Average Monthly Net Salary (thousand TL)', fontsize=18)
+    plt.legend()
+    plt.figtext(0.5, 0.01, LOCATION_NOTE, ha='center', fontsize=9, style='italic')
+    plt.tight_layout()
+    plt.savefig(os.path.join(FIG_DIR, 'line_career_progression_salary_growth.png'), dpi=300, bbox_inches='tight')
+    plt.close()
+
+
+def top_tech_combinations_by_role(df: pd.DataFrame):
+    """Bar plots for top and bottom tech combinations (programming + frontend + tool) by role.
+    We derive a primary role and one primary flag per tech category per respondent, then aggregate.
+    """
+    print('Creating Top Tech Combinations by Role plots...')
+    role_cols = [c for c in df.columns if c.startswith('role_')]
+    prog_cols = [c for c in df.columns if c.startswith('programming_') and c != 'programming_Hicbiri']
+    fe_cols = [c for c in df.columns if c.startswith('frontend_') and c != 'frontend_Kullanmiyorum']
+    # Exclude Kullanmiyorum tools at source
+    tool_cols = [c for c in df.columns if c.startswith('tools_') and not c.endswith('Kullanmiyorum')]
+    if not role_cols or (not prog_cols and not fe_cols and not tool_cols):
+        return
+
+    def pick_first_true(cols: list[str], row: pd.Series) -> str:
+        for c in cols:
+            try:
+                if row[c] == 1:
+                    return c
+            except KeyError:
+                continue
+        return ''
+
+    records = []
+    for _, row in df.iterrows():
+        role_c = pick_first_true(role_cols, row)
+        if not role_c:
+            continue
+        role_name = role_c.replace('role_', '').replace('_', ' ')
+        lang_c = pick_first_true(prog_cols, row)
+        fe_c = pick_first_true(fe_cols, row)
+        tool_c = pick_first_true(tool_cols, row)
+        lang = lang_c.replace('programming_', '').replace('_', ' ') if lang_c else ''
+        fe = fe_c.replace('frontend_', '').replace('_', ' ') if fe_c else ''
+        tool = tool_c.replace('tools_', '').replace('_', ' ') if tool_c else ''
+        # Skip records that include missing/none-like selections
+        if lang in ['', 'None'] or fe in ['', 'None'] or tool in ['', 'None', 'Kullanmiyorum']:
+            continue
+        combo = f'{lang} + {fe} + {tool}'
+        records.append((role_name, combo, row.get('salary_numeric', np.nan)))
+
+    if not records:
+        return
+    combos_df = pd.DataFrame(records, columns=['role', 'combo', 'salary'])
+    combos_df = combos_df.dropna(subset=['salary'])
+    grouped = combos_df.groupby(['role', 'combo']).agg(avg_salary=('salary', 'mean'), count=('salary', 'size')).reset_index()
+    # Focus on adequately represented combos
+    grouped = grouped[grouped['count'] >= 10]
+    if grouped.empty:
+        return
+
+    # Show total of 10: top 5 and bottom 5
+    top5 = grouped.sort_values('avg_salary', ascending=False).head(5)
+    bottom5 = grouped.sort_values('avg_salary', ascending=True).head(5)
+    combined = pd.concat([bottom5.assign(kind='Bottom'), top5.assign(kind='Top')], axis=0)
+    if combined.empty:
+        return
+    # Build plotting order: Bottom (ascending) first then Top (descending)
+    combined_bottom = combined[combined['kind'] == 'Bottom'].sort_values('avg_salary', ascending=True)
+    combined_top = combined[combined['kind'] == 'Top'].sort_values('avg_salary', ascending=False)
+    final_df = pd.concat([combined_bottom, combined_top], axis=0)
+    names = (final_df['role'] + ' | ' + final_df['combo']).tolist()
+    vals = final_df['avg_salary'].tolist()
+    counts = final_df['count'].tolist()
+    colors = ['crimson' if k == 'Bottom' else 'seagreen' for k in final_df['kind']]
+    plt.figure(figsize=(14, 10))
+    bars = plt.barh(names, vals, color=colors)
+    plt.gca().invert_yaxis()
+    plt.title('Top & Bottom Tech Combinations by Role', fontsize=14, fontweight='bold')
+    plt.xlabel('Average Monthly Net Salary (thousand TL)', fontsize=18)
+    for i, (bar, m, n) in enumerate(zip(bars, vals, counts)):
+        plt.text(m + 2, i, f'{m:.1f}\n(n={n})', va='center', fontsize=9)
+    # Legend proxy
+    from matplotlib.patches import Patch
+    plt.legend(handles=[Patch(color='seagreen', label='Top 10'), Patch(color='crimson', label='Bottom 10')])
+    plt.tight_layout()
+    plt.savefig(os.path.join(FIG_DIR, 'barplot_tech_combinations_by_role.png'), dpi=300, bbox_inches='tight')
+    plt.close()
+
+
+def correlation_heatmap_general(df: pd.DataFrame):
+    """Correlation heatmap across salary, experience, seniority and tech/tool features.
+    Shows top absolute correlations with salary.
+    """
+    print('Creating correlation heatmap (general)...')
+    base_cols = [c for c in ['salary_numeric', 'experience_years', 'seniority_level_ic'] if c in df.columns]
+    tech_cols = [c for c in df.columns if c.startswith('programming_') or c.startswith('frontend_') or c.startswith('tools_')]
+    cols = base_cols + tech_cols
+    if 'salary_numeric' not in cols:
+        return
+    sub = df[cols].copy()
+    # Keep only columns with variance
+    keep = [c for c in sub.columns if sub[c].nunique() > 1]
+    sub = sub[keep]
+    if sub.shape[1] < 3:
+        return
+    corr = sub.corr()
+    # Rank by absolute correlation with salary
+    if 'salary_numeric' not in corr.columns:
+        return
+    target = corr['salary_numeric'].abs().sort_values(ascending=False)
+    top_cols = target.index[:20].tolist()
+    corr_top = corr.loc[top_cols, top_cols]
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(corr_top, cmap='vlag', center=0, annot=False)
+    plt.title('Correlation Heatmap (Top features)', fontsize=14, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig(os.path.join(FIG_DIR, 'heatmap_correlation.png'), dpi=300, bbox_inches='tight')
+    plt.close()
+
+
+def work_arrangement_distribution_by_role(df: pd.DataFrame):
+    """100% stacked bar: work mode shares per top roles by sample size."""
+    print('Creating work arrangement distribution by role...')
+    role_cols = [c for c in df.columns if c.startswith('role_')]
+    modes = [m for m in ['Remote', 'Hybrid', 'Office'] if f'work_mode_{m}' in df.columns]
+    if not role_cols or not modes:
+        return
+    # Determine role per row
+    def pick_role(row: pd.Series) -> str:
+        for c in role_cols:
+            if row.get(c, 0) == 1:
+                return c.replace('role_', '').replace('_', ' ')
+        return ''
+    tmp = df.copy()
+    tmp['role_primary'] = tmp.apply(pick_role, axis=1)
+    tmp = tmp[tmp['role_primary'] != '']
+    if tmp.empty:
+        return
+    # Compute shares
+    agg = []
+    for role, g in tmp.groupby('role_primary'):
+        counts = {m: int((g[f'work_mode_{m}'] == 1).sum()) for m in modes}
+        total = sum(counts.values())
+        if total >= 20:
+            shares = {m: (counts[m] / total) for m in modes}
+            shares['role'] = role
+            shares['n'] = total
+            agg.append(shares)
+    if not agg:
+        return
+    share_df = pd.DataFrame(agg).sort_values('n', ascending=False).head(15)
+    roles = share_df['role'].tolist()
+    bottoms = np.zeros(len(roles))
+    plt.figure(figsize=(12, 7))
+    # Use a perceptually uniform colormap for consistent stacking colors
+    cmap = plt.get_cmap('viridis')
+    mode_colors = {m: cmap(v) for m, v in zip(modes, np.linspace(0.2, 0.85, len(modes)))}
+    for m in modes:
+        vals = share_df[m].values
+        plt.bar(roles, vals, bottom=bottoms, label=m, color=mode_colors[m])
+        bottoms += vals
+    plt.xticks(rotation=45)
+    plt.ylabel('Share (100%)', fontsize=18)
+    plt.xlabel('Role', fontsize=18)
+    plt.title('Work Arrangement Distribution by Role (Remote/Hybrid/Office)', fontsize=14, fontweight='bold')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(os.path.join(FIG_DIR, 'barplot_work_arrangement_by_role.png'), dpi=300, bbox_inches='tight')
+    plt.close()
+
+
+def top_tool_adoption_by_role(df: pd.DataFrame):
+    """Heatmap of tool adoption (mean of binary columns) per role for popular roles."""
+    print('Creating top tool adoption by role heatmap...')
+    role_cols = [c for c in df.columns if c.startswith('role_')]
+    tool_cols = [c for c in df.columns if c.startswith('tools_') and not c.endswith('Kullanmiyorum')]
+    if not role_cols or not tool_cols:
+        return
+    # Role primary
+    def pick_role(row: pd.Series) -> str:
+        for c in role_cols:
+            if row.get(c, 0) == 1:
+                return c.replace('role_', '').replace('_', ' ')
+        return ''
+    tmp = df.copy()
+    tmp['role_primary'] = tmp.apply(pick_role, axis=1)
+    tmp = tmp[tmp['role_primary'] != '']
+    if tmp.empty:
+        return
+
+    role_counts = tmp['role_primary'].value_counts()
+    popular_roles = role_counts[role_counts >= 20].index.tolist()[:15]
+    if not popular_roles:
+        return
+    mat = []
+    for role in popular_roles:
+        g = tmp[tmp['role_primary'] == role]
+        vals = [g[c].mean() * 100 for c in tool_cols]
+        mat.append(vals)
+    heat = np.array(mat)
+    col_labels = [c.replace('tools_', '').replace('_', ' ') for c in tool_cols]
+
+    plt.figure(figsize=(max(12, len(tool_cols) * 0.4), 8))
+    sns.heatmap(heat, annot=False, cmap='YlGnBu', yticklabels=popular_roles, xticklabels=col_labels, cbar_kws={'label': 'Adoption (%)'})
+    plt.title('Top Tool Adoption by Role', fontsize=14, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig(os.path.join(FIG_DIR, 'heatmap_tool_adoption_by_role.png'), dpi=300, bbox_inches='tight')
+    plt.close()
+
+
+def heatmap_worktype_location_salary(df: pd.DataFrame):
+    """Heatmap of average salary by work type (Remote/Hybrid/Office) and company location."""
+    print('Creating Work Type x Location salary heatmap...')
+    modes = [m for m in ['Remote', 'Hybrid', 'Office'] if f'work_mode_{m}' in df.columns]
+    locs = [l for l in ['Turkiye', 'Avrupa', 'Amerika', 'Yurtdisi_TR_hub'] if f'company_location_{l}' in df.columns]
+    if not modes or not locs:
+        return
+    # Build cells
+    avg_mat = np.full((len(modes), len(locs)), np.nan)
+    for i, m in enumerate(modes):
+        for j, l in enumerate(locs):
+            s = df[(df[f'work_mode_{m}'] == 1) & (df[f'company_location_{l}'] == 1)]['salary_numeric']
+            # Compute mean if any data exists; leave NaN if none (renders as white)
+            if len(s) > 0:
+                avg_mat[i, j] = s.mean()
+    # If all NaN, skip
+    if np.isnan(avg_mat).all():
+        return
+    plt.figure(figsize=(10, 6))
+    loc_labels = ['Türkiye', 'Europe', 'America', 'Overseas TR hub'][:len(locs)]
+    sns.heatmap(avg_mat, annot=False, cmap='RdYlGn', center=np.nanmean(avg_mat), yticklabels=modes, xticklabels=loc_labels)
+    plt.title('Work Type × Company Location: Average Salary', fontsize=14, fontweight='bold')
+    plt.xlabel('Company Location', fontsize=18)
+    plt.ylabel('Work Type', fontsize=18)
+    plt.tight_layout()
+    plt.savefig(os.path.join(FIG_DIR, 'heatmap_worktype_location_salary.png'), dpi=300, bbox_inches='tight')
+    plt.close()
+
+
+def violin_skill_diversity(df: pd.DataFrame):
+    """Violin plot: salary distribution by skill diversity groups.
+    Uses `skill_diversity_total` if present; otherwise computes from counts of selected programming, frontend and tool flags.
+    """
+    print('Creating violin plot for skill diversity...')
+    if 'skill_diversity_total' in df.columns:
+        vals = df['skill_diversity_total']
+    else:
+        prog_cols = [c for c in df.columns if c.startswith('programming_')]
+        fe_cols = [c for c in df.columns if c.startswith('frontend_')]
+        tool_cols = [c for c in df.columns if c.startswith('tools_')]
+        if not prog_cols and not fe_cols and not tool_cols:
+            return
+        vals = df[prog_cols].sum(axis=1).fillna(0)
+        if fe_cols:
+            vals = vals + df[fe_cols].sum(axis=1).fillna(0)
+        if tool_cols:
+            vals = vals + df[tool_cols].sum(axis=1).fillna(0)
+    tmp = df.copy()
+    tmp['skill_diversity_score'] = vals
+    # Bin into tertiles (low/medium/high)
+    try:
+        tmp['skill_diversity_group'] = pd.qcut(tmp['skill_diversity_score'], q=3, labels=['Low', 'Medium', 'High'])
+    except Exception:
+        # Fallback to simple bins
+        tmp['skill_diversity_group'] = pd.cut(tmp['skill_diversity_score'], bins=[-1, 2, 5, np.inf], labels=['Low', 'Medium', 'High'])
+    tmp = tmp.dropna(subset=['skill_diversity_group', 'salary_numeric'])
+    if tmp.empty:
+        return
+    plt.figure(figsize=(10, 6))
+    sns.violinplot(data=tmp, x='skill_diversity_group', y='salary_numeric', inner='box', palette='pastel')
+    plt.xlabel('Skill Diversity (Low / Medium / High)', fontsize=18)
+    plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
+    plt.title('Skill Diversity vs Salary (Violin)', fontsize=14, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig(os.path.join(FIG_DIR, 'violin_skill_diversity.png'), dpi=300, bbox_inches='tight')
+    plt.close()
+
 # ============ MAIN ==========
 
 def main():
@@ -627,6 +949,14 @@ def main():
     heatmap_tech_salary(df)
     hourly_participation(df)
     sankey_seniority_to_role(df)
+    # New plots from docs
+    career_progression_salary_growth(df)
+    top_tech_combinations_by_role(df)
+    correlation_heatmap_general(df)
+    work_arrangement_distribution_by_role(df)
+    top_tool_adoption_by_role(df)
+    heatmap_worktype_location_salary(df)
+    violin_skill_diversity(df)
 
     print('✅ Sprint 2 analyses completed. Files saved under figures/.')
 
