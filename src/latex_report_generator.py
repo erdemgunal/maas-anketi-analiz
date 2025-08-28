@@ -551,6 +551,54 @@ Different employment arrangements offer varying compensation structures:
     \\item \\textbf{{Self-employment:}} Entrepreneurial paths offer highest potential but highest risk
 \\end{{itemize}}
 
+"""
+    
+    # Advanced Visualizations: newly added figures from Sprint 2
+    latex_content += f"""
+\\section{{Advanced Visualizations}}
+
+\\subsection{{Career Progression - Salary Growth}}
+This line chart shows how salaries evolve from Junior to Senior levels across company locations. When available, the analysis filters to respondents who are likely in the company location.
+"""
+    latex_content += include_figure_if_exists('figures/line_career_progression_salary_growth.png', 'Career Progression - Salary Growth (Junior \\textrightarrow{} Senior). Likely-in-company-location filter applied when available.')
+
+    latex_content += f"""
+\\subsection{{Top Tech Combinations by Role}}
+Bar chart of average salaries for prominent technology stack combinations (Programming Language + Frontend Technology + Tool), grouped by role. Only combinations with at least 10 respondents are included.
+"""
+    latex_content += include_figure_if_exists('figures/barplot_tech_combinations_by_role.png', 'Top Tech Combinations by Role - Average salary for language + frontend + tool stacks (n\\ensuremath{{\\geq}}10 per combo)')
+
+    latex_content += f"""
+\\subsection{{Correlation Heatmap}}
+Heatmap of the top features by absolute correlation with salary, covering experience, career level, and technology/tool indicators.
+"""
+    latex_content += include_figure_if_exists('figures/heatmap_correlation.png', 'Correlation Heatmap - Top features by absolute correlation with salary')
+
+    latex_content += f"""
+\\subsection{{Work Arrangement Distribution by Role}}
+100\\% stacked bar chart showing Remote/Hybrid/Office shares for the most common roles (by sample size).
+"""
+    latex_content += include_figure_if_exists('figures/barplot_work_arrangement_by_role.png', 'Work Arrangement Distribution by Role (Remote/Hybrid/Office) - 100\\% stacked shares by role')
+
+    latex_content += f"""
+\\subsection{{Top Tool Adoption by Role}}
+Heatmap of tool adoption percentages across roles for popular tools.
+"""
+    latex_content += include_figure_if_exists('figures/heatmap_tool_adoption_by_role.png', 'Top Tool Adoption by Role - Mean adoption rates (\\%) across roles')
+
+    latex_content += f"""
+\\subsection{{Work Type \\texorpdfstring{{\\(\\times\\)}}{{}} Company Location}}
+Heatmap of average salaries by work type and company location combination. Darker greens indicate higher average salaries.
+"""
+    latex_content += include_figure_if_exists('figures/heatmap_worktype_location_salary.png', 'Work Type \\(\\times\\) Company Location: Average Salary. Note: Estimated location is inferred from company location and work mode (Office/Hybrid \\textrightarrow{} company location). Not definitive.')
+
+    latex_content += f"""
+\\subsection{{Skill Diversity and Salary}}
+Violin plot showing salary distributions by skill diversity groups (Low/Medium/High). Wider skill sets are associated with higher salary potential.
+"""
+    latex_content += include_figure_if_exists('figures/violin_skill_diversity.png', 'Skill Diversity vs Salary (Violin) - Salary distribution by skill diversity group')
+
+    latex_content += f"""
 \\section{{React Technology Deep Dive}}
 
 \\subsection{{React vs Non-React Salary Comparison}}

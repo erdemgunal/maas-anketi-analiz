@@ -922,10 +922,25 @@ def violin_skill_diversity(df: pd.DataFrame):
     if tmp.empty:
         return
     plt.figure(figsize=(10, 6))
-    sns.violinplot(data=tmp, x='skill_diversity_group', y='salary_numeric', inner='box', palette='pastel')
+    labels_order = ['Low', 'Medium', 'High']
+    # Compute counts and observed skill-count ranges per group
+    counts = tmp['skill_diversity_group'].value_counts().reindex(labels_order).fillna(0).astype(int)
+    ranges = (
+        tmp.groupby('skill_diversity_group')['skill_diversity_score']
+        .agg(['min', 'max'])
+        .reindex(labels_order)
+        .fillna(0)
+        .astype({'min': int, 'max': int})
+    )
+    sns.violinplot(data=tmp, x='skill_diversity_group', y='salary_numeric', inner='box', palette='pastel', order=labels_order)
     plt.xlabel('Skill Diversity (Low / Medium / High)', fontsize=18)
     plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
     plt.title('Skill Diversity vs Salary (Violin)', fontsize=14, fontweight='bold')
+    # Enrich x-tick labels with counts and skill ranges
+    xtick_labels = [
+        f"{lab} (n={counts[lab]}, {ranges.loc[lab, 'min']}-{ranges.loc[lab, 'max']} skills)" for lab in labels_order
+    ]
+    plt.xticks(ticks=range(len(labels_order)), labels=xtick_labels)
     plt.tight_layout()
     plt.savefig(os.path.join(FIG_DIR, 'violin_skill_diversity.png'), dpi=300, bbox_inches='tight')
     plt.close()
