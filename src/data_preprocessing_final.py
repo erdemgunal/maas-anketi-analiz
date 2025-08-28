@@ -183,10 +183,26 @@ def main():
     
     # 6. Çalışan Lokasyon Tahmini (One-Hot encoding'den önce)
     print("6. Çalışan lokasyon tahmini yapılıyor...")
-    df['is_likely_in_company_location'] = (
-        (df['work_mode'].isin(['Office', 'Hybrid'])) & 
-        (df['company_location'] != '')
-    ).astype(int)
+
+    def infer_location_flag(row):
+        # "Yurtdışı TR hub" → her durumda 0 (belirsiz, aykırı değerler dahil)
+        if row['company_location'] == 'Yurtdışı TR hub':
+            return 0
+        
+         # Remote → 0 (ikamet kesin tahmin edilemez)
+        if row['work_mode'] == 'Remote':
+            return 0
+        
+        # Eğer Office veya Hybrid ise → yüksek ihtimal şirket lokasyonunda yaşıyor
+        if row['work_mode'] in ['Office', 'Hybrid']:
+            return 1
+        
+        # Default → belirsiz
+        return 0
+
+    df['is_likely_in_company_location'] = df.apply(infer_location_flag, axis=1)
+    print("   Tahmin sütunu oluşturuldu. Dağılım:")
+    print(df['is_likely_in_company_location'].value_counts())
     
     # 7. Kategorik Kodlama
     print("7. Kategorik kodlama yapılıyor...")
