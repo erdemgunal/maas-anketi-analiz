@@ -47,7 +47,7 @@ def compute_avg_salary_by_level_and_location() -> dict:
 
 def main() -> None:
     res = compute_avg_salary_by_level_and_location()
-    # print(json.dumps(res, indent=4))
+    print(json.dumps(res, indent=4))
     # {
     #     "Junior": {
     #         "Türkiye": 52.42908827785818,

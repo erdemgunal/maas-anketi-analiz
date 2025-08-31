@@ -33,3 +33,8 @@ Raporlama aşamasında, Individual Contributor seviyeleri **tek bir ordinal ekse
 
 
 heatmap_correlation.png nedir hala anlamadim?
+
+Participation Pattern Insights:
+Top Technology Stack Insights
+    Most Popular High-Paying
+    Backend Premium:

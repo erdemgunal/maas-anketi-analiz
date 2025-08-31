@@ -41,8 +41,8 @@ def boxplots(df: pd.DataFrame):
     plt.figure(figsize=(12, 6))
     sns.boxplot(data=df, x='seniority_level_ic', y='salary_numeric')
     plt.title('Salary Distribution by Career Level', fontsize=14, fontweight='bold')
-    plt.xlabel('Career Level (0=Management, 1=Junior, 2=Mid, 3=Senior, 4=Staff, 5=Architect)', fontsize=18)
-    plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
+    plt.xlabel('Career Level (0=Management, 1=Junior, 2=Mid, 3=Senior, 4=Staff Engineer, 5=Team Lead, 6=Architect)', fontsize=12)
+    plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=12)
     plt.tight_layout()
     plt.savefig(os.path.join(FIG_DIR, 'boxplot_seniority.png'), dpi=300, bbox_inches='tight')
     plt.close()
@@ -85,10 +85,10 @@ def boxplots(df: pd.DataFrame):
                 work_modes.append(vals)
                 work_labels.append(mode)
     if work_modes:
-        plt.figure(figsize=(10, 6))
+        plt.figure(figsize=(12, 6))
         plt.boxplot(work_modes, tick_labels=work_labels)
         plt.title('Salary Distribution by Work Mode', fontsize=14, fontweight='bold')
-        plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
+        plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=12)
         plt.tight_layout()
         plt.savefig(os.path.join(FIG_DIR, 'boxplot_work_mode.png'), dpi=300, bbox_inches='tight')
         plt.close()
@@ -114,8 +114,7 @@ def boxplots(df: pd.DataFrame):
         plt.figure(figsize=(12, 6))
         plt.boxplot(loc_series, tick_labels=loc_labels)
         plt.title('Salary Distribution by Company Location', fontsize=14, fontweight='bold')
-        plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
-        plt.figtext(0.5, 0.01, LOCATION_NOTE, ha='center', fontsize=9, style='italic')
+        plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=12)
         plt.tight_layout()
         plt.savefig(os.path.join(FIG_DIR, 'boxplot_company_location.png'), dpi=300, bbox_inches='tight')
         plt.close()
@@ -124,8 +123,8 @@ def boxplots(df: pd.DataFrame):
     plt.figure(figsize=(8, 6))
     sns.boxplot(data=df, x='gender', y='salary_numeric')
     plt.title('Salary Distribution by Gender', fontsize=14, fontweight='bold')
-    plt.xlabel('Gender (0=Male, 1=Female)', fontsize=18)
-    plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
+    plt.xlabel('Gender (0=Male, 1=Female)', fontsize=12)
+    plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=12)
     plt.tight_layout()
     plt.savefig(os.path.join(FIG_DIR, 'boxplot_gender.png'), dpi=300, bbox_inches='tight')
     plt.close()
@@ -152,7 +151,7 @@ def boxplots(df: pd.DataFrame):
             plt.figure(figsize=(12, 6))
             plt.boxplot(data, tick_labels=labels)
             plt.title('Salary Distribution by Employment Type', fontsize=14, fontweight='bold')
-            plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
+            plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=12)
             plt.xticks(rotation=20)
             plt.tight_layout()
             plt.savefig(os.path.join(FIG_DIR, 'boxplot_employment_type.png'), dpi=300, bbox_inches='tight')
@@ -202,8 +201,8 @@ def barplots(df: pd.DataFrame):
             bars = plt.barh(names, rois, color=colors)
             plt.gca().invert_yaxis()
             plt.title(title, fontsize=14, fontweight='bold')
-            plt.xlabel('Average Salary Difference vs Non-users (thousand TL)', fontsize=18)
-            plt.ylabel(ylabel, fontsize=18)
+            plt.xlabel('Average Salary Difference vs Non-users (thousand TL)', fontsize=14)
+            plt.ylabel(ylabel, fontsize=14)
             for i, (bar, r, n) in enumerate(zip(bars, rois, counts)):
                 xoff = 1 if r >= 0 else -1
                 halign = 'left' if r >= 0 else 'right'
@@ -230,6 +229,7 @@ def gender_technology_usage(df: pd.DataFrame):
         for col in lang_cols:
             usage = df[col].mean()
             lang_usage.append((col.replace('programming_', '').replace('_', ' '), usage))
+        
         lang_usage.sort(key=lambda x: x[1], reverse=True)
         top_langs = [col.replace('programming_', '') for col, _ in lang_usage[:10]]
         
@@ -303,8 +303,8 @@ def scatter_career_timeline(df: pd.DataFrame):
     plt.figure(figsize=(10, 6))
     sns.scatterplot(data=df, x='experience_years', y='salary_numeric', hue='seniority_level_ic', palette='viridis', s=25, edgecolor=None)
     plt.title('Experience vs Salary (colored by Career Level)', fontsize=14, fontweight='bold')
-    plt.xlabel('Years of Experience', fontsize=18)
-    plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=18)
+    plt.xlabel('Years of Experience', fontsize=14)
+    plt.ylabel('Monthly Net Salary (thousand TL)', fontsize=14)
     plt.legend(title='Career Level', bbox_to_anchor=(1.02, 1), loc='upper left')
     plt.tight_layout()
     plt.savefig(os.path.join(FIG_DIR, 'scatter_experience_salary.png'), dpi=300, bbox_inches='tight')
@@ -373,10 +373,12 @@ def hourly_participation(df: pd.DataFrame):
             rname = rc.replace('role_', '').replace('_', ' ')
             tmp = df.groupby('hour')[rc].mean()  # share using 0/1 columns
             role_long.append(tmp.rename(rname))
+        
         role_mat = pd.concat(role_long, axis=1).fillna(0.0)
         # Keep top 12 roles by overall mean share to keep it readable
         top_roles = role_mat.mean().sort_values(ascending=False).head(12).index
         role_mat = role_mat[top_roles]
+        
         plt.figure(figsize=(12, 6))
         sns.heatmap(role_mat.T, cmap='Blues', cbar_kws={'label': 'Share at Hour'})
         plt.title('Role Distribution by Hour (Share)', fontsize=14, fontweight='bold')
@@ -392,9 +394,10 @@ def sankey_seniority_to_role(df: pd.DataFrame):
     print('Creating Sankey diagram (career level to role)...')
     # Build nodes: career levels + roles
     level_map = {
-        0: 'Management', 1: 'Junior', 2: 'Mid', 3: 'Senior', 4: 'Staff', 5: 'Architect'
+        0: 'Management', 1: 'Junior', 2: 'Mid', 3: 'Senior', 4: 'Staff Engineer', 5: 'Team Lead', 6: 'Architect'
     }
     role_cols = [c for c in df.columns if c.startswith('role_')]
+
     # Count flows from level to each role
     flows = []  # (level_name, role_name, count)
     for lvl, lvl_name in level_map.items():
@@ -427,6 +430,7 @@ def sankey_seniority_to_role(df: pd.DataFrame):
     # Save interactive and attempt static export if kaleido is installed
     html_path = os.path.join(FIG_DIR, 'sankey_career_level_role.html')
     fig.write_html(html_path)
+    
     try:
         fig.write_image(os.path.join(FIG_DIR, 'sankey_career_level_role.png'), scale=2)
     except Exception:
@@ -664,8 +668,9 @@ def career_progression_salary_growth(df: pd.DataFrame):
 
 
 def top_tech_combinations_by_role(df: pd.DataFrame):
-    """Bar plots for top and bottom tech combinations (programming + frontend + tool) by role.
+    """Bar plots for top tech combinations (programming + frontend + tool) by role.
     We derive a primary role and one primary flag per tech category per respondent, then aggregate.
+    Focuses on salary-based analysis rather than frontend-focused approach.
     """
     print('Creating Top Tech Combinations by Role plots...')
     role_cols = [c for c in df.columns if c.startswith('role_')]
@@ -713,30 +718,22 @@ def top_tech_combinations_by_role(df: pd.DataFrame):
     if grouped.empty:
         return
 
-    # Show total of 10: top 5 and bottom 5
-    top5 = grouped.sort_values('avg_salary', ascending=False).head(5)
-    bottom5 = grouped.sort_values('avg_salary', ascending=True).head(5)
-    combined = pd.concat([bottom5.assign(kind='Bottom'), top5.assign(kind='Top')], axis=0)
-    if combined.empty:
+    # Show top 10 combinations by salary
+    top_combinations = grouped.sort_values('avg_salary', ascending=False).head(10)
+    if top_combinations.empty:
         return
-    # Build plotting order: Bottom (ascending) first then Top (descending)
-    combined_bottom = combined[combined['kind'] == 'Bottom'].sort_values('avg_salary', ascending=True)
-    combined_top = combined[combined['kind'] == 'Top'].sort_values('avg_salary', ascending=False)
-    final_df = pd.concat([combined_bottom, combined_top], axis=0)
-    names = (final_df['role'] + ' | ' + final_df['combo']).tolist()
-    vals = final_df['avg_salary'].tolist()
-    counts = final_df['count'].tolist()
-    colors = ['crimson' if k == 'Bottom' else 'seagreen' for k in final_df['kind']]
+    
+    names = (top_combinations['role'] + ' | ' + top_combinations['combo']).tolist()
+    vals = top_combinations['avg_salary'].tolist()
+    counts = top_combinations['count'].tolist()
+    
     plt.figure(figsize=(14, 10))
-    bars = plt.barh(names, vals, color=colors)
+    bars = plt.barh(names, vals, color='seagreen')
     plt.gca().invert_yaxis()
-    plt.title('Top & Bottom Tech Combinations by Role', fontsize=14, fontweight='bold')
+    plt.title('Top Technology Combinations by Role', fontsize=14, fontweight='bold')
     plt.xlabel('Average Monthly Net Salary (thousand TL)', fontsize=18)
     for i, (bar, m, n) in enumerate(zip(bars, vals, counts)):
         plt.text(m + 2, i, f'{m:.1f}\n(n={n})', va='center', fontsize=9)
-    # Legend proxy
-    from matplotlib.patches import Patch
-    plt.legend(handles=[Patch(color='seagreen', label='Top 10'), Patch(color='crimson', label='Bottom 10')])
     plt.tight_layout()
     plt.savefig(os.path.join(FIG_DIR, 'barplot_tech_combinations_by_role.png'), dpi=300, bbox_inches='tight')
     plt.close()
@@ -957,21 +954,21 @@ def main():
     test_results = perform_statistical_tests(df)
 
     # Generate plots
-    boxplots(df)
-    barplots(df)
-    gender_technology_usage(df)
-    scatter_career_timeline(df)
-    heatmap_tech_salary(df)
-    hourly_participation(df)
-    sankey_seniority_to_role(df)
-    # New plots from docs
-    career_progression_salary_growth(df)
+    # boxplots(df)
+    # barplots(df)
+    # gender_technology_usage(df)
+    # scatter_career_timeline(df)
+    # heatmap_tech_salary(df)
+    # hourly_participation(df)
+    # sankey_seniority_to_role(df)
+    # # New plots from docs
+    # career_progression_salary_growth(df)
     top_tech_combinations_by_role(df)
-    correlation_heatmap_general(df)
-    work_arrangement_distribution_by_role(df)
-    top_tool_adoption_by_role(df)
-    heatmap_worktype_location_salary(df)
-    violin_skill_diversity(df)
+    # correlation_heatmap_general(df)
+    # work_arrangement_distribution_by_role(df)
+    # top_tool_adoption_by_role(df)
+    # heatmap_worktype_location_salary(df)
+    # violin_skill_diversity(df)
 
     print('✅ Sprint 2 analyses completed. Files saved under figures/.')
 

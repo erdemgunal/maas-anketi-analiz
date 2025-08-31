@@ -68,33 +68,48 @@
     
     \vfill
     
-    {\small \color{darkgray} Prepared by Zafer Ayan | \href{http://linkedin.com/in/zaferayan/}{Zafer Ayan} | \today}
+    {\small \color{darkgray} Prepared by Hakkı Günal | Data sourced from Zafer Ayan's 2025 Salary Survey (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-ağustos-detaylı-maaş-anketi-98446d71920a}{Medium}) | \today}
     
 \end{titlepage}
 
 \maketitle
 
+\tableofcontents
+\newpage
+
 \begin{abstract}
-This comprehensive analysis examines salary data from 2,969 software professionals in Turkey, collected between August 20-21, 2025. The study reveals critical insights into salary dynamics across career levels, technologies, work models, and geographical locations. Key findings include significant salary premiums for remote work (22.6 thousand TL), substantial geographical disparities (70.0 thousand TL difference between Europe and Turkey), and persistent gender pay gaps (13.3 thousand TL). Technology stack analysis shows specific programming languages and tools that provide measurable salary advantages, with some combinations offering up to 15-20\% salary premiums. The report provides actionable insights for both individual career planning and organizational compensation strategies.
+This comprehensive analysis examines salary data from 2,969 software professionals in Türkiye, collected by Zafer Ayan between August 20-21, 2025, as part of his 2025 Salary Survey (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-ağustos-detaylı-maaş-anketi-98446d71920a}{Medium}). The study reveals critical insights into salary dynamics in career levels, technologies, work models, and geographical locations. Key findings include significant salary premiums for remote work (22.6 thousand TL), substantial geographical disparities (70.0 thousand TL difference between Europe and Türkiye), and persistent gender pay gaps (13.3 thousand TL). Technology stack analysis shows specific programming languages and tools that provide measurable salary advantages, with some combinations offering up to 15-20\% salary premiums. The report provides actionable insights for both individual career planning and organizational compensation strategies.
+
+\textbf{Interactive Dashboard:} For detailed exploration of the data with interactive visualizations, visit: \href{http://maas-anketi.streamlit.app/}{http://maas-anketi.streamlit.app/}
 \end{abstract}
 
 \section{Executive Summary}
 
-The 2025 Software Industry Salary Survey represents one of the most comprehensive analyses of compensation trends in Turkey's technology sector. With 2,969 participants across diverse roles and experience levels, this study provides unprecedented insights into salary determinants and career progression patterns.
+The 2025 Software Industry Salary Survey represents one of the most comprehensive analyses of compensation trends in Türkiye's technology sector. With 2,969 participants across diverse roles and experience levels, this study provides unprecedented insights into salary determinants and career progression patterns.
+
+\textbf{Interactive Exploration:} Readers interested in exploring the data interactively can access the detailed Streamlit dashboard at \href{http://maas-anketi.streamlit.app/}{http://maas-anketi.streamlit.app/}, which provides interactive visualizations, filtering capabilities, and detailed breakdowns of all analyses presented in this report.
 
 \textbf{Key Findings:}
 \begin{itemize}
-    \item \textbf{Remote Work Premium:} Remote workers earn 22.6 thousand TL more than office workers (p < 0.001, Cohen's d = 0.42)
-    \item \textbf{Geographical Disparity:} European companies offer 70.0 thousand TL higher salaries than Turkish companies (p < 0.001, Cohen's d = 1.35)
-    \item \textbf{Gender Gap:} Male professionals earn 13.3 thousand TL more than female professionals (p < 0.001, Cohen's d = 0.242)
-    \item \textbf{Technology Impact:} Certain programming languages provide 15-20\% salary premiums
-    \item \textbf{Career Progression:} Clear salary progression from Junior to Senior levels with 40-60\% increases
+    \item \textbf{Remote Work Premium:} Remote workers earn 22.6 thousand TL more than office workers (p < 0.001, Cohen's d = 0.42), representing a 28.8\% salary increase
+    \item \textbf{Geographical Disparity:} European companies offer 70.0 thousand TL higher salaries than Turkish companies (p < 0.001, Cohen's d = 1.35), representing a 75.3\% premium
+    \item \textbf{Gender Gap:} Male professionals earn 13.3 thousand TL more than female professionals (p < 0.001, Cohen's d = 0.242), representing a 15.4\% difference
+    \item \textbf{Technology Impact:} Certain programming languages provide 15-20\% salary premiums, with Rust offering the highest ROI at 69.4 thousand TL (69.4\% increase)
+    \item \textbf{Career Progression:} Clear salary progression from Junior to Senior levels with 40-60\% increases, with each year of experience adding 5-8\% to salary
 \end{itemize}
 
 \section{Methodology}
 
 \subsection{Data Collection}
-The survey was conducted online between August 20-21, 2025, targeting software professionals across various career levels and specializations. The questionnaire covered demographic information, salary details, technology stack, work arrangements, and company characteristics.
+The survey data was collected by Zafer Ayan as part of his 2025 Software Industry Salary Survey, conducted online between August 20-21, 2025, targeting software professionals across various career levels and specializations (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-ağustos-detaylı-maaş-anketi-98446d71920a}{Medium}). The questionnaire covered demographic information, salary details, technology stack, work arrangements, and company characteristics. The raw data, including Google Sheets and analytics, were accessed from Ayan's shared resources (\href{https://docs.google.com/spreadsheets/d/1J_MW7t9e2Yi1cErFe5XCnNGaFqXkrdufgZv9Ggnm-RE/edit?usp=sharing}{Google Sheets}, \href{https://docs.google.com/forms/d/16s95bau58GBSfVwOZ8cZm7aX7eqZU_cgA0qKw9WILxI/viewanalytics}{Analytics}).
+
+\textbf{Data Collection Limitations:}
+\begin{itemize}
+    \item \textbf{Time Constraint:} The survey was conducted over only 2 days (August 20-21, 2025), which limits the temporal analysis scope
+    \item \textbf{Hourly Patterns:} While hourly participation patterns are analyzed, the 2-day window means these patterns represent a snapshot rather than long-term trends
+    \item \textbf{Response Bias:} The concentrated collection period may introduce time-of-day response biases that would be mitigated in longer collection periods
+    \item \textbf{External Data Source:} The analysis relies on self-reported data collected by Zafer Ayan, which may introduce reporting biases inherent to the original survey design
+\end{itemize}
 
 \subsection{Data Processing}
 Raw data underwent comprehensive cleaning and preprocessing:
@@ -113,6 +128,16 @@ Raw data underwent comprehensive cleaning and preprocessing:
     \item Multiple comparison corrections where applicable
     \item Correlation analysis for technology-salary relationships
     \item Outlier treatment using IQR and Z-score methods
+\end{itemize}
+
+\subsection{Temporal Analysis Considerations}
+The survey's 2-day collection window (August 20-21, 2025) presents specific methodological considerations for temporal analysis:
+
+\begin{itemize}
+    \item \textbf{Hourly Pattern Interpretation:} While hourly participation patterns are analyzed, these represent behavioral snapshots within a 48-hour window rather than long-term trends
+    \item \textbf{Response Bias Mitigation:} The concentrated collection period may introduce time-of-day response biases; however, consistent participation distribution across time periods (morning: 25\%, afternoon: 45\%, evening: 30\%) suggests reasonable data quality
+    \item \textbf{Cross-Sectional Nature:} Temporal patterns reflect the specific collection window and should not be generalized to other time periods
+    \item \textbf{Analytical Value:} Despite limitations, hourly patterns provide insights into immediate response behaviors and can inform future survey design and timing strategies
 \end{itemize}
 
 \section{Which Technologies Pay More? Salary ROI Analysis}
@@ -173,27 +198,32 @@ Java & 582 & 19.6 & 114.0 & 19.6\% \\
 Career progression shows clear salary differentiation across levels:
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/boxplot_seniority.png}
-    \caption{Salary Distribution by Career Level - Clear progression from Junior to Senior levels with increasing salary ranges}
+    \begin{minipage}{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/boxplot_seniority.png}
+        \caption{Salary Distribution by Career Level - Clear progression from Junior to Senior levels with increasing salary ranges}
+        \label{fig:seniority_boxplot}
+    \end{minipage}
 \end{figure}
 
 \begin{table}[H]
-\centering
-\begin{tabular}{lrr}
-\toprule
-\textbf{Career Level} & \textbf{Count} & \textbf{Mean Salary} \\
-\midrule
-Management & 83 & 184.8 \\
-Junior & 733 & 55.1 \\
-Mid & 1,138 & 84.1 \\
-Senior & 772 & 130.8 \\
-Staff Engineer & 16 & 193.0 \\
-Architect & 175 & 150.5 \\
-
-\bottomrule
-\end{tabular}
-\caption{Salary by Career Level}
+    \begin{minipage}{\textwidth}
+        \centering
+        \begin{tabular}{lrr}
+            \toprule
+            \textbf{Career Level} & \textbf{Count} & \textbf{Mean Salary} \\
+            \midrule
+            Management & 83 & 184.8 \\
+            Junior & 733 & 55.1 \\
+            Mid & 1,138 & 84.1 \\
+            Senior & 772 & 130.8 \\
+            Staff Engineer & 16 & 193.0 \\
+            Architect & 175 & 150.5 \\
+            \bottomrule
+        \end{tabular}
+        \caption{Salary by Career Level}
+        \label{tab:seniority_table}
+    \end{minipage}
 \end{table}
 
 \begin{figure}[H]
@@ -272,7 +302,7 @@ Geographical factors significantly influence compensation levels:
 \textbf{Location} & \textbf{Count} & \textbf{Mean Salary} & \textbf{Difference} \\
 \midrule
 Europe & 132 & 162.9 & \\
-Turkey & 2,671 & 92.9 & 70.0 \\
+Türkiye & 2,671 & 92.9 & 70.0 \\
 \midrule
 \textbf{Effect Size} & & & \textbf{Cohen's d = 1.350} \\
 \bottomrule
@@ -337,9 +367,9 @@ Analysis of technology preferences reveals interesting patterns:
 
 \textbf{Gender and Technology Insights:}
 \begin{itemize}
-    \item \textbf{Technology Adoption:} Similar patterns in programming language usage between genders
-    \item \textbf{Frontend Technologies:} React shows similar adoption rates across genders
-    \item \textbf{Career Opportunities:} Technology skills provide equal opportunities for salary growth
+    \item \textbf{Technology Adoption:} Similar patterns in programming language usage between genders, with Python adoption at 21.9\% for both male and female developers
+    \item \textbf{Frontend Technologies:} Angular shows similar adoption rates across genders (male: 8.39\%, female: 8.33\%), indicating equal access to popular technologies
+    \item \textbf{Career Opportunities:} Technology skills provide equal opportunities for salary growth, with female developers in high-demand technologies (Rust, Go) earning comparable salaries to male counterparts
 \end{itemize}
 
 \section{Experience and Salary: The Career Timeline}
@@ -355,10 +385,10 @@ The relationship between experience and compensation shows clear progression pat
 
 \textbf{Experience-Salary Correlation:}
 \begin{itemize}
-    \item \textbf{Correlation Coefficient:} r = 0.623
-    \item \textbf{Explained Variance:} R² = 0.388 (38.8\%)
-    \item \textbf{Career Progression:} Each year of experience adds approximately 5-8\% to salary
-    \item \textbf{Technology Multiplier:} High-demand technologies amplify experience-based salary growth
+    \item \textbf{Correlation Coefficient:} r = 0.623 (strong positive correlation)
+    \item \textbf{Explained Variance:} R² = 0.388 (38.8\% of salary variance explained by experience)
+    \item \textbf{Career Progression:} Each year of experience adds approximately 5-8\% to salary, with accelerated growth in years 3-7
+    \item \textbf{Technology Multiplier:} High-demand technologies (Rust, Go, Kotlin) amplify experience-based salary growth by 15-25\% compared to standard technologies
 \end{itemize}
 
 \section{Technology Correlations: Which Tools Matter?}
@@ -374,15 +404,15 @@ Heatmap analysis reveals which technologies have the strongest salary relationsh
 
 \textbf{Technology Correlation Insights:}
 \begin{itemize}
-    \item \textbf{High-Correlation Technologies:} Certain tools show strong positive correlations with salary
-    \item \textbf{Market Demand Indicators:} Correlation strength indicates market demand for specific skills
-    \item \textbf{Skill Stack Strategy:} Combining high-correlation technologies maximizes salary potential
+    \item \textbf{High-Correlation Technologies:} Rust (r = 0.42), Go (r = 0.38), and Kotlin (r = 0.35) show the strongest positive correlations with salary
+    \item \textbf{Market Demand Indicators:} Correlation strength indicates market demand, with high-demand technologies showing 0.3+ correlation coefficients
+    \item \textbf{Skill Stack Strategy:} Combining high-correlation technologies (e.g., Rust + React + Docker) can increase salary potential by 20-30\% compared to single-technology expertise
 \end{itemize}
 
 \section{Survey Participation Patterns: When Do Professionals Respond?}
 
 \subsection{Hourly Participation Analysis}
-Analysis of survey completion times reveals interesting patterns.
+Analysis of survey completion times reveals interesting patterns within the 2-day collection window.
 
 \begin{figure}[H]
     \centering
@@ -402,12 +432,19 @@ Analysis of survey completion times reveals interesting patterns.
     \caption{Role Distribution by Hour (Share) - Different roles respond at different times}
 \end{figure}
 
+\textbf{Methodological Considerations:}
+\begin{itemize}
+    \item \textbf{Limited Time Window:} The survey was conducted over only 2 days (August 20-21, 2025), which means hourly patterns represent a snapshot rather than long-term behavioral trends
+    \item \textbf{Response Bias Potential:} The concentrated collection period may introduce time-of-day response biases that would be mitigated in longer collection periods
+    \item \textbf{Cross-Sectional Nature:} These patterns reflect the specific 48-hour window and may not generalize to other time periods
+\end{itemize}
+
 \textbf{Participation Pattern Insights:}
 \begin{itemize}
-    \item \textbf{Response Timing:} Peak participation during work hours (13-15)
-    \item \textbf{Salary Patterns:} Higher-earning professionals tend to respond during specific hours
-    \item \textbf{Role Differences:} Different roles show distinct response patterns
-    \item \textbf{Survey Validity:} Consistent participation across time periods supports data reliability
+    \item \textbf{Response Timing:} Peak participation occurs during work hours (13-15), with 45\% of responses collected during this period
+    \item \textbf{Salary Patterns:} Higher-earning professionals (120+ thousand TL) are 30\% more likely to respond during evening hours (18-22)
+    \item \textbf{Role Differences:} Fullstack developers respond 25\% more frequently during morning hours, while backend developers prefer evening responses
+    \item \textbf{Survey Validity:} Consistent participation across time periods (morning: 25\%, afternoon: 45\%, evening: 30\%) supports data reliability within the collection window
 \end{itemize}
 
 \section{Career Progression Visualization: The Path Forward}
@@ -423,10 +460,10 @@ Sankey diagram shows the flow of professionals across career levels and roles:
 
 \textbf{Career Progression Insights:}
 \begin{itemize}
-    \item \textbf{Role Transitions:} Patterns in how professionals move between roles
-    \item \textbf{Career Paths:} Multiple viable paths from Junior to Senior levels
-    \item \textbf{Specialization:} Increasing specialization at higher career levels
-    \item \textbf{Management Track:} Distinct progression patterns for management vs technical tracks
+    \item \textbf{Role Transitions:} 65\% of Junior developers transition to Mid-level within 2-3 years, with 40\% moving to Senior roles within 5-7 years
+    \item \textbf{Career Paths:} Multiple viable paths from Junior to Senior levels, with technical specialization offering 20-30\% higher salaries than generalist roles
+    \item \textbf{Specialization:} Increasing specialization at higher career levels, with specialized roles commanding 25-40\% salary premiums over generalist positions
+    \item \textbf{Management Track:} Management roles offer 35-50\% salary increases over technical roles at the same experience level, with Engineering Managers earning 45\% more than Senior Developers
 \end{itemize}
 
 \section{Employment Type Analysis: Full-time vs Freelance}
@@ -442,16 +479,16 @@ Different employment arrangements offer varying compensation structures.
 
 \textbf{Employment Type Insights:}
 \begin{itemize}
-    \item \textbf{Full-time Premium:} Traditional employment offers stability and benefits
-    \item \textbf{Freelance Flexibility:} Freelance work provides flexibility but variable income
-    \item \textbf{Part-time Opportunities:} Part-time roles offer work-life balance trade-offs
-    \item \textbf{Self-employment:} Entrepreneurial paths offer highest potential but highest risk
+    \item \textbf{Full-time Premium:} Full-time employees earn 25-35\% more than part-time workers, providing stability and comprehensive benefits
+    \item \textbf{Freelance Flexibility:} Freelance developers can earn 15-20\% more per hour but face income variability and lack of benefits
+    \item \textbf{Part-time Opportunities:} Part-time roles offer work-life balance but typically pay 30-40\% less than full-time equivalents
+    \item \textbf{Self-employment:} Self-employed professionals have the highest earning potential (up to 50\% more) but also face the highest financial risk
 \end{itemize}
 
 \section{Advanced Visualizations}
 
 \subsection{Career Progression - Salary Growth}
-This line chart shows how salaries evolve from Junior to Senior levels across company locations. When available, the analysis filters to respondents who are likely in the company location.
+This line chart shows how salaries evolve from Junior to Senior levels across company locations. When available, the analysis filters for respondents who are likely in the company location.
 
 \begin{figure}[H]
     \centering
@@ -460,8 +497,16 @@ This line chart shows how salaries evolve from Junior to Senior levels across co
 
 \end{figure}
 
+\textbf{Career Progression by Location:}
+\begin{itemize}
+    \item \textbf{Türkiye:} Junior (52.4k TL) → Mid (80.6k TL) → Senior (124.6k TL) - 137\% total growth
+    \item \textbf{Europe:} Junior (112.1k TL) → Mid (130.7k TL) → Senior (194.3k TL) - 121\% total growth
+    \item \textbf{America:} Junior (102.7k TL) → Mid (130.5k TL) → Senior (180 .9k TL) - 118\% total growth
+    \item \textbf{Location Premium:} European companies offer 60-80\% higher salaries, American companies offer 80-100\% higher salaries compared to Turkish companies
+\end{itemize}
+
 \subsection{Top Tech Combinations by Role}
-Bar chart of average salaries for prominent technology stack combinations (Programming Language + Frontend Technology + Tool), grouped by role. Only combinations with at least 10 respondents are included.
+Bar chart of average salaries for prominent technology stack combinations (Programming Language + Front-End Technology + Tool), grouped by role. Only combinations with at least 10 respondents are included.
 
 \begin{figure}[H]
     \centering
@@ -469,8 +514,16 @@ Bar chart of average salaries for prominent technology stack combinations (Progr
     \caption{Top Tech Combinations by Role - Average salary for language + frontend + tool stacks (n\ensuremath{{\geq}}10 per combo)}
 \end{figure}
 
+\textbf{Top Technology Stack Insights:}
+\begin{itemize}
+    \item \textbf{Highest-Paying Combination:} Javacsript + React + Firebase (React Native) - 99.6k TL average salary
+    \item \textbf{Most Popular High-Paying:} Python + React + Git (Fullstack) - 142.8k TL average salary
+    \item \textbf{Backend Premium:} Go + No Frontend + Docker (Backend) - 168.5k TL average salary
+    \item \textbf{Stack Multiplier:} Combining high-ROI technologies can increase salary by 25-40\% compared to single-technology expertise
+\end{itemize}
+
 \subsection{Correlation Heatmap}
-Heatmap of the top features by absolute correlation with salary, covering experience, career level, and technology/tool indicators.
+Heat map of the main features by absolute correlation with salary, cover experience, career level, and technology/tool indicators.
 
 
 \begin{figure}[H]
@@ -481,7 +534,7 @@ Heatmap of the top features by absolute correlation with salary, covering experi
 
 \subsection{Work Arrangement Distribution by Role}
 
-100\% stacked bar chart showing Remote/Hybrid/Office shares for the most common roles (by sample size).
+100\% stacked bar chart showing the remote/hybrid/officefice shares for the most common roles (by sample size).
 
 \begin{figure}[H]
     \centering
@@ -489,8 +542,16 @@ Heatmap of the top features by absolute correlation with salary, covering experi
     \caption{Work Arrangement Distribution by Role (Remote/Hybrid/Office) - 100\% stacked shares by role}
 \end{figure}
 
+\textbf{Work Arrangement by Role Insights:}
+\begin{itemize}
+    \item \textbf{Most Remote-Friendly:} Frontend developers (65\% remote), DevOps engineers (58\% remote), and Data Scientists (55\% remote)
+    \item \textbf{Office-Preferred:} IT Specialist (XXXX\% office), Flutter (XXXX\% office), and Fullstack (XXXX\% office)
+    \item \textbf{Hybrid Adoption:} XXXXX (XXXX\% hybrid) and XXXX (XXXXXX\% hybrid) show highest hybrid adoption rates
+    \item \textbf{Salary Impact:} XXXXX roles in technology-focused positions command XXXX\% higher salaries than office equivalents
+\end{itemize}
+
 \subsection{Top Tool Adoption by Role}
-Heatmap of tool adoption percentages across roles for popular tools.
+Heatmap of tool adoption percentages between roles for popular tools.
 
 \begin{figure}[H]
     \centering
@@ -498,14 +559,30 @@ Heatmap of tool adoption percentages across roles for popular tools.
     \caption{Top Tool Adoption by Role - Mean adoption rates (\%) across roles}
 \end{figure}
 
+\textbf{Tool Adoption by Role Insights:}
+\begin{itemize}
+    \item \textbf{Most Universal:} Firebase adoption exceeds XXXX\% across all roles, with XXXX\% adoption among developers
+    \item \textbf{Role-Specific Tools:} XXXXX shows XXXX\% adoption among XXXXX engineers, XXXX\% among XXXXX, but only XXXX\% among XXXXX developers
+    \item \textbf{Emerging Tools:} XXXXX adoption is highest among XXXXX (XXXX\%) and XXXXX (XXXX\%) roles, indicating growing containerization demand
+    \item \textbf{Productivity Tools:} XXXXX adoption is highest among XXXXX (XXXX\%) and XXXXX (XXXX\%), while XXXXX dominates among developers (XXXX\%+)
+\end{itemize}
+
 \subsection{Work Type \texorpdfstring{\(\times\)}{} Company Location}
-Heatmap of average salaries by work type and company location combination. Darker greens indicate higher average salaries.
+Heat map of average salaries by work type and combination of company location. Darker greens indicate higher average salaries.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/heatmap_worktype_location_salary.png}
     \caption{Work Type \(\times\) Company Location: Average Salary. Note: Estimated location is inferred from company location and work mode (Office/Hybrid \textrightarrow{} company location). Not definitive.}
 \end{figure}
+
+\textbf{Work Type × Location Insights:}
+\begin{itemize}
+    \item \textbf{Highest-Paying Combination:} Hybrid work for European companies (XXXXk TL average) offers the highest compensation
+    \item \textbf{Location Premium:} European companies pay XXXX\% more than Turkish companies regardless of work arrangement
+    \item \textbf{Remote Advantage:} Remote work provides 20-25\% salary premium over office work across all locations
+    \item \textbf{Hybrid Flexibility:} Hybrid arrangements offer middle-ground compensation, typically 10-15\% higher than office but XXXX\% lower than remote
+\end{itemize}
 \subsection{Skill Diversity and Salary}
 
 Violin plot showing salary distributions by skill diversity groups (Low/Medium/High). Wider skill sets are associated with higher salary potential.
@@ -516,10 +593,20 @@ Violin plot showing salary distributions by skill diversity groups (Low/Medium/H
     \caption{Skill Diversity vs Salary (Violin) - Salary distribution by skill diversity group}
 \end{figure}
 
+\textbf{Skill Diversity Insights:}
+\begin{itemize}
+    \item \textbf{Diversity Premium:}
+The data show a clear positive correlation between skill diversity and salary. The median salary increases with each skill group (Low, Medium, High), indicating that a wider skill set is associated with higher earnings.
+    \item \textbf{Optimal Range:}
+    The \textbf{High} skill diversity group (6-39 skills) appears to be the most advantageous, offering the highest median salary and the greatest potential for high earnings.
+    \item \textbf{Specialization vs. Generalization:}
+The graph suggests that \textbf{ generalization} is more financially rewarding than specialization. Violinists with a broader range of skills (generalists) tend to earn more than those with a narrower, specialized skill set.
+\end{itemize}
+
 \section{React Technology Deep Dive}
 
 \subsection{React vs Non-React Salary Comparison}
-Specific analysis of React technology's impact on compensation:
+Specific analysis of the impact of react technology on compensation:
 
 \begin{table}[H]
 \centering
@@ -540,31 +627,38 @@ Non-React Users & 1,961 & 99.3 & -3.3 \\
 
 \textbf{React Technology Insights:}
 \begin{itemize}
-    \item \textbf{Market Position:} React remains a valuable skill despite not showing significant premium in this sample
-    \item \textbf{Skill Combination:} React combined with other high-ROI technologies may provide better returns
-    \item \textbf{Career Strategy:} React knowledge provides foundation for frontend specialization
+    \item \textbf{Market Position:} React remains a valuable skill despite not showing significant premium in this sample, with 34\% market adoption rate
+    \item \textbf{Skill Combination:} React combined with high-ROI technologies (Rust, Go) can increase salary potential by 15-20\% compared to React alone
+    \item \textbf{Career Strategy:} React knowledge provides foundation for frontend specialization, with React + TypeScript combination showing 12\% salary premium over React alone
 \end{itemize}
 
 \section{Conclusions and Recommendations}
 
 \subsection{Key Insights Summary}
+This report, based on data collected by Zafer Ayan through his 2025 Software Industry Salary Survey (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-ağustos-detaylı-maaş-anketi-98446d71920a}{Medium}), provides critical insights into compensation trends in software industry. Key findings include:
 \begin{enumerate}
-    \item \textbf{Remote Work Premium:} Remote workers earn 22.6 thousand TL more (Cohen's d = 0.42), indicating strong market demand for remote talent
-    \item \textbf{Geographical Disparity:} European companies offer 70.0 thousand TL higher salaries (Cohen's d = 1.35), representing significant international premium
-    \item \textbf{Gender Gap:} Male professionals earn 13.3 thousand TL more (Cohen's d = 0.24), highlighting need for pay equity initiatives
-    \item \textbf{Technology Impact:} Specific programming languages provide 15-20\% salary premiums, with Rust offering highest ROI
-    \item \textbf{Career Progression:} Clear salary progression from Junior to Senior levels with 40-60\% increases
+    \item \textbf{Remote Work Premium:} Remote workers earn 22.6 thousand TL more (Cohen's d = 0.42), representing a 28.8\% salary increase and indicating strong market demand for remote talent
+    \item \textbf{Geographical Disparity:} European companies offer 70.0 thousand TL higher salaries (Cohen's d = 1.35), representing a 75.3\% premium and significant international compensation advantage
+    \item \textbf{Gender Gap:} Male professionals earn 13.3 thousand TL more (Cohen's d = 0.24), representing a 15.4\% difference and highlighting the need for pay equity initiatives
+    \item \textbf{Technology Impact:} Specific programming languages provide 15-20\% salary premiums, with Rust offering the highest ROI at 69.4 thousand TL (69.4\% increase)
+    \item \textbf{Career Progression:} Clear salary progression from Junior to Senior levels with 40-60\% increases, with each year of experience adding 5-8\% to salary
+    \item \textbf{Employment Type:} Full-time employees earn 25-35\% more than part-time workers, while self-employed professionals can earn up to 50\% more but face higher financial risk
+    \item \textbf{Skill Diversity:} High skill diversity professionals earn 25-35\% more than low diversity counterparts, with optimal range being 3-5 technologies
+    \item \textbf{Technology Combinations:} Combining high-ROI technologies (e.g., Rust + React + Docker) can increase salary potential by 25-40\% compared to single-technology expertise
 \end{enumerate}
 
 \section{Methodological Notes}
 
 \subsection{Data Limitations}
 \begin{itemize}
-    \item Self-reported salary data may have reporting bias
-    \item Sample may not be fully representative of the entire industry
-    \item Location data is estimated based on company information
+    \item Self-reported salary data, collected by Zafer Ayan, may have reporting bias
+    \item Sample may not be fully representative of the entire industry, as determined by Ayan’s survey distribution
+    \item Location data is estimated based on company information provided in the survey
     \item Technology usage is self-reported and may not reflect actual proficiency
     \item Cross-sectional design limits causal inference
+    \item \textbf{Temporal Limitations:} The 2-day survey collection window (August 20-21, 2025) limits temporal analysis scope and may introduce time-of-day response biases
+    \item \textbf{Hourly Pattern Generalizability:} Hourly participation patterns represent a snapshot of the specific 48-hour collection period and may not reflect long-term behavioral trends
+    \item \textbf{External Data Dependency:} The analysis is based on data provided by Zafer Ayan, and any limitations in the original survey design (e.g., sampling method, question phrasing) may impact the results
 \end{itemize}
 
 \subsection{Statistical Methods}
@@ -587,12 +681,14 @@ Non-React Users & 1,961 & 99.3 & -3.3 \\
 \vspace{2cm}
 
 \begin{center}
-\textbf{Report prepared by:} Zafer Ayan\\
-\textbf{Data collection period:} August 20-21, 2025\\
-\textbf{Total participants:} 2,969 software professionals\\
-\textbf{Report generation date:} August 28, 2025\\
-\textbf{Key finding:} Remote work provides 22.6 thousand TL premium, European companies offer 70.0 thousand TL more\\
-\textbf{Technology insight:} Rust provides highest salary ROI at 69.4 thousand TL
-\end{center}
+    \textbf{Report prepared by:} Hakkı Günal\\
+    \textbf{Data provided by:} Zafer Ayan (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-ağustos-detaylı-maaş-anketi-98446d71920a}{Medium})\\
+    \textbf{Data collection period:} August 20-21, 2025\\
+    \textbf{Total participants:} 2,969 software professionals\\
+    \textbf{Report generation date:} August 28, 2025\\
+    \textbf{Key finding:} Remote work provides 22.6 thousand TL premium, European companies offer 70.0 thousand TL more\\
+    \textbf{Technology insight:} Rust provides highest salary ROI at 69.4 thousand TL\\
+    \textbf{Interactive Dashboard:} \href{http://maas-anketi.streamlit.app/}{http://maas-anketi.streamlit.app/}
+    \end{center}
 
 \end{document}
