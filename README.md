@@ -4,7 +4,7 @@ Bu klasör, **2025 Yazılım Sektörü Maaş Analizi** projesinin tüm dokümant
 
 Bu proje, 20-21 Ağustos 2025 tarihleri arasında **2.969 yazılım uzmanından** toplanan maaş verilerini analiz eder. Zafer Ayan'ın 2025 Yazılım Sektörü Maaş Anketi verilerine dayalı olarak hazırlanmıştır.
 
-** Veri Kaynağı:** [LinkedIn Post](https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ) | [Medium Makalesi](https://zaferayan.medium.com/2025-a%C4%9Fustos-detayl%C4%B1-maa%C5%9F-anketi-98446d71920a)
+**Veri Kaynağı:** [LinkedIn Post](https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ) | [Medium Makalesi](https://zaferayan.medium.com/2025-a%C4%9Fustos-detayl%C4%B1-maa%C5%9F-anketi-98446d71920a)
 
 ## Ana Bulgular
 
