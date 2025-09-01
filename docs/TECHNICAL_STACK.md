@@ -1,183 +1,66 @@
-# 🛠️ TEKNIK STACK (TECHNICAL STACK)
+# Teknik Altyapı
 
-## Python Libraries
+Bu doküman, **Yazılım Sektörü Maaş Analizi 2025** projesinde kullanılan teknik araçları ve bağımlılıkları tanımlar. Araçlar, veri ön işleme, istatistiksel analiz, görselleştirme ve raporlama süreçlerini destekler. Tüm araçlar, `ANALYSIS_OBJECTIVES.md`, `METHODOLOGY.md`, `DATASET_SPECIFICATIONS.md`, `EXPECTED_OUTPUTS.md` ve `PRD.md` ile uyumludur ve React staj grubu ile geniş kitle için anlaşılır çıktılar üretmek amacıyla seçilmiştir.
 
-### Data Processing
-```python
-import pandas as pd          # Veri manipülasyonu ve analizi
-import numpy as np           # Sayısal hesaplamalar
-from scipy import stats      # İstatistiksel testler
-import sklearn               # Machine learning framework
-```
+## 1. Programlama Dili
+- **Python (3.9+)**:
+  - **Amaç**: Veri ön işleme, istatistiksel analiz ve görselleştirme.
+  - **Neden?**: Zengin kütüphane ekosistemi, veri bilimi ve görselleştirme için yaygın kullanım.
+  - **Kullanılan Sürümler**: 3.9 veya üstü (Pyodide uyumluluğu için Streamlit dashboard’da).
 
-### Machine Learning
-```python
-# Core ML Libraries
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.cluster import KMeans, AgglomerativeClustering
-from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+## 2. Veri İşleme ve Analiz Kütüphaneleri
+- **pandas (2.2+)**:
+  - **Amaç**: Veri yükleme (`2025_maas_anket.csv`), temizleme, normalizasyon, encoding (`get_dummies`, `MultiLabelBinarizer`), türev feature oluşturma (`salary_numeric`, `is_likely_in_company_location`).
+  - **Örnek Kullanım**: `df = pd.read_csv('2025_maas_anket.csv')`, `df['salary_numeric'] = df['salary_range'].apply(normalize_salary)`.
+- **numpy (1.26+)**:
+  - **Amaç**: Sayısal hesaplamalar, aykırı değer kontrolü (IQR, Z-score).
+  - **Örnek Kullanım**: `np.abs((df['salary_numeric'] - df['salary_numeric'].mean()) / df['salary_numeric'].std())`.
+- **sklearn.preprocessing (1.4+)**:
+  - **Amaç**: Çoklu seçim encoding (`MultiLabelBinarizer`).
+  - **Örnek Kullanım**: `mlb = MultiLabelBinarizer(); encoded = mlb.fit_transform(df['programming_languages'])`.
 
-# Advanced ML
-import xgboost as xgb        # Gradient boosting
-from sklearn.linear_model import LinearRegression
-from sklearn.feature_selection import SelectKBest, f_regression
-```
+## 3. İstatistiksel Analiz Kütüphaneleri
+- **scipy.stats (1.12+)**:
+  - **Amaç**: İstatistiksel testler (T-testi, Mann-Whitney U, ANOVA, Kruskal-Wallis, Pearson korelasyonu).
+  - **Örnek Kullanım**: `t_stat, p_value = ttest_ind(remote_salaries, office_salaries)`.
+- **statsmodels (0.14+)**:
+  - **Amaç**: Post-hoc testler (Tukey HSD).
+  - **Örnek Kullanım**: `tukey = pairwise_tukeyhsd(df['salary_numeric'], df['seniority_level_ic'])`.
 
-### Visualization
-```python
-# Static Plots
-import matplotlib.pyplot as plt
-import seaborn as sns
+## 4. Görselleştirme Kütüphaneleri
+- **seaborn (0.13+)**:
+  - **Amaç**: Statik grafikler (boxplot, bar plot, scatter plot, heatmap).
+  - **Örnek Kullanım**: `sns.boxplot(x='employment_type', y='salary_numeric')`.
+- **matplotlib (3.8+)**:
+  - **Amaç**: Grafik özelleştirme ve PNG çıktıları.
+  - **Örnek Kullanım**: `plt.savefig('boxplot_seniority.png', dpi=300)`.
+- **plotly (5.18+)**:
+  - **Amaç**: İnteraktif grafikler (Streamlit dashboard için boxplot, bar plot, scatter plot, heatmap, Sankey diyagramı).
+  - **Örnek Kullanım**: `fig = px.box(df, x='seniority_level_ic', y='salary_numeric')`.
 
-# Interactive Plots
-import plotly.express as px
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+## 5. Dashboard Platformu
+- **Streamlit (1.31+)**:
+  - **Amaç**: İnteraktif dashboard oluşturma, filtreleme (`company_location`, `employment_type`, vb.) ve `plotly` grafikleri sunma.
+  - **Örnek Kullanım**: `st.plotly_chart(fig)`, `st.selectbox('Lokasyon', df['company_location'].unique())`.
+  - **Not**: Yerel veya Streamlit Cloud üzerinde çalıştırılabilir.
 
-# Word Clouds
-from wordcloud import WordCloud
-```
+## 6. Raporlama Aracı
+- **LaTeX (TeX Live 2024, Overleaf)**:
+  - **Amaç**: Statik PDF rapor (`maas_analizi_2025.pdf`) üretimi.
+  - **Dil**: İngilizce (`babel` paketi ile `english`).
+  - **Kodlama**: UTF-8 (`inputenc` ile `utf8`).
+  - **Paketler**: `geometry`, `graphicx`, `booktabs`, `array`, `longtable`, `titling`, `float`, `hyperref`, `amsmath`, `amsfonts`, `amssymb`, `tikz` (PDFLaTeX uyumlu).
+  - **Örnek Kullanım**: `\includegraphics[width=\textwidth]{figures/barplot_programming_roi.png}`.
+  - **Font**: Latin Modern (varsayılan); gerekirse `Noto Serif` alternatif olarak kullanılabilir.
 
-### Dashboard & Web
-```python
-import streamlit as st       # Web dashboard
-import jinja2               # Template rendering (LaTeX)
-```
+## 7. Bağımlılıklar ve Ortam
+- **Ortam**: Python virtual environment (`venv`) veya Jupyter Notebook.
+- **Bağımlılıklar**: 
+  ```bash
+  pip install pandas==2.2.2 numpy==1.26.4 scikit-learn==1.4.2 scipy==1.12.0 statsmodels==0.14.1 seaborn==0.13.2 matplotlib==3.8.3 plotly==5.18.0 streamlit==1.31.0
+  ```
+- **Erişim**: Google Sheets linki sınırlı (https://docs.google.com/spreadsheets/d/1J_MW7t9e2Yi1cErFe5XCnNGaFqXkrdufgZv9Ggnm-RE/edit?usp=sharing).
 
-### Additional Utilities
-```python
-import warnings             # Warning management
-import logging             # Logging system
-from typing import Dict, List, Tuple, Optional  # Type hints
-import json                # JSON handling
-import pickle              # Model serialization
-```
-
-## Output Formats
-
-### Graphs & Charts
-- **Format**: PNG files
-- **Quality**: 300 DPI, publication quality
-- **Size**: 12x8 inches (standard)
-- **Color Scheme**: Consistent palette
-
-### Tables & Data
-- **CSV**: Raw data and processed results
-- **LaTeX**: Formatted tables for reports
-- **JSON**: Configuration and metadata
-
-### Reports
-- **LaTeX**: Scientific report generation
-- **PDF**: Final report output
-- **HTML**: Interactive dashboard
-
-### Models
-- **Pickle**: Trained model serialization
-- **Joblib**: Large model storage
-
-## Development Environment
-
-### Python Version
-- **Python**: 3.8+ (recommended 3.9+)
-- **Virtual Environment**: venv or conda
-
-### IDE Requirements
-- **Jupyter Notebooks**: Interactive analysis
-- **VS Code/Cursor**: Code development
-- **Git**: Version control
-
-### Package Management
-```bash
-# Requirements installation
-pip install -r requirements.txt
-
-# Development dependencies
-pip install jupyter notebook
-pip install black flake8  # Code formatting
-```
-
-## Performance Considerations
-
-### Memory Management
-- **Chunked Processing**: Large datasets için
-- **Data Types**: Memory-efficient dtypes
-- **Garbage Collection**: Explicit cleanup
-
-### Computational Optimization
-- **Vectorization**: NumPy operations
-- **Parallel Processing**: Multiprocessing
-- **Caching**: Expensive computations
-
-### Scalability
-- **Modular Design**: Reusable components
-- **Configuration Files**: Parameter management
-- **Logging**: Progress tracking
-
-## Quality Assurance
-
-### Code Quality
-```python
-# Type Hints
-def analyze_salary(df: pd.DataFrame, skill: str) -> Dict[str, float]:
-    pass
-
-# Error Handling
-try:
-    result = process_data(data)
-except ValueError as e:
-    logger.error(f"Data processing failed: {e}")
-    raise
-
-# Documentation
-def calculate_salary_percentile(data: np.ndarray, percentile: float) -> float:
-    """
-    Calculate salary percentile from data array.
-    
-    Args:
-        data: Array of salary values
-        percentile: Percentile to calculate (0-100)
-        
-    Returns:
-        float: Calculated percentile value
-        
-    Raises:
-        ValueError: If percentile not in [0, 100]
-    """
-    pass
-```
-
-### Testing Strategy
-- **Unit Tests**: Individual functions
-- **Integration Tests**: End-to-end workflows
-- **Data Validation**: Input/output checks
-
-### Version Control
-- **Git Flow**: Feature branches
-- **Commit Messages**: Conventional commits
-- **Code Review**: Peer review process
-
-## Deployment & Distribution
-
-### Local Development
-```bash
-# Setup
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-pip install -r requirements.txt
-
-# Run
-python src/main.py
-streamlit run dashboard/app.py
-```
-
-### Production Ready
-- **Docker**: Containerization
-- **CI/CD**: Automated testing
-- **Monitoring**: Performance tracking
-
-### Documentation
-- **README**: Project overview
-- **API Docs**: Function documentation
-- **User Guide**: Usage instructions
+## 8. Notlar
+- **Tekrarlanabilirlik**: Kodlar, Jupyter Notebook veya Python script’lerinde dokümante edilecek.
+- **Hedef Kitle**: Araçlar, React staj grubu ve geniş kitle için anlaşılır çıktılar üretmek için optimize edildi.

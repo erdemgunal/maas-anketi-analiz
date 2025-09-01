@@ -1,99 +1,149 @@
-# Dokümantasyon Paketi - 2025 Maaş Anketi Analizi
+# 2025 Yazılım Sektörü Maaş Analizi Projesi
 
+<<<<<<< HEAD
 Bu klasör, **2025 Yazılım Sektörü Maaş Analizi** projesinin tüm dokümantasyonunu içermektedir.
+=======
+## Proje Özeti
+>>>>>>> feature/business-report-v2
 
-## Ana Doküman
+Bu proje, 20-21 Ağustos 2025 tarihleri arasında **2.969 yazılım uzmanından** toplanan maaş verilerini analiz eder. Zafer Ayan'ın 2025 Yazılım Sektörü Maaş Anketi verilerine dayalı olarak hazırlanmıştır.
 
-**[PRD.MD](/docs/PRD.MD)** - Proje gereksinimleri dokümanı (Product Requirements Document)
-- Proje özeti ve genel bakış
-- Dokümantasyon indeksi
-- Hızlı başlangıç rehberi
-- Kritik başarı faktörleri
+** Veri Kaynağı:** [LinkedIn Post](https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ) | [Medium Makalesi](https://zaferayan.medium.com/2025-a%C4%9Fustos-detayl%C4%B1-maa%C5%9F-anketi-98446d71920a)
 
-## Veri ve Analiz Dokümanları
+## Ana Bulgular
 
-### [PROJECT_OVERVIEW.md](/docs/PROJECT_OVERVIEW.md)
-- Detaylı proje özeti ve kapsamı
-- Hedef kitle ve beklentiler
-- Proje faydaları ve değer önerisi
+| Kategori | Bulgu | Detay |
+|----------|-------|-------|
+| **Uzaktan Çalışma** | +22.6k TL | Uzaktan çalışanlar ofisten %28.8 daha fazla kazanıyor |
+| **Coğrafi Fark** | +70.0k TL | Avrupalı şirketler Türk şirketlerinden %75.3 daha fazla ödüyor |
+| **Cinsiyet Farkı** | +13.3k TL | Erkekler kadınlardan %15.4 daha fazla kazanıyor |
+| **Kariyer Artışı** | +137% | Junior'dan Senior'a maaş artışı |
+| **Teknoloji ROI** | +70.7% | Rust kullanıcıları en yüksek primi alıyor |
 
-### [DATASET_SPECIFICATIONS.md](/docs/DATASET_SPECIFICATIONS.md)
-- Veri seti detayları ve yapısı
-- Sütun açıklamaları ve örnek veriler
-- Veri kalitesi notları ve işleme gereksinimleri
+## Hızlı Başlangıç
 
-### [ANALYSIS_OBJECTIVES.md](/docs/ANALYSIS_OBJECTIVES.md)
-- Birincil ve ikincil analiz hedefleri
-- Analiz kategorileri (teknik, demografik, trend)
-- Beklenen içgörüler ve kariyer rehberliği
+```bash
+# Depoyu klonlayın
+git clone https://github.com/erdemgunal/salary_analysis_project.git
+cd salary_analysis_project
 
-### [METHODOLOGY.md](/docs/METHODOLOGY.md)
-- İstatistiksel testler ve hipotezler
-- Machine learning modelleri ve değerlendirme
-- Veri işleme adımları ve kalite kontrol
+# Sanal ortam oluşturun
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-## Teknik Dokümanlar
+# Bağımlılıkları yükleyin
+pip install -r requirements.txt
 
-### [TECHNICAL_STACK.md](/docs/TECHNICAL_STACK.md)
-- Python kütüphaneleri ve bağımlılıklar
-- Çıktı formatları ve kalite standartları
-- Geliştirme ortamı ve deployment
+# Analizi çalıştırın
+python src/sprint2_analysis.py
 
-### [FILE_STRUCTURE.md](/docs/FILE_STRUCTURE.md)
-- Proje dosya yapısı ve organizasyonu
-- Naming conventions ve version control
-- Dependencies management
+# Dashboard'u başlatın
+streamlit run src/streamlit_dashboard.py
+```
 
-### [EXPECTED_OUTPUTS.md](/docs/EXPECTED_OUTPUTS.md)
-- 20+ PNG grafik listesi ve kategorileri
-- Tablo formatları ve rapor yapısı
-- Dashboard özellikleri ve model dosyaları
+## Proje Yapısı
 
-### [SUCCESS_CRITERIA.md](/docs/SUCCESS_CRITERIA.md)
-- Teknik ve içerik başarı kriterleri
-- Kalite standartları ve değerlendirme metrikleri
-- Başarı tanımları (minimum, hedeflenen, mükemmel)
+```
+salary_analysis_project/
+├── data/                    # Ham ve işlenmiş veriler
+├── src/                     # Analiz kodları
+├── figures/                 # Görselleştirmeler
+├── reports/                 # LaTeX rapor
+├── docs/                    # Proje belgeleri
+└── README.md               # Bu dosya
+```
 
-## Proje Yönetimi
+## Önemli Görselleştirmeler
 
-### [WORKFLOW.md](/docs/WORKFLOW.md)
-- 5 fazlı iş akışı ve zaman çizelgesi
-- Detaylı görev listesi ve milestone'lar
-- Risk yönetimi ve kalite kontrol
+- **Kariyer Seviyesi Analizi**: Junior → Senior maaş artışı
+- **Teknoloji ROI**: Hangi teknolojiler daha fazla ödüyor
+- **Coğrafi Karşılaştırma**: Ülke bazında maaş farkları
+- **Çalışma Modu**: Remote vs Office maaş karşılaştırması
+- **Cinsiyet Analizi**: Ücret eşitliği incelemesi
 
-### [VISUAL_STANDARDS.md](/docs/VISUAL_STANDARDS.md)
-- Renk paleti ve font ayarları
-- Grafik türleri ve stil standartları
-- Export ayarları ve kalite kontrol
+## Etkileşimli Dashboard
 
-### [CODING_GUIDELINES.md](/docs/CODING_GUIDELINES.md)
-- Kod yazım kuralları ve standartlar
-- Fonksiyon yapısı ve error handling
-- Test yazımı ve performance optimization
+**🔗 Canlı Dashboard:** [maas-anketi.streamlit.app](http://maas-anketi.streamlit.app)
 
-## Kullanım Rehberi
+### Özellikler:
+- Gerçek zamanlı filtreleme
+- Etkileşimli grafikler
+- İstatistiksel testler
+- Kariyer önerileri
 
-### Hızlı Başlangıç
-1. **[PRD.MD](/docs/PRD.MD)** dosyasını okuyarak proje genel bakışını alın
-2. **[DATASET_SPECIFICATIONS.md](/docs/DATASET_SPECIFICATIONS.md)** ile veri yapısını öğrenin
-3. **[WORKFLOW.md](/docs/WORKFLOW.md)** ile iş akışını planlayın
-4. **[TECHNICAL_STACK.md](/docs/TECHNICAL_STACK.md)** ile teknik gereksinimleri kontrol edin
+## İstatistiksel Metodoloji
 
-### Geliştirme Süreci
-1. **[CODING_GUIDELINES.md](/docs/CODING_GUIDELINES.md)** ile kod standartlarını takip edin
-2. **[VISUAL_STANDARDS.md](/docs/VISUAL_STANDARDS.md)** ile görsel tutarlılığı sağlayın
-3. **[SUCCESS_CRITERIA.md](/docs/SUCCESS_CRITERIA.md)** ile kalite kontrolü yapın
+- **Örneklem:** 2,969 profesyonel
+- **Veri Toplama:** 20-21 Ağustos 2025 (2 gün)
+- **Testler:** t-test, Cohen's d, korelasyon analizi
+- **Anlamlılık:** p < 0.001 seviyesinde
 
-### Çıktı Kontrolü
-1. **[EXPECTED_OUTPUTS.md](/docs/EXPECTED_OUTPUTS.md)** ile çıktı listesini kontrol edin
-2. **[FILE_STRUCTURE.md](/docs/FILE_STRUCTURE.md)** ile dosya organizasyonunu doğrulayın
+## Teknoloji ROI Analizi
 
-## Destek
+### En Yüksek Kazandıran Teknolojiler:
+1. **Rust**: +69.4k TL (%71.0 artış)
+2. **Objective-C**: +63.1k TL (%64.8 artış)
+3. **Go**: +39.1k TL (%40.8 artış)
+4. **Kotlin**: +32.2k TL (%33.5 artış)
 
-Bu dokümantasyon paketi, projenin başarılı bir şekilde tamamlanması için gerekli tüm bilgileri içermektedir. Herhangi bir sorunuz için ilgili dokümana referans veriniz.
+### Frontend Teknolojileri:
+- **Vue.js**: +8.3k TL (%8.5 artış)
+- **React**: -3.3k TL (%3.3 azalış) - Pazar doygunluğu
 
-**Proje Hedefi**: React staj grubuna değer katacak, bilimsel metodlarla hazırlanmış kapsamlı maaş analizi raporu.
+## Kariyer Seviyeleri
 
-**Zaman Kısıtı**: 1 gün (8-10 saat)
+| Seviye | Ortalama Maaş | Katılımcı |
+|--------|---------------|-----------|
+| Staff Engineer | 193.0k TL | 16 |
+| Architect | 188.4k TL | 52 |
+| Management | 184.8k TL | 83 |
+| Team Lead | 150.5k TL | 175 |
+| Senior | 130.8k TL | 772 |
+| Mid | 84.1k TL | 1,138 |
+| Junior | 55.1k TL | 733 |
 
-**Hedef Kitle**: React staj grubu, portfolio
+## Coğrafi Etki
+
+| Şirket Lokasyonu | Ortalama Maaş | Türkiye'ye Göre |
+|-------|---------------|-----------------|
+| Avrupa | 162.9k TL | +75.3% |
+| Amerika | 154.4k TL | +66.2% |
+| Yurtdışı Tr Hub | 113.2k TL | +21.9% |
+| Türkiye | 92.9k TL | - |
+
+## Çalışma Modları
+
+| Mod | Ortalama Maaş | Ofis'e Göre |
+|-----|---------------|-------------|
+| Hibrit | 105.0k TL | +33.6% |
+| Uzaktan | 101.2k TL | +28.8% |
+| Ofis | 78.6k TL | - |
+
+## Önemli Notlar
+
+- **Veri Sınırlaması:** 2 günlük anket penceresi
+- **Konum Tahmini:** Şirket bilgilerine dayalı
+- **Kendi Beyanı:** Maaş ve teknoloji kullanımı
+- **Örneklem:** 2,969 profesyonel
+
+## Raporlar
+
+- **LaTeX Rapor:** `reports/salary_analysis_report.tex`
+- **PDF Çıktısı:** `maas_analizi_2025.pdf`
+- **Jupyter Notebooks:** `notebooks/` klasörü
+
+## Katkı
+
+Bu proje eğitim ve araştırma amaçlıdır. Veri gizliliği ve etik kurallara uygun kullanım önemlidir.
+
+## İletişim
+
+**Rapor Hazırlayan:** Hakkı Günal  
+**Veri Kaynağı:** Zafer Ayan  
+**Tarih:** Ağustos 2025
+
+---
+
+**Canlı Dashboard:** [maas-anketi.streamlit.app](http://maas-anketi.streamlit.app)  
+**Toplam Katılımcı:** 2,969 yazılım uzmanı  
+**Anket Dönemi:** 20-21 Ağustos 2025

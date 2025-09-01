@@ -1,5 +1,0 @@
-Test,Test Türü,İstatistik,p-değeri,Anlamlı
-react_vs_nonreact,t-test,-2.121,0.034000,Evet
-work_type_anova,ANOVA,50.962,0.000000,Evet
-gender_gap,t-test,3.445,0.000580,Evet
-experience_level_anova,ANOVA,0.395,0.675917,Hayır
