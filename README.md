@@ -100,11 +100,11 @@ salary_analysis_project/
 
 ## Coğrafi Etki
 
-| Konum | Ortalama Maaş | Türkiye'ye Göre |
+| Şirket Lokasyonu | Ortalama Maaş | Türkiye'ye Göre |
 |-------|---------------|-----------------|
 | Avrupa | 162.9k TL | +75.3% |
 | Amerika | 154.4k TL | +66.2% |
-| Overseas TR Hub | 113.2k TL | +21.9% |
+| Yurtdışı Tr Hub | 113.2k TL | +21.9% |
 | Türkiye | 92.9k TL | - |
 
 ## Çalışma Modları
@@ -140,6 +140,6 @@ Bu proje eğitim ve araştırma amaçlıdır. Veri gizliliği ve etik kurallara 
 
 ---
 
-** Canlı Dashboard:** [maas-anketi.streamlit.app](http://maas-anketi.streamlit.app)  
-** Toplam Katılımcı:** 2,969 yazılım uzmanı  
-** Anket Dönemi:** 20-21 Ağustos 2025
+- ** Canlı Dashboard:** [maas-anketi.streamlit.app](http://maas-anketi.streamlit.app)  
+- ** Toplam Katılımcı:** 2,969 yazılım uzmanı  
+- ** Anket Dönemi:** 20-21 Ağustos 2025
