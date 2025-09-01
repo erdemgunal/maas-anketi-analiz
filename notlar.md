@@ -26,15 +26,3 @@ Raporlama aşamasında, Individual Contributor seviyeleri **tek bir ordinal ekse
 - cleaned_data nin tutarlili cok onemli
 
 - PRD.MD:5.3 Interaktif Dashboard (Streamlit + Plotly) (zenginlestirilebilir) feature
-
-- kariyer_progression.png junior mid senior icin lokasyon bazli degil direkt genel guncelleniyor
-
-- tech_combo_top Hiçbiri ve Kullanmıyorum analiz disi
-
-
-heatmap_correlation.png nedir hala anlamadim?
-
-Participation Pattern Insights:
-Top Technology Stack Insights
-    Most Popular High-Paying
-    Backend Premium:
