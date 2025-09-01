@@ -13,6 +13,10 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{pgfplots}
 
 \geometry{margin=2.5cm}
 
@@ -20,7 +24,59 @@
 \definecolor{accentgray}{RGB}{220, 220, 220}
 \definecolor{darkgray}{RGB}{50, 50, 50}
 
+% Fancy header and footer setup
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{titleblue}{\textbf{2025 Software Industry Salary Analysis Report}}}
+\fancyhead[R]{\textcolor{titleblue}{\textbf{Page \thepage}}}
+\fancyfoot[C]{\textcolor{darkgray}{\small Prepared by Hakkı Günal | Data sourced from Zafer Ayan's 2025 Salary Survey}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{titleblue}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{titleblue}\leaders\hrule height \footrulewidth\hfill}}
+
+% Custom figure styling
+\makeatletter
+\renewcommand{\fnum@figure}{\textcolor{titleblue}{\textbf{Figure \thefigure}}}
+\renewcommand{\fnum@table}{\textcolor{titleblue}{\textbf{Table \thetable}}}
+\makeatother
+
+% Custom caption styling
+\captionsetup{
+    font=small,
+    labelfont={bf,color=titleblue},
+    textfont={color=darkgray},
+    margin=10pt
+}
+
+% Custom table styling
+\renewcommand{\arraystretch}{1.1}
+% Note: Using booktabs package for table rules - no need to redefine toprule, midrule, bottomrule
+% For colored table rules, you can use \arrayrulecolor{titleblue} before each table
+
+% Custom figure styling command
+\newcommand{\styledfigure}[3]{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=#1\textwidth]{#2}
+        \caption{#3}
+    \end{figure}
+}
+
+% Custom table styling command
+\newcommand{\styledtable}[2]{
+    \begin{table}[H]
+        \centering
+        \small
+        #1
+        \caption{#2}
+    \end{table}
+}
+
 \begin{document}
+
+% Reset page style for title page
+\thispagestyle{empty}
 
 \begin{titlepage}
     \centering
@@ -64,18 +120,78 @@
     \vfill
 \end{titlepage}
 
-\maketitle
+% Reset page style for main content
+\pagestyle{fancy}
 
 \tableofcontents
 \newpage
 
 \begin{abstract}
-This report analyzes data from Zafer Ayan’s 2025 Software Industry Salary Survey, conducted on August 20-21, 2025, with 2,969 software professionals, to explore compensation trends, technology impacts, and career dynamics. Key findings reveal that experience and seniority drive salaries, with Senior (130.8 k TL) and Management (184.8 k TL) roles earning 137-237\% more than Junior (55.1 k TL). A 15.4\% gender pay gap exists (males: 99.4 k TL, females: 86.1 k TL). Remote (101.2 k TL) and Hybrid (105.0 k TL) work offer 28.8-33.6\% premiums over Office roles (78.6 k TL). European and American companies pay 75.3-113\% more than Turkish firms. Niche technologies like Rust (70.7\% ROI) yield higher returns than mainstream tools like React. 
+This report analyzes data from Zafer Ayan's 2025 Software Industry Salary Survey, conducted on August 20-21, 2025, with 2,969 software professionals, to explore compensation trends, technology impacts, and career dynamics. Key findings reveal that experience and seniority drive salaries, with Senior (130.8 k TL) and Management (184.8 k TL) roles earning 137-237\% more than Junior (55.1 k TL). A 15.4\% gender pay gap exists (males: 99.4 k TL, females: 86.1 k TL). Remote (101.2 k TL) and Hybrid (105.0 k TL) work offer 28.8-33.6\% premiums over Office roles (78.6 k TL). European and American companies pay 75.3-113\% more than Turkish firms. Niche technologies like Rust (70.7\% ROI) yield higher returns than mainstream tools like React. 
 \end{abstract}
 
 \section{Executive Summary}
 
-This report, based on Zafer Ayan’s 2025 Software Industry Salary Survey (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-a%C4%9Fustos-detayl%C4%B1-maa%C5%9F-anketi-98446d71920a}{Medium}) conducted on August 20-21, 2025, with 2,969 professionals, analyzes compensation, technology, and career trends in the Turkish software industry. It aims to guide developers in career planning and employers in talent strategies.
+This report, based on Zafer Ayan's 2025 Software Industry Salary Survey (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-a%C4%9Fustos-detayl%C4%B1-maa%C5%9F-anketi-98446d71920a}{Medium}) conducted on August 20-21, 2025, with 2,969 professionals, analyzes compensation, technology, and career trends in the Turkish software industry. It aims to guide developers in career planning and employers in talent strategies.
+
+% Summary Infographic
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.8]
+        % Background
+        \fill[titleblue!10] (-8, -6) rectangle (8, 6);
+        \draw[titleblue!30, thick] (-8, -6) rectangle (8, 6);
+        
+        % Title
+        \node[text=titleblue, font=\Large\bfseries] at (0, 5) {Key Salary Insights 2025};
+        
+        % Experience vs Salary
+        \node[text=titleblue, font=\bfseries] at (-5, 3.5) {Experience Impact};
+        \node[text=darkgray, font=\small] at (-5, 3) {Junior: 55.1k TL};
+        \node[text=darkgray, font=\small] at (-5, 2.5) {Senior: 130.8k TL};
+        \node[text=darkgray, font=\small] at (-5, 2) {+137\% increase};
+        
+        % Gender Gap
+        \node[text=titleblue, font=\bfseries] at (0, 3.5) {Gender Gap};
+        \node[text=darkgray, font=\small] at (0, 3) {Male: 99.4k TL};
+        \node[text=darkgray, font=\small] at (0, 2.5) {Female: 86.1k TL};
+        \node[text=darkgray, font=\small] at (0, 2) {15.4\% difference};
+        
+        % Work Mode
+        \node[text=titleblue, font=\bfseries] at (5, 3.5) {Work Mode};
+        \node[text=darkgray, font=\small] at (5, 3) {Remote: 101.2k TL};
+        \node[text=darkgray, font=\small] at (5, 2.5) {Office: 78.6k TL};
+        \node[text=darkgray, font=\small] at (5, 2) {+28.8\% premium};
+        
+        % Technology ROI
+        \node[text=titleblue, font=\bfseries] at (-5, 0) {Top Tech ROI};
+        \node[text=darkgray, font=\small] at (-5, -0.5) {Rust: +69.4k TL};
+        \node[text=darkgray, font=\small] at (-5, -1) {Go: +39.1k TL};
+        \node[text=darkgray, font=\small] at (-5, -1.5) {Kotlin: +32.2k TL};
+        
+        % Location Impact
+        \node[text=titleblue, font=\bfseries] at (0, 0) {Location Premium};
+        \node[text=darkgray, font=\small] at (0, -0.5) {Europe: 162.9k TL};
+        \node[text=darkgray, font=\small] at (0, -1) {America: 154.4k TL};
+        \node[text=darkgray, font=\small] at (0, -1.5) {vs Türkiye: 92.9k TL};
+        
+        % Career Levels
+        \node[text=titleblue, font=\bfseries] at (5, 0) {Career Levels};
+        \node[text=darkgray, font=\small] at (5, -0.5) {Management: 184.8k TL};
+        \node[text=darkgray, font=\small] at (5, -1) {Team Lead: 150.5k TL};
+        \node[text=darkgray, font=\small] at (5, -1.5) {Staff: 193.0k TL};
+        
+        % Sample Size
+        \node[text=titleblue, font=\bfseries] at (0, -3) {Sample: 2,969 Professionals};
+        \node[text=darkgray, font=\small] at (0, -3.5) {Survey Period: August 20-21, 2025};
+        \node[text=darkgray, font=\small] at (0, -4) {Interactive Dashboard: maas-anketi.streamlit.app};
+        
+        % Connecting lines
+        \draw[titleblue!50, thick] (-8, 1) -- (8, 1);
+        \draw[titleblue!50, thick] (-8, -3.5) -- (8, -3.5);
+    \end{tikzpicture}
+    \caption{Executive Summary Infographic: Key Salary Insights and Trends}
+\end{figure}
 
 \textbf{Key Findings:}
 \begin{itemize}
@@ -391,9 +507,9 @@ where \( n \) is the count of respondents. Difference is:
 \[
 	\text{Diff.} = \text{Mean}_{\text{Hybrid/Remote}} - \text{Mean}_{\text{Office}}
 \]
-Cohen’s d is:
+Cohen's d is:
 \[
-	\text{Cohen’s d} = \frac{\text{Mean}_{\text{Remote}} - \text{Mean}_{\text{Office}}}{\text{Pooled Std Dev}}
+	\text{Cohen's d} = \frac{\text{Mean}_{\text{Remote}} - \text{Mean}_{\text{Office}}}{\text{Pooled Std Dev}}
 \]
 Statistical significance is assessed via t-test (p = 0.0000).
 
@@ -446,9 +562,9 @@ Difference is:
 \[
 	\text{Diff.} = \text{Mean}_{\text{Location}} - \text{Mean}_{\text{Türkiye}}
 \]
-Cohen’s d for Europe vs. Türkiye is:
+Cohen's d for Europe vs. Türkiye is:
 \[
-	\text{Cohen’s d} = \frac{\text{Mean}_{\text{Europe}} - \text{Mean}_{\text{Türkiye}}}{\text{Pooled Std Dev}}
+	\text{Cohen's d} = \frac{\text{Mean}_{\text{Europe}} - \text{Mean}_{\text{Türkiye}}}{\text{Pooled Std Dev}}
 \]
 Locations are estimated based on company location and work arrangement (Office/Hybrid). Significance is assessed via t-test (p = 0.0000).
 
@@ -554,16 +670,16 @@ Difference is:
 \[
 	\text{Diff.} = \text{Mean}_{\text{Male}} - \text{Mean}_{\text{Female}}
 \]
-Cohen’s d is:
+Cohen's d is:
 \[
-	\text{Cohen’s d} = \frac{\text{Mean}_{\text{Male}} - \text{Mean}_{\text{Female}}}{\text{Pooled Std Dev}}
+	\text{Cohen's d} = \frac{\text{Mean}_{\text{Male}} - \text{Mean}_{\text{Female}}}{\text{Pooled Std Dev}}
 \]
 Usage percentages reflect the proportion of respondents using each technology. Significance is assessed via t-test (p = 0.0001).
 
 % Streamlined insights
 \textbf{Key Insights:}
 \begin{itemize}
-	\item \textbf{Pay Gap}: Male developers earn 13.3 k TL more than female developers (15.5\% higher), with a small effect size (Cohen’s d = 0.242).
+	\item \textbf{Pay Gap}: Male developers earn 13.3 k TL more than female developers (15.5\% higher), with a small effect size (Cohen's d = 0.242).
 	\item \textbf{Technology Adoption}: Python (Male: 21.9\%, Female: 22.0\%) and Java (19.6\%, 19.7\%) show near-identical usage. JavaScript (Male: 48.5\%, Female: 36.0\%) and React (Male: 35.0\%, Female: 22.7\%) have larger gaps.
 	\item \textbf{Frontend Trends}: Angular usage is nearly equal (Male: 8.4\%, Female: 8.3\%), suggesting equitable access to some technologies.
 	\item \textbf{Opportunities}: Female developers in niche technologies (e.g., Rust, Go) may earn competitive salaries, though data is limited.
@@ -936,9 +1052,10 @@ This heatmap visually represents the linear relationships between salary and oth
 
 \textbf{Correlation Insights:}
 \begin{itemize}
-	\item \textbf{Experience and Seniority}: Years of experience (r = 0.623) and career level (r = 0.474) show the strongest positive correlations with salary. This confirms that a professional’s tenure and position are the most significant factors influencing compensation.
+	\item \textbf{Experience and Seniority}: Years of experience (r = 0.623) and career level (r = 0.474) show the strongest positive correlations with salary. This confirms that a professional's tenure and position are the most significant factors influencing compensation.
+	\item \textbf{Experience and Seniority}: Years of experience (r = 0.623) and career level (r = 0.474) show the strongest positive correlations with salary. This confirms that a professional's tenure and position are the most significant factors influencing compensation.
 	\item \textbf{Language Impact}: Niche and high-demand languages such as Go (r = 0.171), Kotlin (r = 0.147), and Java (r = 0.142) have the strongest correlation with salary among all programming languages. This indicates that these skills hold a premium value in the market.
-	\item \textbf{Tool vs. Technology}: A professional’s core attributes like experience and seniority have a much stronger correlation with salary than any single technology or tool, highlighting their fundamental importance.
+	\item \textbf{Tool vs. Technology}: A professional's core attributes like experience and seniority have a much stronger correlation with salary than any single technology or tool, highlighting their fundamental importance.
 \end{itemize}
 
 \subsection{Work Arrangement Distribution by Role}
@@ -1090,8 +1207,44 @@ This section examines the relationship between the number of skills reported by 
 
 \section{React Technology Deep Dive}
 
+% React Technology Summary Box
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.7]
+        % Background
+        \fill[titleblue!5] (-6, -3) rectangle (6, 3);
+        \draw[titleblue!30, thick] (-6, -3) rectangle (6, 3);
+        
+        % Title
+        \node[text=titleblue, font=\Large\bfseries] at (0, 2.2) {React Ecosystem Overview};
+        
+        % Left column
+        \node[text=titleblue, font=\bfseries] at (-3, 1.2) {Market Position};
+        \node[text=darkgray, font=\small] at (-3, 0.8) {34\% adoption rate};
+        \node[text=darkgray, font=\small] at (-3, 0.4) {1,008 users in survey};
+        \node[text=darkgray, font=\small] at (-3, 0) {-3.3k TL salary diff.};
+        
+        % Right column
+        \node[text=titleblue, font=\bfseries] at (3, 1.2) {Top Combinations};
+        \node[text=darkgray, font=\small] at (3, 0.8) {React Native + Firebase:};
+        \node[text=darkgray, font=\small] at (3, 0.4) {99.6k TL};
+        \node[text=darkgray, font=\small] at (3, 0) {Fullstack + Redux: 91.1k TL};
+        \node[text=darkgray, font=\small] at (3, -0.4) {Frontend + Redux: 85.2k TL};
+        
+        % Bottom section
+        \node[text=titleblue, font=\bfseries] at (0, -1.6) {Work Flexibility};
+        \node[text=darkgray, font=\small] at (0, -2.0) {Frontend: 58.2\% remote};
+        \node[text=darkgray, font=\small] at (0, -2.4) {React Native: 59.0\% remote};
+        \node[text=darkgray, font=\small] at (0, -2.8) {Strong correlation with flexible work};
+        
+        % Connecting line
+        \draw[titleblue!50, thick] (-6, -0.8) -- (6, -0.8);
+    \end{tikzpicture}
+    \caption{React Technology Ecosystem Summary}
+\end{figure}
+
 \subsection{React Ecosystem Analysis}
-React’s widespread adoption influences salaries and role dynamics in the software industry.
+React's widespread adoption influences salaries and role dynamics in the software industry.
 
 \begin{table}[H]
 	\centering
@@ -1104,7 +1257,7 @@ React’s widespread adoption influences salaries and role dynamics in the softw
 		Non-React Users      & 99.3                        & 1961           \\
 		\midrule
 		\textbf{Difference}  & \textbf{-3.3}               &                \\
-		\textbf{Cohen’s d} & \textbf{-0.059}             &                \\
+		\textbf{Cohen's d} & \textbf{-0.059}             &                \\
 		\bottomrule
 	\end{tabular}
 	\caption{Salary Comparison: React vs. Non-React Users}
@@ -1119,11 +1272,11 @@ Difference is:
 \[
 	\text{Diff.} = \text{Mean}_{\text{React}} - \text{Mean}_{\text{Non-React}}
 \]
-Cohen’s d measures effect size. React usage is binary (used/not used). Data includes respondents with \(\geq 10\) per tech stack combination for related analyses.
+Cohen's d measures effect size. React usage is binary (used/not used). Data includes respondents with \(\geq 10\) per tech stack combination for related analyses.
 
 \textbf{Key Insights:}
 \begin{itemize}
-	\item \textbf{Salary Impact}: React users (96.1 k TL) earn 3.3\% less than non-React users (99.3 k TL), with no significant difference (p = 0.129, Cohen’s d = -0.059).
+	\item \textbf{Salary Impact}: React users (96.1 k TL) earn 3.3\% less than non-React users (99.3 k TL), with no significant difference (p = 0.129, Cohen's d = -0.059).
 	\item \textbf{High-Earning Stacks}: React Native with JavaScript + React + Firebase (99.6 k TL, 17 respondents) outperforms Fullstack (91.1 k TL) and Frontend (85.2 k TL) with HTML CSS + React + Redux.
 	\item \textbf{Adoption Rates}: React dominates in Frontend (53.1\% Redux, 30.5\% Zustand) and React Native (70.6\% Firebase, 71.8\% Redux) roles.
 	\item \textbf{Flexibility}: React-heavy roles like Frontend (58.2\% remote) and React Native (59.0\% remote) support flexible work arrangements.
@@ -1159,11 +1312,11 @@ Specific analysis of the impact of react technology on compensation:
 \section{Conclusions and Recommendations}
 
 \subsection{Key Findings}
-This report, based on Zafer Ayan’s 2025 Software Industry Salary Survey (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-a%C4%9Fustos-detayl%C4%B1-maa%C5%9F-anketi-98446d71920a}{Medium}), analyzes 2969 professionals’ data from August 20-21, 2025:
+This report, based on Zafer Ayan's 2025 Software Industry Salary Survey (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-a%C4%9Fustos-detayl%C4%B1-maa%C5%9F-anketi-98446d71920a}{Medium}), analyzes 2969 professionals' data from August 20-21, 2025:
 	\begin{enumerate}
-		\item \textbf{Remote Work Premium}: Remote workers earn 22.6 k TL more than Office workers (101.2 vs. 78.6 k TL, 28.8\%, Cohen’s d = 0.42, p < 0.0001), reflecting demand for flexibility.
-		\item \textbf{Geographical Disparity}: European companies pay 70.0 k TL more than Turkish firms (162.9 vs. 92.9 k TL, 75.3\%, Cohen’s d = 1.35, p < 0.0001).
-		\item \textbf{Gender Gap}: Males earn 13.3 k TL more than females (99.4 vs. 86.1 k TL, 15.4\%, Cohen’s d = 0.24, p = 0.00005), indicating pay inequity.
+		\item \textbf{Remote Work Premium}: Remote workers earn 22.6 k TL more than Office workers (101.2 vs. 78.6 k TL, 28.8\%, Cohen's d = 0.42, p < 0.0001), reflecting demand for flexibility.
+		\item \textbf{Geographical Disparity}: European companies pay 70.0 k TL more than Turkish firms (162.9 vs. 92.9 k TL, 75.3\%, Cohen's d = 1.35, p < 0.0001).
+		\item \textbf{Gender Gap}: Males earn 13.3 k TL more than females (99.4 vs. 86.1 k TL, 15.4\%, Cohen's d = 0.24, p = 0.00005), indicating pay inequity.
 		\item \textbf{Technology Impact}: Niche languages like Rust (ROI: 69.4 k TL, ~70.7\% increase) and Go (r = 0.171) offer higher salary premiums than React (r = -0.028).
 		\item \textbf{Career Progression}: Junior to Senior salary increases by 137.4\% (55.1 to 130.8 k TL), with ~15.4\% per year of experience (mean 5.01 years).
 		\item \textbf{Employment Type}: Full-time (99.0 k TL) earns 130.2\% more than Part-time (43.0 k TL); Self-employed (123.4 k TL) earns 24.6\% more than Full-time.
@@ -1185,7 +1338,7 @@ This report, based on Zafer Ayan’s 2025 Software Industry Salary Survey (\href
 	\subsection{Statistical Methods}
 	\begin{itemize}
 		\item Independent samples t-tests for group comparisons (e.g., React vs. Non-React, Remote vs. Office).
-		\item Cohen’s d for effect size (e.g., small: 0.2, medium: 0.5, large: 0.8, very large: 1.35).
+		\item Cohen's d for effect size (e.g., small: 0.2, medium: 0.5, large: 0.8, very large: 1.35).
 		\item ANOVA and Kruskal-Wallis tests for seniority and management level comparisons.
 		\item Correlation analysis for technology-salary relationships (e.g., Rust: r = 0.108).
 		\item Outlier treatment using IQR and Z-score methods.
