@@ -140,6 +140,6 @@ Bu proje eğitim ve araştırma amaçlıdır. Veri gizliliği ve etik kurallara 
 
 ---
 
-- ** Canlı Dashboard:** [maas-anketi.streamlit.app](http://maas-anketi.streamlit.app)  
-- ** Toplam Katılımcı:** 2,969 yazılım uzmanı  
-- ** Anket Dönemi:** 20-21 Ağustos 2025
+**Canlı Dashboard:** [maas-anketi.streamlit.app](http://maas-anketi.streamlit.app)  
+**Toplam Katılımcı:** 2,969 yazılım uzmanı  
+**Anket Dönemi:** 20-21 Ağustos 2025
