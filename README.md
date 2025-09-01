@@ -1,10 +1,6 @@
 # 2025 Yazılım Sektörü Maaş Analizi Projesi
 
-<<<<<<< HEAD
 Bu klasör, **2025 Yazılım Sektörü Maaş Analizi** projesinin tüm dokümantasyonunu içermektedir.
-=======
-## Proje Özeti
->>>>>>> feature/business-report-v2
 
 Bu proje, 20-21 Ağustos 2025 tarihleri arasında **2.969 yazılım uzmanından** toplanan maaş verilerini analiz eder. Zafer Ayan'ın 2025 Yazılım Sektörü Maaş Anketi verilerine dayalı olarak hazırlanmıştır.
 
