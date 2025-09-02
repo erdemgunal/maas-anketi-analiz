@@ -64,6 +64,7 @@ salary_analysis_project/
 ## Gelecek Özellikler
 
 - **Maaş Tahmin Modeli**: Kullanıcının profil bilgilerine göre (rol, deneyim, teknoloji, lokasyon vb.) beklenen maaşı tahmin eden bir makine öğrenimi modeli (örn. XGBoost/LightGBM). Dashboard entegrasyonu ve model performans raporlaması planlanmaktadır.
+ - **2025 vs 2024 Karşılaştırması**: 2025 verisinin 2024 verisiyle karşılaştırmalı analizi (ortalama maaş, dağılım, ROI ve çalışma modu bazında). Yıl etkisi için normalizasyon ve istatistiksel anlamlılık testleri (örn. t-test, etki büyüklüğü) dahil edilecektir.
 
 ### Özellikler:
 - Gerçek zamanlı filtreleme
