@@ -61,6 +61,10 @@ salary_analysis_project/
 
 **🔗 Canlı Dashboard:** [maas-anketi.streamlit.app](http://maas-anketi.streamlit.app)
 
+## Gelecek Özellikler
+
+- **Maaş Tahmin Modeli**: Kullanıcının profil bilgilerine göre (rol, deneyim, teknoloji, lokasyon vb.) beklenen maaşı tahmin eden bir makine öğrenimi modeli (örn. XGBoost/LightGBM). Dashboard entegrasyonu ve model performans raporlaması planlanmaktadır.
+
 ### Özellikler:
 - Gerçek zamanlı filtreleme
 - Etkileşimli grafikler
@@ -130,7 +134,66 @@ salary_analysis_project/
 
 ## Katkı
 
-Bu proje eğitim ve araştırma amaçlıdır. Veri gizliliği ve etik kurallara uygun kullanım önemlidir.
+Bu proje geliştirmelere açıktır. Yeni özellikler, hata düzeltmeleri veya dokümantasyon iyileştirmeleri için katkılarınızı memnuniyetle karşılıyoruz. Veri gizliliği ve etik kurallara uygun kullanım önemlidir.
+
+### Nasıl Katkıda Bulunulur (Adım Adım)
+
+1. Depoyu forklayın ve yerel ortamınıza klonlayın
+   ```bash
+   git clone https://github.com/erdemgunal/salary_analysis_project.git
+   cd salary_analysis_project
+   git remote add upstream https://github.com/erdemgunal/salary_analysis_project.git
+   ```
+2. Geliştirme ortamını hazırlayın
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+3. Yeni bir dal (branch) oluşturun
+   ```bash
+   git checkout -b feat/kisa-ozet-branch-adi
+   ```
+4. Analizleri ve dashboard'u çalıştırarak doğrulayın
+   ```bash
+   python src/sprint2_analysis.py
+   streamlit run src/streamlit_dashboard.py
+   ```
+5. Notebooks üzerinde çalışıyorsanız çıktıların (grafikler, .pkl) tutarlı üretildiğini doğrulayın
+   - Üretilen görseller `figures/` altına kaydedilmelidir
+   - Büyük verileri repoya eklemeyin; gerekiyorsa `data/` için indirme talimatı ekleyin
+6. Kod stili ve kalite kontrolleri
+   ```bash
+   # (Varsa) basit format ve linter komutlarınızı çalıştırın
+   # örn: ruff/flake8/isort/black kullanılabilir
+   ```
+7. Anlamlı commit mesajları yazın ve dalınızı gönderin
+   ```bash
+   git add -A
+   git commit -m "feat: X analizi için Y görselleştirmesi eklendi"
+   git push origin feat/kisa-ozet-branch-adi
+   ```
+8. Pull Request (PR) açın
+   - Değişiklik özeti, motivasyon ve doğrulama adımlarını yazın
+   - İlgili görselleri ve çıktı örneklerini ekleyin
+   - Gerekliyse `README.md` ve `docs/` güncellemelerini dahil edin
+
+### Rehber İlkeler
+
+- Açıklayıcı değişken/işlev adları ve tekrar kullanılabilir fonksiyonlar tercih edin
+- Görseller ve raporlar ilgili klasörlerde konumlandırılmalı (`figures/`, `reports/`)
+- Yeni özellikler için kısa bir bölümle `README.md` veya `docs/` güncellemesi yapın
+
+### Maaş Tahmin Modeline Katkı
+
+- Plan: ML tabanlı tahmin (örn. XGBoost/LightGBM), metrikler: MAE/RMSE/R²
+- Beklenenler:
+  - `src/` altında modüler bir `salary_prediction.py` veya benzeri yapı
+  - Eğitim/validasyon bölünmesi ve çapraz doğrulama
+  - Model kartı/dokümantasyonu ve dashboard entegrasyonu (inference)
+  - Çıktıların açıklanabilirliği için SHAP/feature importance
+  
+Önerilerinizi ve sorularınızı Issue olarak açabilirsiniz. Küçük değişiklikler için doğrudan PR gönderebilirsiniz.
 
 ## İletişim
 
