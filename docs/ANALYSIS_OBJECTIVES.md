@@ -1,6 +1,6 @@
 # Analiz Hedefleri
 
-Bu doküman, `2025_maas_anket.csv` veri setinden (`2025_cleaned_data.csv` olarak işlenmiş hali) elde edilecek analiz hedeflerini ve hipotezleri tanımlar. Analizler, React staj grubu (~250 yazılımcı) için tasarlanmıştır ve istatistik bilmeyen okuyuculara hitap edecek şekilde iş dünyası dostu, anlaşılır içgörüler sunar. Rapor, React staj grubu dışına çıkıp LinkedIn hesabında veya portfolyoda paylaşıldığında daha geniş bir kitleye (örn. yazılım sektöründe maaş merak edenler) ulaşacak. Bu yüzden, analizler hem React odaklı içgörüler sunarken hem de genel sektör trendlerini kapsayacak. Odak noktaları:
+Bu doküman, `2025_maas_anket.csv` veri setinden (`2025_cleaned_data.csv` olarak işlenmiş hali) elde edilecek analiz hedeflerini ve hipotezleri tanımlar. Analizler, React staj grubu (~250 yazılımcı) için tasarlanmıştır. Rapor, React staj grubu dışına çıkıp LinkedIn hesabında veya portfolyoda paylaşıldığında daha geniş bir kitleye (örn. yazılım sektöründe maaş merak edenler) ulaşacak. Bu yüzden, analizler hem React odaklı içgörüler sunarken hem de genel sektör trendlerini kapsayacak. Odak noktaları:
 
 - Yazılım sektöründe maaşları etkileyen faktörlerin (lokasyon, deneyim, seviye, teknoloji kullanımı, rol) analizi.
 - Geniş kitle için pratik içgörüler: Hangi teknolojiler maaşı artırır? Kariyer nasıl ilerler? Hangi beceriler geliştirilmeli?
@@ -23,7 +23,7 @@ Grafikler ve test sonuçları, METHODOLOGY.MD’de tanımlı yöntemlerle (T-tes
 - **Amaç**: Hangi teknolojilerin ve araçların maaş getirisi en yüksek?
 - **Analiz**: Teknoloji (`languages_used`, `frontend_technologies`) ve araç (`tools`) bazlı maaş karşılaştırmaları. Tüm teknolojilerin maaş getirisi (ROI) aynı anda okunabilir bir şekilde tek bir grafikte gösterilecek (düşük oranlılar hariç tutulabilir).
 - **Yöntem**: 
-  - ANOVA veya Kruskal-Wallis testi ile teknoloji/araç kombinasyonlarının maaş etkisi (`lang__*`, `frontend__*`, `tool__*`).
+  - ANOVA veya Kruskal-Wallis testi ile teknoloji/araç kombinasyonlarının maaş etkisi (`programming_*`, `frontend__*`, `tools_*`).
   - Pearson korelasyonu ile teknoloji/araç kullanımı ve maaş ilişkisi.
 - **Görselleştirme**: 
   - Bar plot: `sns.barplot(x='technology', y='salary_numeric')` ile tüm teknolojilerin (örn. Python, JavaScript, React, Vue, Redux, Zustand) maaş ortalamaları, getiriye göre sıralı (yüksekten düşüğe). Düşük oranlı teknolojiler (%5’ten az fark) hariç tutulabilir.
@@ -82,8 +82,8 @@ Grafikler ve test sonuçları, METHODOLOGY.MD’de tanımlı yöntemlerle (T-tes
 
 - **Teknoloji Tercihleri (Cinsiyet Bazlı)**:
   - **Soru**: Kadın ve erkek çalışanların teknoloji tercihleri (`languages_used`, `frontend_technologies`) farklı mı?
-  - **Yöntem**: `gender` bazında `lang__*`, `frontend__*` için frekans analizi ve chi-square testi.
-  - **Görselleştirme**: Bar plot (`sns.barplot(x='lang__Python', y='count', hue='gender')`, `sns.barplot(x='frontend__React', y='count', hue='gender')`).
+  - **Yöntem**: `gender` bazında `programming_*`, `frontend__*` için frekans analizi ve chi-square testi.
+  - **Görselleştirme**: Bar plot (`sns.barplot(x='programming_Python', y='count', hue='gender')`, `sns.barplot(x='frontend__React', y='count', hue='gender')`).
   - **Çıktı**: Kadın çalışanların %X’i React, %Y’si Python tercih ediyor; React staj grubu için öneri: “React öğrenimi cinsiyet fark etmeksizin popüler.”
 
 ### 3. Kariyer Progression
@@ -102,15 +102,15 @@ Grafikler ve test sonuçları, METHODOLOGY.MD’de tanımlı yöntemlerle (T-tes
   - **Çıktı**: “Hangi lokasyonda kariyer ilerledikçe maaş daha hızlı artıyor?” sorusuna yanıt.
 
 - **Deneyim vs. Maaş İlişkisi (Career Timeline)**:
-  - **Soru**: Deneyim yılı (`years_experience`) arttıkça maaş artıyor mu? Seviye (`seniority_level_ic`) ile birlikte nasıl bir eğri oluşuyor?
-  - **Yöntem**: Pearson korelasyonu (`years_experience` ile `salary_numeric`). Ek analiz: `years_experience` ve `seniority_level_ic` kombinasyonu için 2D scatter plot.
+  - **Soru**: Deneyim yılı (`experience_years`) arttıkça maaş artıyor mu? Seviye (`seniority_level_ic`) ile birlikte nasıl bir eğri oluşuyor?
+  - **Yöntem**: Pearson korelasyonu (`experience_years` ile `salary_numeric`). Ek analiz: `experience_years` ve `seniority_level_ic` kombinasyonu için 2D scatter plot.
   - **Görselleştirme**: 
-    - Scatter plot: `sns.scatterplot(x='years_experience', y='salary_numeric', hue='seniority_level_ic')` (career timeline).
+    - Scatter plot: `sns.scatterplot(x='experience_years', y='salary_numeric', hue='seniority_level_ic')` (career timeline).
   - **Çıktı**: Korelasyon katsayısı (r), p-değeri ve etki büyüklüğü (r^2); React staj grubu için içgörü: “Deneyim yılı ile maaş arasında r=0.7 ilişki var, React öğrenimi bu eğriyi hızlandırır.”
 
 - **Skill Development Pattern’leri**:
   - **Soru**: Hangi teknolojiler (`languages_used`, `frontend_technologies`) veya araçlar (`tools`) kariyer progression’ını hızlandırıyor?
-  - **Yöntem**: `seniority_level_ic` ile `lang__*`, `frontend__*`, `tool__*` arasındaki korelasyon analizi.
+  - **Yöntem**: `seniority_level_ic` ile `programming_*`, `frontend__*`, `tools_*` arasındaki korelasyon analizi.
   - **Görselleştirme**: Heatmap (teknoloji/araç kullanımı ve seviye ilişkisi).
   - **Çıktı**: Ortalama maaş farkı, p-değeri ve etki büyüklüğü (r^2); React staj grubu için içgörü: “React + Zustand öğrenenler Mid seviyesine %X daha hızlı geçiyor.”
 
@@ -129,7 +129,7 @@ Grafikler ve test sonuçları, METHODOLOGY.MD’de tanımlı yöntemlerle (T-tes
 ### 5. Araç Benimseme Grafiği (Top Tool Adoption by Role)
 - **Amaç**: Belirli rollerdeki çalışanların kullandığı araçların (`tools`) kullanım oranlarını göstermek; rol bazında yaygın becerileri görünür kılmak.
 - **Analiz**: `role` ve `tools` değişkenlerinden hareketle, her rol için en çok benimsenen araçların yüzdelik dağılımı. “Kullanmıyorum” cevapları analiz dışı bırakılacak.
-- **Yöntem**: Çoklu seçim parsing sonrası `tool__*` sütunlarının rol bazında ortalama (kullanım oranı) hesaplanması; örneklem büyüklüğü yeterli olan (n≥20) popüler rollerle sınırlandırma.
+- **Yöntem**: Çoklu seçim parsing sonrası `tools_*` sütunlarının rol bazında ortalama (kullanım oranı) hesaplanması; örneklem büyüklüğü yeterli olan (n≥20) popüler rollerle sınırlandırma.
 - **Görselleştirme**: Isı haritası veya yatay bar matrisi; satırlar roller, sütunlar araçlar; hücre değeri yüzdelik benimseme oranı.
 - **Çıktı**: “Backend rollerinde en yaygın araçlar X,Y,Z; Frontend için A,B,C.” Öğrenim öncelikleri için öneriler.
 

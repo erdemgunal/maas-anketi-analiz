@@ -4,12 +4,7 @@
 ---
 
 ### 1. Genel Tanım
-Bu proje, 20-21 Ağustos 2025’te toplanan `2025_maas_anket.csv` verisinden (n=2,970) hareketle yazılım sektöründe maaş dinamiklerini incelemeyi amaçlar.  
-Hedef kitle ikiye ayrılır:  
-- **React Staj Grubu (~250 yazılımcı)** → Eğitim ve kariyer planlama içgörüleri.  
-- **Geniş Kitle (sektör meraklıları, LinkedIn paylaşımları)** → Genel maaş trendleri, teknoloji ROI, çalışma modelleri.  
-
-Çıktılar; statik rapor (LaTeX), interaktif dashboard (Streamlit) ve görsel özetlerden oluşacaktır.
+Bu proje, 20-21 Ağustos 2025’te toplanan `2025_maas_anket.csv` verisinden (n=2,970) hareketle yazılım sektöründe maaş dinamiklerini incelemeyi amaçlar. Çıktılar; statik rapor (LaTeX), interaktif dashboard (Streamlit) ve görsel özetlerden oluşacaktır.
 
 ---
 
@@ -32,7 +27,7 @@ Hedef kitle ikiye ayrılır:
   - `employment_type` (categorical) ← *Çalışma türü*  
   - `work_mode` (categorical) ← *Çalışma şekli*  
   - `gender` (categorical) ← *Cinsiyet*  
-  - `years_experience` (numeric/ordinal) ← *Toplam kaç yıllık iş deneyimin var?*  
+  - `experience_years` (numeric/ordinal) ← *Toplam kaç yıllık iş deneyimin var?*  
   - `seniority_level_ic` (ordinal, 1–6) ← *Hangi seviyedesin?* (IC: Junior→Architect)  
   - `management_level` (categorical) ← *Yönetim seviyeleri* (Engineering Manager, Director, C-Level, Partner)  
   - `is_manager` (binary) ← türetilmiş (yönetim seviyesi varsa 1, yoksa 0)  
@@ -45,12 +40,12 @@ Hedef kitle ikiye ayrılır:
 
 - **Ön işleme / Encoding**  
   - `timestamp`: `pd.to_datetime`; türevler → `year`, `month`, `day`, `hour`.  
-  - `years_experience`: aralıklar orta nokta ile sayısala (örn. 11–15 → 13, 30+ → 30).  
+  - `experience_years`: aralıklar orta nokta ile sayısala (örn. 11–15 → 13, 30+ → 30).  
   - `seniority_level_ic`: ordinal eşleme (Junior=1, Mid=2, Senior=3, Staff=4, TeamLead=5, Architect=6).  
   - `management_level`: One-Hot; `is_manager` bayrağı türetilir.  
   - `company_location`, `employment_type`, `work_mode`, `role`: One-Hot (`pd.get_dummies`).  
   - `languages_used`, `frontend_technologies`, `tools`: `MultiLabelBinarizer`  
-    - sütun adları: `lang__Python`, `lang__JavaScript`, `frontend__React`, `tool__Redux`, …  
+    - sütun adları: `programming_Python`, `programming_JavaScript`, `frontend_React`, `tools_Redux`, …  
   - `salary_range` → `salary_numeric`: orta nokta haritalaması; üst sınır `300+` → `350` (capping).  
   - **Tahmini lokasyon**: `is_likely_in_company_location`  
     - Kurallar:  
@@ -116,13 +111,13 @@ Hedef kitle ikiye ayrılır:
 ---
 
 ### 7. Kullanım Senaryoları
-- **React Staj Grubu** → Eğitim modüllerinde “hangi teknolojiyi öğrenmeliyim” sorusuna yanıt.  
-- **Sektör Profesyonelleri** → Kariyer progression, istihdam türü ve lokasyon bazlı trendleri inceleme.  
-- **LinkedIn & Portfolyo Paylaşımı** → İlgi çekici grafik ve başlıklarla kitle çekmek.  
+- Eğitim modüllerinde “hangi teknolojiyi öğrenmeliyim” sorusuna yanıt.  
+- Kariyer progression, istihdam türü ve lokasyon bazlı trendleri inceleme.  
+- İlgi çekici grafik ve başlıklarla kitle çekmek.  
 
 ---
 
-### 📚 DOKÜMANTASYON İNDEKSİ (DOCUMENTATION INDEX)
+### 📚 DOKUMANTASYON INDEXI (DOCUMENTATION INDEX)
 
 #### 📊 Veri ve Analiz Dokümanları
 - **[PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md)** - Detaylı proje özeti ve kapsamı  

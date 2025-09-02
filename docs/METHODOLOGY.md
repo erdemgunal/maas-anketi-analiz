@@ -62,9 +62,9 @@ df['salary_numeric'] = df['salary_range'].apply(normalize_salary)
 - **Amaç**: `programming_languages`, `frontend_technologies`, `tools` sütunlarındaki virgülle ayrılmış değerleri multi-hot encoding’e dönüştürmek.
 - **Adımlar**:
   - Her sütun için `str.split(',')` ile değerleri ayır.
-  - `sklearn.preprocessing.MultiLabelBinarizer` ile binary sütunlar oluştur (ör. `lang__Python`, `frontend__React`, `tool_redux`).
+  - `sklearn.preprocessing.MultiLabelBinarizer` ile binary sütunlar oluştur (ör. `programming_Python`, `frontend_React`, `tool_redux`).
   - Boş değerler için `Hiçbiri` varsayımı.
-- **Çıktı**: Her etiket için binary sütunlar (ör. `lang__Python=1`).
+- **Çıktı**: Her etiket için binary sütunlar (ör. `programming_Python=1`).
 
 **Örnek Kod**:
 
@@ -74,7 +74,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 mlb = MultiLabelBinarizer()
 for col in ['programming_languages', 'frontend_technologies', 'tools']:
     df[col] = df[col].str.split(',').fillna(['Hiçbiri'])
-    encoded = pd.DataFrame(mlb.fit_transform(df[col]), columns=[f'{col.split("_")[0]}__{x}' for x in mlb.classes_], index=df.index, dtype=int)
+    encoded = pd.DataFrame(mlb.fit_transform(df[col]), columns=[f'{col.split("_")[0]}-{x}' for x in mlb.classes_], index=df.index, dtype=int)
     df = pd.concat([df, encoded], axis=1)
 ```
 
@@ -95,18 +95,18 @@ for col in ['programming_languages', 'frontend_technologies', 'tools']:
     - `is_manager`: `Engineering Manager`, `Director Level Manager`, `C-Level Manager`, `Partner` → `1`, diğerleri → `0`.
   - **Yönetim ve Teknik Seviyeleri için Kategorik Kodlama**:
     - `level` sütunu, tüm seviyeleri (teknik ve yönetim) ayrı kategoriler olarak ele almak için `pd.get_dummies` ile One-Hot Encoding'e tabi tutulur. Bu, aşağıdaki sütunları üretir:
-      - Teknik seviyeler: `management__Junior`, `management__Mid`, `management__Senior`, `management__Staff_Engineer`, `management__Team_Lead`, `management__Architect`.
-      - Yönetim seviyeleri: `management__Engineering_Manager`, `management__Director_Level_Manager`, `management__C_Level_Manager`, `management__Partner`.
-    - Bu sütunlar, spesifik bir seviyenin varlığını gösterir (örn. `management__Senior=1` bir çalışanın Senior olduğunu, `management__Engineering_Manager=1` bir çalışanın Engineering Manager olduğunu gösterir).
+      - Teknik seviyeler: `management_Junior`, `management_Mid`, `management_Senior`, `management_Staff_Engineer`, `management_Team_Lead`, `management_Architect`.
+      - Yönetim seviyeleri: `management_Engineering_Manager`, `management_Director_Level_Manager`, `management_C_Level_Manager`, `management_Partner`.
+    - Bu sütunlar, spesifik bir seviyenin varlığını gösterir (örn. `management_Senior=1` bir çalışanın Senior olduğunu, `management_Engineering_Manager=1` bir çalışanın Engineering Manager olduğunu gösterir).
   - **Neden Hem Ordinal Hem Kategorik?**:
     - `level` sütunu, hem sıralı (teknik seviyeler için) hem de sıralı olmayan (yönetim rolleri için) kategoriler içerir. Bu yüzden:
       - **Ordinal Kodlama (`seniority_level_ic`)**: Teknik seviyeler arasındaki sıralı ilişkiyi (örn. Senior > Mid) analizlerde kullanmak için sayısal değerler atanır. Örneğin, maaşın seviye ile nasıl değiştiğini incelemek için.
       - **Binary Kodlama (`is_manager`)**: Bir çalışanın yönetim rolünde olup olmadığını belirlemek için (örn. "Yöneticiler teknik çalışanlardan daha mı fazla kazanıyor?").
-      - **Kategorik Kodlama (`management__*`)**: Her seviyeyi (teknik ve yönetim) ayrı bir kategori olarak ele almak için. Örneğin, "Engineering Manager'lar Director'lardan daha mı fazla kazanıyor?" gibi spesifik karşılaştırmalar için.
+      - **Kategorik Kodlama (`management_*`)**: Her seviyeyi (teknik ve yönetim) ayrı bir kategori olarak ele almak için. Örneğin, "Engineering Manager'lar Director'lardan daha mı fazla kazanıyor?" gibi spesifik karşılaştırmalar için.
     - Bu yaklaşım, analizlerde esneklik sağlar:
       - `seniority_level_ic`: Teknik seviyeler arasındaki maaş farklarını veya hiyerarşik ilişkileri incelemek için.
       - `is_manager`: Yöneticiler ile teknik çalışanlar arasında genel karşılaştırmalar için.
-      - `management__*`: Spesifik seviyeler (örn. Senior vs. Engineering Manager) arasında detaylı analizler için.
+      - `management_*`: Spesifik seviyeler (örn. Senior vs. Engineering Manager) arasında detaylı analizler için.
   - **Sütun İsim Temizleme**:
     - Encoding sonrası tüm sütun isimlerini temizle: boşlukları `_` ile değiştir, Türkçe karakterleri latinize et.
     - Türkçe karakter dönüşümleri: `ı → i`, `ş → s`, `ğ → g`, `ü → u`, `ö → o`, `ç → c`, `İ → I`.
@@ -292,14 +292,14 @@ print(tukey)
   - **Örnek Grafikler**:
     - Maaş dağılımı (seviye bazında): `sns.boxplot(x='seniority_level_ic', y='salary_numeric')`.
     - Lokasyon tahmini analizi: `sns.boxplot(x='is_likely_in_company_location', y='salary_numeric')`.
-    - Programlama dili kullanımı: `sns.barplot(x='lang__Python', y='salary_numeric')`.
+    - Programlama dili kullanımı: `sns.barplot(x='programming_Python', y='salary_numeric')`.
     - Deneyim vs. maaş ilişkisi: `sns.scatterplot(x='experience_years', y='salary_numeric')` (Pearson korelasyonu ile desteklenir).
     - Kariyer Gelişim Grafiği (Career Progression - Salary Growth): `is_likely_in_company_location == 1` filtresiyle, `company_location ∈ {Türkiye, Avrupa, Amerika}` için `seniority_level_ic ∈ {1,2,3}` (Junior, Mid, Senior) bazında ortalama `salary_numeric` çizgileri.
-    - Top Tech Combinations by Role: `role` x (diller: `lang__*` + frontend: `frontend__*` + araçlar: `tool__*`) kombinasyonlarının ortalama `salary_numeric` karşılaştırması; "Hiçbiri" ve "Kullanmıyorum" etiketleri analiz dışı bırakılır; en yüksek ve en düşük ilk 10 kombinasyon raporlanır.
+    - Top Tech Combinations by Role: `role` x (diller: `programming_*` + frontend: `frontend_*` + araçlar: `tools_*`) kombinasyonlarının ortalama `salary_numeric` karşılaştırması; "Hiçbiri" ve "Kullanmıyorum" etiketleri analiz dışı bırakılır; en yüksek ve en düşük ilk 10 kombinasyon raporlanır.
     - Korelasyon Isı Haritası: `salary_numeric`, `experience_years`, `seniority_level_ic`, seçili teknoloji/araç sütunları için Pearson korelasyon matrisi (mutlak değeri en yüksek ilk 20 özellik vurgulanır).
     - Work Type x Location Isı Haritası: `work_mode` x `company_location` kesişimlerinde ortalama `salary_numeric` (n≥10 hücreler gösterilir).
     - Çalışma Düzeni ve Rol (Work Arrangement by Role): Örneklem sayısı en yüksek 10–15 rol için `work_mode` yüzdelik yığılmış bar (100% stacked); opsiyonel olarak rol başına ortalama maaş çizgisi.
-    - Araç Benimseme Grafiği (Top Tool Adoption by Role): `tool__*` sütunlarının rol bazında ortalamaları (kullanım oranı) ile ısı haritası; "Kullanmıyorum" hariç; n≥20 roller.
+    - Araç Benimseme Grafiği (Top Tool Adoption by Role): `tools_*` sütunlarının rol bazında ortalamaları (kullanım oranı) ile ısı haritası; "Kullanmıyorum" hariç; n≥20 roller.
     - Keman Grafiği (Skill Diversity): Toplam beceri çeşitliliği (`skill_diversity_total`) ile `salary_numeric` dağılımının `sns.violinplot` ile görselleştirilmesi.
     - **Not**: Tüm sütun isimleri temizlenmiş haliyle kullanılır (örn. `management_Staff_Engineer`, `company_location_Yurtdisi_TR_hub`).
   - **Not**: Grafikler, “maaş farkı”, “popüler teknolojiler”, “deneyim-maaş ilişkisi” gibi merak uyandıran ilişkilere odaklanacak. `company_location` içeren grafiklerde şu not eklenecek:

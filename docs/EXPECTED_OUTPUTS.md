@@ -41,7 +41,7 @@ Aşağıdaki grafikler, `ANALYSIS_OBJECTIVES.md`’deki hedeflere ve `METHODOLOG
   - **Rol Karşılaştırması**: `role` (Frontend, Backend, Fullstack, vb.) için maaş ortalamaları (`sns.barplot(x='role', y='salary_numeric')`).
   - **İstihdam Türü**: `employment_type` için maaş ortalamaları (`sns.barplot(x='employment_type', y='salary_numeric')`).
   - **Saat Bazlı Katılım**: Anket doldurma saati (`hour`) ile maaş ortalamaları (`sns.barplot(x='hour', y='salary_numeric')`).
-  - **Cinsiyet Bazlı Teknoloji Kullanımı**: `gender` bazında `lang__*` veya `frontend__*` kullanım oranları (`sns.barplot(x='lang__Python', y='count', hue='gender')`).
+  - **Cinsiyet Bazlı Teknoloji Kullanımı**: `gender` bazında `programming_*` veya `frontend_*` kullanım oranları (`sns.barplot(x='programming_Python', y='count', hue='gender')`).
   - **Top Tech Combinations by Role**: `role` x (dil + frontend + tool) birleşimlerinin ortalama `salary_numeric` açısından en yüksek/en düşük ilk 10 kombinasyonu ("Hiçbiri"/"Kullanmıyorum" hariç).
 - **Çıktı**:
   - PNG: Her bar plot, ayrı bir PNG dosyası olarak kaydedilecek (örn. `barplot_technology_roi.png`, `barplot_role.png`).
@@ -56,7 +56,7 @@ Aşağıdaki grafikler, `ANALYSIS_OBJECTIVES.md`’deki hedeflere ve `METHODOLOG
 ### 2.3. Scatter Plot Grafikler
 - **Amaç**: Deneyim yılı ile maaş arasındaki ilişkiyi görselleştirmek (career timeline).
 - **Detaylar**:
-  - **Deneyim vs. Maaş**: `years_experience` ile `salary_numeric` arasındaki ilişki, `seniority_level_ic` ile renklendirilmiş (`sns.scatterplot(x='years_experience', y='salary_numeric', hue='seniority_level_ic')`).
+  - **Deneyim vs. Maaş**: `experience_years` ile `salary_numeric` arasındaki ilişki, `seniority_level_ic` ile renklendirilmiş (`sns.scatterplot(x='experience_years', y='salary_numeric', hue='seniority_level_ic')`).
 - **Çıktı**:
   - PNG: `scatterplot_experience_salary.png`.
   - Interaktif: Streamlit dashboard’da `plotly` ile zoom ve filtreleme seçenekleri.
@@ -65,7 +65,7 @@ Aşağıdaki grafikler, `ANALYSIS_OBJECTIVES.md`’deki hedeflere ve `METHODOLOG
 ### 2.4. Heatmap Grafikler
 - **Amaç**: Teknoloji/araç kombinasyonlarının maaş etkisini veya saat bazlı katılım trendlerini görselleştirmek.
 - **Detaylar**:
-  - **Teknoloji Kombinasyonları**: `lang__*`, `frontend__*`, `tool__*` arasındaki korelasyon ve maaş etkisi (`sns.heatmap`).
+  - **Teknoloji Kombinasyonları**: `programming_*`, `frontend_*`, `tools_*` arasındaki korelasyon ve maaş etkisi (`sns.heatmap`).
   - **Saat Bazlı Katılım**: `hour` bazında rol veya maaş dağılımı (`sns.heatmap`).
   - **Korelasyon Isı Haritası**: `salary_numeric` ile `experience_years`, `seniority_level_ic` ve teknoloji/araç sütunları arasındaki ilişkiler.
   - **Work Type x Location**: `work_mode` x `company_location` kombinasyonlarında ortalama maaş seviyeleri (n≥10 filtreli).
@@ -90,7 +90,7 @@ Aşağıdaki grafikler, `ANALYSIS_OBJECTIVES.md`’deki hedeflere ve `METHODOLOG
 ### 2.7. Araç Benimseme Grafiği (Top Tool Adoption by Role)
 - **Amaç**: Roller bazında en yaygın kullanılan araçları yüzdelik olarak göstermek; öğrenim önceliklerine rehberlik etmek.
 - **Detaylar**:
-  - `tool__*` sütunlarının rol bazında ortalamaları (benimseme oranı) hesaplanır; “Kullanmıyorum” hariç.
+  - `tools_*` sütunlarının rol bazında ortalamaları (benimseme oranı) hesaplanır; “Kullanmıyorum” hariç.
   - En çok benimsenen ilk N araç vurgulanır veya ısı haritası ile tam matris sunulur.
 - **Çıktı**:
   - PNG: `heatmap_tool_adoption_by_role.png` veya `barplot_top_tools_by_role.png`.
