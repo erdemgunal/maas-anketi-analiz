@@ -132,7 +132,7 @@ This report analyzes data from Zafer Ayan's 2025 Software Industry Salary Survey
 
 \section{Executive Summary}
 
-This report, based on Zafer Ayan's 2025 Software Industry Salary Survey (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-a%C4%9Fustos-detayl%C4%B1-maa%C5%9F-anketi-98446d71920a}{Medium}) conducted on August 20-21, 2025, with 2,969 professionals, analyzes compensation, technology, and career trends in the Turkish software industry. It aims to guide developers in career planning and employers in talent strategies.
+This report, based on Zafer Ayan's 2025 Software Industry Salary Survey (\href{https://www.linkedin.com/posts/zaferayan_geleneksel-maa%C5%9F-anketi-buyrun-httpslnkdin-activity-7363866008664629248-7YcQ}{LinkedIn}, \href{https://zaferayan.medium.com/2025-a%C4%9Fustos-detayl%C4%B1-maa%C5%9F-anketi-98446d71920a}{Medium}) conducted on August 20-21, 2025, with 2,969 professionals, analyzes compensation, technology, and career trends in the software industry. It aims to guide developers in career planning and employers in talent strategies.
 
 % Summary Infographic
 \begin{figure}[H]
@@ -246,6 +246,52 @@ The survey's 2-day collection window (August 20-21, 2025) presents specific meth
     \item \textbf{Cross-Sectional Nature:} Temporal patterns reflect the specific 48-hour window and should not be generalized to other time periods
     \item \textbf{Analytical Value:} Despite limitations, hourly patterns provide insights into immediate response behaviors and can inform future survey design and timing strategies
 \end{itemize}
+
+\subsection{Sampling and Inclusion Criteria}
+\begin{itemize}
+    \item \textbf{Population:} Software professionals who responded to the public survey during August 20-21, 2025.
+    \item \textbf{Inclusion:} Records with valid monthly salary entries (in k TL), identified role, career level, and work mode.
+    \item \textbf{Exclusion:} Entries with implausible salaries after normalization, duplicate responses, or "Hicbiri/Kullanmıyorum" only-tech selections in ROI calculations.
+    \item \textbf{Representativeness:} Convenience sample from social networks; not a probability sample.
+\end{itemize}
+
+\subsection{Variable Definitions and Transformations}
+\begin{itemize}
+    \item \textbf{Salary Unit:} Monthly gross salary in thousands of TL (k TL) as reported; no inflation or PPP adjustment.
+    \item \textbf{Career Level:} Ordinal mapping (Junior, Mid, Senior, Staff/Architect, Management, etc.).
+    \item \textbf{Technology Usage:} Multi-label binary indicators per language/framework/tool using MultiLabelBinarizer; counts reflect user share among respondents.
+    \item \textbf{Experience:} Self-reported years; binned ranges (0--2, 3--5, 6--10, 11--15, 15+).
+\end{itemize}
+
+\subsection{Missing Data and Outlier Handling}
+\begin{itemize}
+    \item \textbf{Missingness:} Listwise deletion for hypothesis tests; imputation avoided for primary outcomes.
+    \item \textbf{Outliers:} IQR method (1.5\(\times\)IQR beyond Q1/Q3) and Z-score screening (\(|z|>3\)) for sensitivity; extreme values trimmed when materially distorting means.
+    \item \textbf{Robustness:} Median and IQR reviewed alongside means; conclusions cross-checked where relevant.
+\end{itemize}
+
+\subsection{Comparative Metrics and ROI}
+For technology \(T\): \(\text{Avg}_T\) is the mean salary among users of \(T\); ROI is \(\text{Avg}_T - \text{Non-User Avg}_T\). Percentage increase is \(\frac{\text{ROI}}{\text{Non-User Avg}_T}\times 100\). Technologies are included when both user and non-user groups have \(\geq 10\) respondents and exclude "Hicbiri/Kullanmıyorum" only cases.
+
+\subsection{Statistical Testing, Corrections, and Effect Sizes}
+\begin{itemize}
+    \item \textbf{Group Comparisons:} Welch's t-test for two-group means (unequal variances); ANOVA/Kruskal-Wallis for multi-group comparisons as appropriate.
+    \item \textbf{Multiple Testing:} P-values adjusted (Holm-Bonferroni) for families of related tests where applicable.
+    \item \textbf{Effect Sizes:} Cohen's d reported (small \(\approx 0.2\), medium \(\approx 0.5\), large \(\approx 0.8\)); very large effects noted explicitly (e.g., d \(>1\)).
+    \item \textbf{Assumptions:} Normality assessed via sample size heuristics and distributional checks; heteroscedasticity handled via Welch's test.
+\end{itemize}
+
+\subsection{Correlation Approach}
+Pearson correlations are computed between salary and binary technology indicators/continuous features after encoding. Correlations quantify linear association (\(-1\) to \(+1\)); they do not imply causation. Where distributions are highly non-normal, Spearman rank correlations were reviewed for consistency.
+
+\subsection{Location Estimation}
+As the dataset lacks residency, company location combined with work mode (Office/Hybrid) is used to estimate the respondent's location for location-based analyses. Remote roles are attributed to company location only and interpreted cautiously.
+
+\subsection{Reproducibility}
+All analyses were performed with Python (pandas, NumPy, SciPy, scikit-learn, matplotlib/seaborn/plotly). Data pipelines and figure generation scripts are provided in \texttt{src/} and notebooks in \texttt{notebooks/}. Figures are exported under \texttt{figures/} with filenames referenced in this report.
+
+\subsection{Ethical Considerations}
+Only aggregated statistics are reported. No personally identifiable information is disclosed. Findings reflect patterns in a self-reported convenience sample and should not be used to make individual-level decisions.
 
 \section{Which Technologies Pay More? Salary ROI Analysis}
 
@@ -1210,35 +1256,37 @@ This section examines the relationship between the number of skills reported by 
 % React Technology Summary Box
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.7]
-        % Background
-        \fill[titleblue!5] (-6, -3) rectangle (6, 3);
-        \draw[titleblue!30, thick] (-6, -3) rectangle (6, 3);
-        
+    \begin{tikzpicture}[scale=0.75]
+        % Background (taller for vertical stacking)
+        \fill[titleblue!5] (-7, -5) rectangle (7, 5);
+        \draw[titleblue!30, thick] (-7, -5) rectangle (7, 5);
+
         % Title
-        \node[text=titleblue, font=\Large\bfseries] at (0, 2.2) {React Ecosystem Overview};
-        
-        % Left column
-        \node[text=titleblue, font=\bfseries] at (-3, 1.2) {Market Position};
-        \node[text=darkgray, font=\small] at (-3, 0.8) {34\% adoption rate};
-        \node[text=darkgray, font=\small] at (-3, 0.4) {1,008 users in survey};
-        \node[text=darkgray, font=\small] at (-3, 0) {-3.3k TL salary diff.};
-        
-        % Right column
-        \node[text=titleblue, font=\bfseries] at (3, 1.2) {Top Combinations};
-        \node[text=darkgray, font=\small] at (3, 0.8) {React Native + Firebase:};
-        \node[text=darkgray, font=\small] at (3, 0.4) {99.6k TL};
-        \node[text=darkgray, font=\small] at (3, 0) {Fullstack + Redux: 91.1k TL};
-        \node[text=darkgray, font=\small] at (3, -0.4) {Frontend + Redux: 85.2k TL};
-        
-        % Bottom section
-        \node[text=titleblue, font=\bfseries] at (0, -1.6) {Work Flexibility};
-        \node[text=darkgray, font=\small] at (0, -2.0) {Frontend: 58.2\% remote};
-        \node[text=darkgray, font=\small] at (0, -2.4) {React Native: 59.0\% remote};
-        \node[text=darkgray, font=\small] at (0, -2.8) {Strong correlation with flexible work};
-        
-        % Connecting line
-        \draw[titleblue!50, thick] (-6, -0.8) -- (6, -0.8);
+        \node[text=titleblue, font=\Large\bfseries] at (0, 4) {React Ecosystem Overview};
+
+        % Section 1: Market Position (centered, vertical stack)
+        \node[text=titleblue, font=\bfseries] at (0, 2.8) {Market Position};
+        \node[text=darkgray, font=\small] at (0, 2.2) {34\% adoption rate};
+        \node[text=darkgray, font=\small] at (0, 1.8) {1,008 users in survey};
+        \node[text=darkgray, font=\small] at (0, 1.4) {-3.3k TL salary diff.};
+
+        % Separator
+        \draw[titleblue!50, thick] (-6.5, 1.0) -- (6.5, 1.0);
+
+        % Section 2: Top Combinations
+        \node[text=titleblue, font=\bfseries] at (0, 0.2) {Top Combinations};
+        \node[text=darkgray, font=\small] at (0, -0.4) {React Native + Firebase: 99.6k TL};
+        \node[text=darkgray, font=\small] at (0, -0.8) {Fullstack + Redux: 91.1k TL};
+        \node[text=darkgray, font=\small] at (0, -1.2) {Frontend + Redux: 85.2k TL};
+
+        % Separator
+        \draw[titleblue!50, thick] (-6.5, -1.8) -- (6.5, -1.8);
+
+        % Section 3: Work Flexibility
+        \node[text=titleblue, font=\bfseries] at (0, -2.6) {Work Flexibility};
+        \node[text=darkgray, font=\small] at (0, -3.2) {Frontend: 58.2\% remote};
+        \node[text=darkgray, font=\small] at (0, -3.6) {React Native: 59.0\% remote};
+        \node[text=darkgray, font=\small] at (0, -4.0) {Strong correlation with flexible work};
     \end{tikzpicture}
     \caption{React Technology Ecosystem Summary}
 \end{figure}
@@ -1353,4 +1401,34 @@ This report, based on Zafer Ayan's 2025 Software Industry Salary Survey (\href{h
 			\textbf{Report Date:} August 28, 2025\\
 			\textbf{Interactive Dashboard:} \href{https://maas-anketi.streamlit.app/}{maas-anketi.streamlit.app}
 			\end{center}
+% --- Final Page -------------------------------------------------------------
+\newpage
+\thispagestyle{empty}
+\begin{center}
+    \vspace*{2cm}
+    {\Huge \bfseries \color{titleblue} End of Report}\par
+    \vspace{0.8cm}
+    {\large \color{darkgray} 2025 Software Industry Salary Analysis}\par
+    \vspace{0.6cm}
+    \textcolor{darkgray}{Prepared by Hakkı Günal}\par
+    \vspace{0.3cm}
+    \textcolor{darkgray}{Interactive Dashboard: \href{https://maas-anketi.streamlit.app/}{maas-anketi.streamlit.app}}\par
+    \vspace{0.3cm}
+    \textcolor{darkgray}{Data Source: Zafer Ayan's 2025 Salary Survey}\par
+    \vspace{1.2cm}
+    \textcolor{titleblue}{\rule{0.7\textwidth}{0.8pt}}\par
+    \vspace{0.8cm}
+    {\large \color{titleblue} \textbf{Contact}}\par
+    \vspace{0.35cm}
+    {\normalsize \color{darkgray}
+        \href{https://hakki.info}{hakki.info} \quad | \quad
+        \href{https://github.com/erdemgunal/salary_analysis_project/}{GitHub: salary\_analysis\_project} \quad | \quad
+        \href{https://www.linkedin.com/in/hakkierdem/}{LinkedIn: hakkierdem}
+    }\par
+    \vspace{0.8cm}
+    {\small \color{darkgray} This report is intended for informational purposes. Please cite appropriately when sharing.}\par
+    \vfill
+    {\small \color{darkgray} \today}
+\end{center}
+
 \end{document}
