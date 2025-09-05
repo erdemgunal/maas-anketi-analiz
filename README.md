@@ -20,7 +20,7 @@ Bu proje, 20-21 Ağustos 2025 tarihleri arasında **2.969 yazılım uzmanından*
 
 ```bash
 # Depoyu klonlayın
-git clone https://github.com/erdemgunal/salary_analysis_project.git
+git clone https://github.com/erdemgunal/maas-anketi-analiz.git
 cd salary_analysis_project
 
 # Sanal ortam oluşturun
@@ -141,9 +141,9 @@ Bu proje geliştirmelere açıktır. Yeni özellikler, hata düzeltmeleri veya d
 
 1. Depoyu forklayın ve yerel ortamınıza klonlayın
    ```bash
-   git clone https://github.com/erdemgunal/salary_analysis_project.git
+   git clone https://github.com/erdemgunal/maas-anketi-analiz.git
    cd salary_analysis_project
-   git remote add upstream https://github.com/erdemgunal/salary_analysis_project.git
+   git remote add upstream https://github.com/erdemgunal/maas-anketi-analiz.git
    ```
 2. Geliştirme ortamını hazırlayın
    ```bash
